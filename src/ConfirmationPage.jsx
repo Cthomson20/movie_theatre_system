@@ -1,17 +1,14 @@
-// ConfirmationPage1.jsx
+// ConfirmationPage.jsx
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import './ConfirmationPage.css';
 
-const ConfirmationPage1 = () => {
-  const navigate = useNavigate();
-  
+const ConfirmationPage = () => {
   const orderInfo = {
     orderNumber: '#H7MN324B6',
     movie: {
       title: 'Barbie',
-      poster: 'src/assets/movie-posters/barbie-poster.jpg',
-      date: 'Sep 26, 2025',
+      poster: '/src/assets/movie-posters/barbie-poster.jpg',
+      date: 'Today, Sep 26, 2025',
       time: '10:00 AM'
     },
     theater: {
@@ -22,22 +19,14 @@ const ConfirmationPage1 = () => {
     }
   };
 
-  const handleShareTickets = () => {
-    navigate('/confirmation2');
-  };
-
-  const handleContinueBrowsing = () => {
-    navigate('/');
-  };
-
   return (
     <div className="confirmation-page">
       <header className="confirmation-header">
         <div className="header-content">
-          <img src="src/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <img src="/src/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
-            <img src="src/assets/three_lines.png" className="header-icon" alt="Menu" />
-            <img src="src/assets/magnifying_glass.png" className="header-icon" alt="Search" />
+            <img src="/src/assets/magnifying_glass.png" className="header-icon" alt="Search" />
+            <img src="/src/assets/three_lines.png" className="header-icon" alt="Menu" />
           </div>
         </div>
       </header>
@@ -51,7 +40,14 @@ const ConfirmationPage1 = () => {
                 src={orderInfo.movie.poster} 
                 className="movie-poster" 
                 alt={orderInfo.movie.title}
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'block';
+                }}
               />
+              <div className="poster-placeholder" style={{ display: 'none' }}>
+                Movie Poster
+              </div>
               
               <div className="movie-details">
                 <h1 className="movie-title">{orderInfo.movie.title}</h1>
@@ -59,9 +55,8 @@ const ConfirmationPage1 = () => {
                   <p>{orderInfo.movie.date}</p>
                   <p>{orderInfo.movie.time}</p>
                 </div>
-
                 <div className="theater-info">
-                  <p className="theater-name">{orderInfo.theater.name}</p>
+                  <p className="theater-name"><strong>{orderInfo.theater.name}</strong></p>
                   <p className="theater-address">{orderInfo.theater.address}</p>
                   <p className="theater-location">{orderInfo.theater.city}, {orderInfo.theater.province}</p>
                 </div>
@@ -75,21 +70,31 @@ const ConfirmationPage1 = () => {
                 <p className="order-number">Order Number: {orderInfo.orderNumber}</p>
               </div>
 
-              <div className="qr-code">
-                <img src="src/assets/QRcode.png" alt="QR Code" className="qr-image" />
+              <div className="qr-section">
+                <p className="scan-text"><strong>Scan for Ticket</strong></p>
+                <div className="qr-code">
+                  <img 
+                    src="/src/assets/QRcode.png" 
+                    alt="QR Code" 
+                    className="qr-image"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'block';
+                    }}
+                  />
+                  <div className="qr-placeholder" style={{ display: 'none' }}>
+                    QR Code
+                  </div>
+                </div>
               </div>
 
               <div className="action-buttons">
                 <button className="btn print-btn">Print Tickets</button>
-                <button className="btn share-btn" onClick={handleShareTickets}>
-                  Share Tickets
-                </button>
+                <button className="btn share-btn">Share Tickets</button>
               </div>
 
               <div className="continue-section">
-                <button onClick={handleContinueBrowsing} className="continue-link">
-                  Continue browsing
-                </button>
+                <a href="/movies" className="continue-link">Continue browsing</a>
               </div>
             </section>
           </div>
@@ -99,4 +104,4 @@ const ConfirmationPage1 = () => {
   );
 };
 
-export default ConfirmationPage1;
+export default ConfirmationPage;

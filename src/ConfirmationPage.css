@@ -16,7 +16,7 @@
 }
 
 .header-content {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -24,7 +24,7 @@
 }
 
 .cinenova-logo {
-  height: 60px;
+  height: 100px;
   width: auto;
 }
 
@@ -45,63 +45,63 @@
   opacity: 0.7;
 }
 
-/* Main Content - Full Screen Container */
+/* Main Content - WIDER AND PROPERLY CENTERED */
 .confirmation-main {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 100vw; /* Full viewport width */
-  min-height: calc(100vh - 100px); /* Full height minus header */
+  align-items: flex-start; /* Changed from center to prevent scrolling */
+  padding: 40px 20px;
+  width: 100%;
 }
 
 .confirmation-container {
-  width: 95vw; /* 95% of viewport width */
-  height: 90vh; /* 90% of viewport height */
-  max-width: 1400px;
-  max-height: 800px;
+  max-width: 800px; /* Much wider */
+  width: 90%; /* Use percentage for better responsiveness */
   background-color: #111111;
-  border-radius: 24px;
-  padding: 50px 60px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  padding: 40px 60px; /* More horizontal padding */
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden; /* Prevent content from overflowing */
 }
 
-/* Two-column layout */
+/* Two-column layout for movie info and confirmation */
 .content-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-  justify-items: center;
-  width: 100%;
-  height: 100%;
-  max-width: 1100px;
+  gap: 50px;
+  align-items: start;
 }
 
-/* Movie Section - Left side - Centered text with slight left shift */
+/* Movie Section - Left side */
 .movie-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 25px;
   text-align: center;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  margin-left: -40px; /* Slight left shift */
 }
 
 .movie-poster {
-  width: 300px;
-  height: 450px;
-  border-radius: 16px;
+  width: 200px;
+  height: 300px;
+  border-radius: 12px;
   object-fit: cover;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.poster-placeholder {
+  width: 200px;
+  height: 300px;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 1rem;
+  border: 2px solid #333;
 }
 
 .movie-details {
@@ -110,18 +110,10 @@
 }
 
 .movie-title {
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 700;
   margin: 0 0 20px 0;
   color: #ffffff;
-  line-height: 1.1;
-}
-
-.movie-year {
-  font-size: 1.3rem;
-  color: #cccccc;
-  margin-bottom: 20px;
-  font-weight: 500;
 }
 
 .showtime-info {
@@ -129,172 +121,111 @@
 }
 
 .showtime-info p {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   margin: 8px 0;
   color: #cccccc;
-  font-weight: 500;
 }
 
 .theater-info {
-  margin-top: 15px;
-  line-height: 1.5;
+  margin-top: 20px;
 }
 
-.theater-name,
+.theater-name {
+  font-size: 1.2rem;
+  margin: 0 0 8px 0;
+  color: #ffffff;
+}
+
 .theater-address,
-.theater-location,
-.theater-province {
-  font-size: 1.3rem;
+.theater-location {
+  font-size: 1.1rem;
   margin: 4px 0;
   color: #cccccc;
-  font-weight: 500;
 }
+
+/* Divider - Removed since we're using grid layout */
 
 /* Confirmation Section - Right side */
 .confirmation-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 35px;
+  gap: 30px;
   text-align: center;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  padding: 20px 0;
 }
 
 .confirmation-text {
   text-align: center;
-  width: 100%;
 }
 
 .thank-you {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  margin: 0 0 20px 0;
+  margin: 0 0 15px 0;
   color: #ffffff;
-  line-height: 1.2;
-}
-
-.success-message {
-  font-size: 1.5rem;
-  color: #4CAF50;
-  margin: 15px 0;
-  font-weight: 500;
 }
 
 .order-number {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: #cccccc;
   margin: 0;
-  font-weight: 500;
 }
 
-/* QR Code */
-.qr-code {
-  margin: 25px 0;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-}
-
-.qr-image {
-  width: 180px;
-  height: 180px;
-  border-radius: 8px;
-  display: block;
-  margin: 0 auto;
-}
-
-/* Delivery Section for Page 2 */
-.delivery-section {
-  width: 100%;
-  text-align: center;
+/* QR Section */
+.qr-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100%;
-  gap: 25px;
+  gap: 15px;
 }
 
-.delivery-toggle {
-  display: flex;
+.scan-text {
+  font-size: 1.4rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.qr-code {
+  width: 220px;
+  height: 220px;
   background-color: #1a1a1a;
-  border-radius: 12px;
-  padding: 6px;
-  margin-bottom: 20px;
-  width: 100%;
-  max-width: 320px;
-}
-
-.toggle-btn {
-  flex: 1;
-  padding: 14px 20px;
-  border: none;
-  background: transparent;
-  color: #cccccc;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 1.1rem;
-  font-weight: 500;
-}
-
-.toggle-btn.active {
-  background-color: #2c5aa0;
-  color: white;
-}
-
-.toggle-btn:hover:not(.active) {
-  background-color: #333;
-}
-
-.delivery-input {
-  margin-bottom: 25px;
-  width: 100%;
-  max-width: 320px;
-}
-
-.input-field {
-  width: 100%;
-  padding: 16px;
   border: 2px solid #333;
   border-radius: 12px;
-  background-color: #1a1a1a;
-  color: #ffffff;
-  font-size: 1.1rem;
-  box-sizing: border-box;
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.input-field:focus {
-  outline: none;
-  border-color: #2c5aa0;
+.qr-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.qr-placeholder {
+  color: #666;
+  font-size: 1rem;
 }
 
 /* Action Buttons */
 .action-buttons {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   justify-content: center;
   width: 100%;
-  max-width: 400px;
-  margin: 20px 0;
 }
 
 .btn {
   padding: 16px 32px;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   min-width: 160px;
-  flex: 1;
 }
 
 .print-btn {
@@ -305,7 +236,6 @@
 .print-btn:hover {
   background-color: #1e4a8a;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(44, 90, 160, 0.4);
 }
 
 .share-btn {
@@ -317,177 +247,75 @@
 .share-btn:hover {
   background-color: #444;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
-}
-
-/* Smaller send button for Page 2 - matching Print Tickets size */
-.send-btn-normal {
-  background-color: #2c5aa0;
-  color: white;
-  padding: 16px 32px;
-  border: none;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-width: 160px;
-  width: auto;
-  max-width: 320px;
-}
-
-.send-btn-normal:hover {
-  background-color: #1e4a8a;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(44, 90, 160, 0.4);
 }
 
 /* Continue Browsing */
 .continue-section {
   text-align: center;
   width: 100%;
-  margin-top: 15px;
 }
 
 .continue-link {
   color: #2c5aa0;
   text-decoration: none;
   font-size: 1.1rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
-  padding: 12px 24px;
-  border-radius: 8px;
-  border: 2px solid transparent;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
 .continue-link:hover {
   color: #1e4a8a;
-  text-decoration: none;
-  background-color: rgba(44, 90, 160, 0.1);
-  border-color: #2c5aa0;
-  transform: translateY(-1px);
+  text-decoration: underline;
 }
 
 /* Responsive Design */
-@media (max-width: 1440px) {
-  .confirmation-container {
-    width: 92vw;
-    height: 88vh;
-    padding: 45px 50px;
-  }
-  
-  .content-grid {
-    gap: 70px;
-  }
-  
-  .movie-section {
-    margin-left: -30px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .confirmation-container {
-    width: 94vw;
-    height: 90vh;
-    padding: 40px 35px;
-  }
-  
-  .content-grid {
-    gap: 60px;
-  }
-  
-  .movie-poster {
-    width: 280px;
-    height: 420px;
-  }
-  
-  .movie-title {
-    font-size: 2.2rem;
-  }
-  
-  .thank-you {
-    font-size: 2rem;
-  }
-  
-  .movie-section {
-    margin-left: -20px;
-  }
-}
-
 @media (max-width: 768px) {
   .confirmation-header {
-    padding: 15px 25px;
+    padding: 15px 20px;
   }
   
   .cinenova-logo {
-    height: 50px;
-  }
-  
-  .confirmation-main {
-    min-height: calc(100vh - 80px);
+    height: 60px;
   }
   
   .confirmation-container {
-    width: 96vw;
-    height: auto;
-    min-height: 85vh;
-    padding: 40px 30px;
-    border-radius: 20px;
+    max-width: 90%;
+    padding: 30px 25px;
+    margin: 20px auto;
   }
   
   .content-grid {
     grid-template-columns: 1fr;
-    gap: 50px;
-    height: auto;
+    gap: 40px;
   }
   
   .movie-title {
     font-size: 2rem;
-  }
-  
-  .thank-you {
-    font-size: 1.8rem;
   }
   
   .action-buttons {
     flex-direction: column;
     align-items: center;
-    max-width: 320px;
-    gap: 20px;
   }
   
   .btn {
     width: 100%;
     max-width: 280px;
-    padding: 15px 28px;
   }
   
-  .send-btn-normal {
-    width: 100%;
-    max-width: 280px;
-    padding: 15px 28px;
-  }
-  
-  .qr-image {
-    width: 160px;
-    height: 160px;
-  }
-  
-  .movie-poster {
-    width: 260px;
-    height: 390px;
-  }
-  
-  .movie-section {
-    margin-left: 0;
+  .header-icons {
+    gap: 15px;
   }
 }
 
 @media (max-width: 480px) {
+  .confirmation-main {
+    padding: 20px 15px;
+  }
+  
   .confirmation-container {
-    width: 98vw;
-    padding: 35px 25px;
-    border-radius: 18px;
+    padding: 25px 20px;
+    width: 95%;
   }
   
   .movie-title {
@@ -495,40 +323,26 @@
   }
   
   .thank-you {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
   
   .movie-poster {
-    width: 220px;
-    height: 330px;
+    width: 180px;
+    height: 270px;
+  }
+  
+  .poster-placeholder {
+    width: 180px;
+    height: 270px;
+  }
+  
+  .qr-code {
+    width: 200px;
+    height: 200px;
   }
   
   .btn {
     padding: 14px 24px;
-    font-size: 1rem;
     min-width: 140px;
-  }
-  
-  .send-btn-normal {
-    padding: 14px 24px;
-    font-size: 1rem;
-    min-width: 140px;
-  }
-  
-  .qr-image {
-    width: 140px;
-    height: 140px;
-  }
-  
-  .content-grid {
-    gap: 40px;
-  }
-  
-  .confirmation-section {
-    gap: 25px;
-  }
-  
-  .action-buttons {
-    max-width: 280px;
   }
 }
