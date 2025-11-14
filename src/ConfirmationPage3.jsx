@@ -68,7 +68,7 @@ const ConfirmationPage3 = () => {
             <section className="confirmation-section">
               <div className="confirmation-text">
                 <h2 className="thank-you">Thank you for your purchase!</h2>
-                <p className="success-message">Your Tickets have been successfully sent!</p>
+                <p className="success-message">Your tickets have been successfully sent!</p>
                 <p className="order-number">Order Number: {orderInfo.orderNumber}</p>
               </div>
 
