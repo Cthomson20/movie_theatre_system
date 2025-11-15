@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ConfirmationPage1 from './ConfirmationPage1'
 import ConfirmationPage2 from './ConfirmationPage2'
 import ConfirmationPage3 from './ConfirmationPage3'
+import PaymentPage from './payment'
 
 function App() {
   const movies = [
@@ -23,6 +24,7 @@ function App() {
         <Route path="/confirmation1" element={<ConfirmationPage1 />} />
         <Route path="/confirmation2" element={<ConfirmationPage2 />} />
         <Route path="/confirmation3" element={<ConfirmationPage3 />} />
+        <Route path="/payment" element={<PaymentPage />} />
         <Route path="/" element={
           <div className='app'>
             <header className='top-bar'>
