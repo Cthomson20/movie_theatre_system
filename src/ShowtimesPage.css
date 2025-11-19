@@ -54,7 +54,7 @@
 
 /* Each format section: REGULAR, VIP, ULTRA AVX */
 .showtime-section {
-  margin: 75px 0;
+  margin: 100px 0;
 }
 
 .showtime-section + .showtime-section {
@@ -68,7 +68,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 
@@ -87,7 +87,9 @@
 .format-and-times {
   display: flex;
   align-items: center;
+  padding: 25px;
 }
+
 
 /* Row of showtime buttons */
 .times-row {
@@ -95,6 +97,7 @@
   flex-wrap: wrap;   /* allow wrapping if narrow */
   gap: 50px;
   margin-top: 0px;
+  margin-left: 150px;
   
 }
 
@@ -102,7 +105,7 @@
 .time-button {
   display: inline-flex;    /* lay children in a row */
   align-items: center;     /* vertically align them */
-  gap: 6px;
+  gap: 3px;
   border: none;
   background: none;
 }
@@ -111,14 +114,14 @@
 .time-label {
   background-color: #ddd;
   color: #000;
-  padding: 8px 14px;
-  font-size: 0.9rem;
+  padding: 15px 20px;
+  font-size: 1.5rem;
 }
 
 /* Seat + lock icons next to the time */
 .time-seat-icon{
-  width: 32px;
-  height: 32px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
 }
 
