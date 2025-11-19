@@ -6,6 +6,7 @@ import './ConfirmationPage.css';
 const ConfirmationPage2 = () => {
   const [deliveryMethod, setDeliveryMethod] = useState('email');
   const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const navigate = useNavigate();
 
   const orderInfo = {
@@ -25,10 +26,38 @@ const ConfirmationPage2 = () => {
   };
 
   const handleSendTickets = () => {
-    // Send tickets logic here
-    alert(`Tickets sent to ${email}`);
-    // Navigate to page 3 after sending
-    navigate('/confirmation3');
+    if (deliveryMethod === 'email' && email) {
+      alert(`Tickets sent to ${email}`);
+      navigate('/confirmation3');
+    } else if (deliveryMethod === 'text' && phoneNumber) {
+      alert(`Tickets sent to ${phoneNumber}`);
+      navigate('/confirmation3');
+    } else if (deliveryMethod === 'email') {
+      alert('Please enter an email address');
+    } else if (deliveryMethod === 'text') {
+      alert('Please enter a phone number');
+    }
+  };
+
+  const getPlaceholder = () => {
+    return deliveryMethod === 'email' ? 'Email Address' : 'Phone Number';
+  };
+
+  const getInputType = () => {
+    return deliveryMethod === 'email' ? 'email' : 'tel';
+  };
+
+  const getInputValue = () => {
+    return deliveryMethod === 'email' ? email : phoneNumber;
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    if (deliveryMethod === 'email') {
+      setEmail(value);
+    } else {
+      setPhoneNumber(value);
+    }
   };
 
   return (
@@ -94,10 +123,10 @@ const ConfirmationPage2 = () => {
 
                 <div className="delivery-input">
                   <input
-                    type="email"
-                    placeholder="Email Address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    type={getInputType()}
+                    placeholder={getPlaceholder()}
+                    value={getInputValue()}
+                    onChange={handleInputChange}
                     className="input-field"
                   />
                 </div>
