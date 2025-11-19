@@ -106,7 +106,7 @@ export default function TicketSelection() {
 
     middleColumn: {
       flex: 1,
-      padding: '6rem 3rem 2rem 3rem', // 上移 padding-top 让从 General 到 Order Total 整体下移一点
+      padding: '6rem 3rem 2rem 3rem', 
       overflowY: 'auto',
       backgroundColor: '#000',
       display: 'flex',
@@ -198,8 +198,8 @@ export default function TicketSelection() {
       fontWeight: 600,
       cursor: 'pointer',
       marginBottom: '1rem',
-      width: '40%', // 更短
-      alignSelf: 'center', // 居中
+      width: '40%', 
+      alignSelf: 'center', 
     },
 
     selectedSeatsInfo: {
@@ -232,7 +232,7 @@ export default function TicketSelection() {
       left: 0,
       right: 0,
       bottom: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', // 半透明背景
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', 
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
