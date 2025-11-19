@@ -1,4 +1,5 @@
 import './App.css'
+import ShowtimesPage from './showtimespage'
 
 function App() {
   const movies = [
@@ -39,6 +40,7 @@ function App() {
           </div>
         ))}
       </div>
+      <ShowtimesPage />
     </div>
   )
 }
