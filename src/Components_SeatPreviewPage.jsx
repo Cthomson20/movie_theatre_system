@@ -1,50 +1,145 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 export default function SeatPreviewPage() {
-  const ROWS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-  const COLS = Array.from({ length: 12 }, (_, i) => i + 1)
+  const ROWS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+  const COLS = Array.from({ length: 12 }, (_, i) => i + 1);
 
-  const accessibleSeats = ['C1', 'B2', 'B11', 'C12']
-  const emptySeats = ['B1', 'C2', 'C11', 'B12']
-  const unavailableSeats = ['E5', 'E6', 'F8', 'D3']
-
+  const accessibleSeats = ['C1', 'B2', 'B11', 'C12'];
+  const emptySeats = ['B1', 'C2', 'C11', 'B12'];
+  const unavailableSeats = ['E5', 'E6', 'F8', 'D3'];
+  
   const handleBookTickets = () => {
-    alert('Redirecting to booking page...')
-  }
+    window.location.href = "/TicketSelectionPage";
+  };
 
   const getSeatColor = (seatId) => {
-    if (accessibleSeats.includes(seatId)) return 'white'
-    if (unavailableSeats.includes(seatId)) return '#6b7280'
-    return '#3971eaff'
-  }
+    if (accessibleSeats.includes(seatId)) return 'white';
+    if (unavailableSeats.includes(seatId)) return '#6b7280';
+    return '#3971eaff';
+  };
 
   const getSeatBorder = (seatId) => {
-    if (accessibleSeats.includes(seatId)) return '#3971eaff'
-    if (unavailableSeats.includes(seatId)) return '#4b5563'
-    return '#3971eaff'
-  }
+    if (accessibleSeats.includes(seatId)) return '#3971eaff';
+    if (unavailableSeats.includes(seatId)) return '#4b5563';
+    return '#3971eaff';
+  };
 
   return (
-    <div style={{ width: '100vw', height: '100vh', backgroundColor: '#111827', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 0, padding: 0 }}>
-      <div style={{ backgroundColor: '#1f2937', borderRadius: '24px', padding: '60px 20px', maxWidth: '1000px', width: '90%', position: 'relative', border: '2px solid #000000' }}>
-        <button style={{ position: 'absolute', top: '10px', right: '10px', width: '50px', height: '50px', border: '2px solid #ef4444', borderRadius: '50%', background: 'transparent', color: '#ef4444', fontSize: '28px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}>×</button>
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: 'rgba(0,0,0,0.75)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 0,
+        padding: 0,
+        backdropFilter: 'blur(4px)',
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: '#1f2937',
+          borderRadius: '24px',
+          padding: '60px 20px',
+          maxWidth: '1000px',
+          width: '90%',
+          position: 'relative',
+          border: '2px solid #000000',
+        }}
+      >
+        {/* Close Button */}
+        <button
+          onClick={() => window.history.back()}
+          style={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            width: '50px',
+            height: '50px',
+            border: '2px solid #ef4444',
+            borderRadius: '50%',
+            background: 'transparent',
+            color: '#ef4444',
+            fontSize: '28px',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 0,
+          }}
+        >
+          ×
+        </button>
 
-        <div style={{ display: 'flex', gap: '100px', justifyContent: 'center', alignItems: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: '80px',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           {/* Seating Area */}
-          <div style={{ border: '2px solid #4b5563', borderRadius: '12px', padding: '20px 35px 20px 20px', position: 'relative', marginLeft: '-40px' }}>
-            {/* Screen Bar */}
-            <div style={{ position: 'absolute', top: '-2px', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1f2937', color: 'white', fontWeight: 'bold', fontSize: '16px', padding: '6px 20px', border: '2px solid #4b5563', borderRadius: '0 0 12px 12px', width: '60%', textAlign: 'center' }}>SCREEN</div>
+          <div
+            style={{
+              border: '2px solid #4b5563',
+              borderRadius: '12px',
+              padding: '20px 35px 20px 20px',
+              position: 'relative',
+            }}
+          >
+            {/* Screen */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '-2px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                backgroundColor: '#1f2937',
+                color: 'white',
+                fontWeight: 'bold',
+                fontSize: '16px',
+                padding: '6px 20px',
+                border: '2px solid #4b5563',
+                borderRadius: '0 0 12px 12px',
+                width: '60%',
+                textAlign: 'center',
+              }}
+            >
+              SCREEN
+            </div>
 
             <div style={{ marginTop: '50px', marginBottom: '8px' }}>
-              {ROWS.map(row => (
-                <div key={row} style={{ display: 'flex', gap: '8px', marginBottom: '12px', alignItems: 'center' }}>
-                  <div style={{ color: 'white', fontWeight: 'bold', width: '30px', textAlign: 'center', flexShrink: 0 }}>{row}</div>
-                  {COLS.map(col => {
-                    const seatId = `${row}${col}`
-                    const isAccessible = accessibleSeats.includes(seatId)
-                    const isEmpty = emptySeats.includes(seatId)
-                    const isUnavailable = unavailableSeats.includes(seatId)
-                    
+              {ROWS.map((row) => (
+                <div
+                  key={row}
+                  style={{
+                    display: 'flex',
+                    gap: '8px',
+                    marginBottom: '12px',
+                    alignItems: 'center',
+                  }}
+                >
+                  <div
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      width: '30px',
+                      textAlign: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {row}
+                  </div>
+
+                  {COLS.map((col) => {
+                    const seatId = `${row}${col}`;
+                    const isAccessible = accessibleSeats.includes(seatId);
+                    const isEmpty = emptySeats.includes(seatId);
+                    const isUnavailable = unavailableSeats.includes(seatId);
+
                     if (isEmpty) {
                       return (
                         <div
@@ -56,9 +151,9 @@ export default function SeatPreviewPage() {
                             flexShrink: 0,
                           }}
                         ></div>
-                      )
+                      );
                     }
-                    
+
                     return (
                       <div
                         key={seatId}
@@ -70,7 +165,7 @@ export default function SeatPreviewPage() {
                           borderRadius: '4px',
                           color: '#3971eaff',
                           fontSize: '18px',
-                          cursor: 'default',
+                          cursor: isUnavailable ? 'not-allowed' : 'default',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -81,35 +176,105 @@ export default function SeatPreviewPage() {
                       >
                         {isAccessible ? '♿' : ''}
                       </div>
-                    )
+                    );
                   })}
                 </div>
               ))}
             </div>
 
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '8px' }}>
+            {/* Column Numbers */}
+            <div
+              style={{
+                display: 'flex',
+                gap: '8px',
+                alignItems: 'center',
+                marginTop: '8px',
+              }}
+            >
               <div style={{ width: '30px', flexShrink: 0 }}></div>
-              {COLS.map(col => (
-                <div key={col} style={{ width: '32px', height: '32px', border: '2px solid transparent', color: '#9ca3af', fontSize: '12px', fontWeight: 'bold', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{col}</div>
+              {COLS.map((col) => (
+                <div
+                  key={col}
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    border: '2px solid transparent',
+                    color: '#9ca3af',
+                    fontSize: '12px',
+                    fontWeight: 'bold',
+                    flexShrink: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {col}
+                </div>
               ))}
             </div>
           </div>
 
           {/* Legend */}
-          <div style={{ width: '280px', display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '40px', marginRight: '-40px' }}>
+          <div
+            style={{
+              width: '260px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '14px',
+              marginTop: '40px',
+            }}
+          >
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-              <div style={{ width: '36px', height: '36px', backgroundColor: 'white', borderRadius: '4px', border: '2px solid #3971eaff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#3971eaff', fontSize: '20px', fontWeight: 'bold', flexShrink: 0 }}>♿</div>
-              <span style={{ color: 'white', fontSize: '15px' }}>Accessible Seating</span>
+              <div
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  backgroundColor: 'white',
+                  borderRadius: '4px',
+                  border: '2px solid #3971eaff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#3971eaff',
+                  fontSize: '20px',
+                }}
+              >
+                ♿
+              </div>
+              <span style={{ color: 'white', fontSize: '15px' }}>
+                Accessible Seating
+              </span>
             </div>
 
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-              <div style={{ width: '36px', height: '36px', backgroundColor: '#6b7280', borderRadius: '4px', border: '2px solid #4b5563', flexShrink: 0 }}></div>
-              <span style={{ color: 'white', fontSize: '15px' }}>Unavailable</span>
+              <div
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  backgroundColor: '#6b7280',
+                  borderRadius: '4px',
+                  border: '2px solid #4b5563',
+                }}
+              ></div>
+              <span style={{ color: 'white', fontSize: '15px' }}>
+                Unavailable
+              </span>
             </div>
 
             <button
               onClick={handleBookTickets}
-              style={{ width: '100%', backgroundColor: 'white', color: 'black', fontWeight: 'bold', padding: '10px', border: 'none', borderRadius: '8px', fontSize: '16px', cursor: 'pointer', marginTop: '16px' }}
+              style={{
+                width: '100%',
+                backgroundColor: 'white',
+                color: 'black',
+                fontWeight: 'bold',
+                padding: '10px',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                marginTop: '16px',
+              }}
             >
               Book Tickets!
             </button>
@@ -117,5 +282,5 @@ export default function SeatPreviewPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
