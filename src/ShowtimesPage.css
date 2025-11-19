@@ -1,5 +1,6 @@
 
 .showtimes-page{
+    padding: 0px 24px;
     min-height: 100vh;
     background-color: #111;
     color: #fff;
@@ -53,8 +54,14 @@
 
 /* Each format section: REGULAR, VIP, ULTRA AVX */
 .showtime-section {
-  margin: 20px 0;
+  margin: 75px 0;
 }
+
+.showtime-section + .showtime-section {
+  border-top: 1px solid #ffffff;
+  padding-top: 16px;
+}
+
 
 /* Row with "REGULAR  CC" text */
 .format-row {
@@ -64,6 +71,9 @@
   font-size: 0.9rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+
+  width: 220px;
+  flex-shrink: 0;
 }
 
 /* Little "CC" badge */
@@ -74,12 +84,18 @@
   color: #000;
 }
 
+.format-and-times {
+  display: flex;
+  align-items: center;
+}
+
 /* Row of showtime buttons */
 .times-row {
   display: flex;
   flex-wrap: wrap;   /* allow wrapping if narrow */
-  gap: 12px;
-  margin-top: 12px;
+  gap: 50px;
+  margin-top: 0px;
+  
 }
 
 /* The container button for time + seat */
@@ -100,8 +116,7 @@
 }
 
 /* Seat + lock icons next to the time */
-.time-seat-icon,
-.time-lock-icon {
+.time-seat-icon{
   width: 32px;
   height: 32px;
   object-fit: contain;
