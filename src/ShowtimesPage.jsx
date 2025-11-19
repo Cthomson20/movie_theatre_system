@@ -1,4 +1,6 @@
 
+import "./ShowtimesPage.css";
+
 function ShowtimesPage() {
   return (
     <div className="showtimes-page">
