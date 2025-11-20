@@ -51,35 +51,33 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw; /* Full viewport width */
-  min-height: calc(100vh - 100px); /* Full height minus header */
+  width: 100vw;
+  min-height: calc(100vh - 100px);
+  background-color: #111111;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
 }
 
 .confirmation-container {
-  width: 95vw; /* 95% of viewport width */
-  height: 90vh; /* 90% of viewport height */
+  width: 95vw;
+  height: auto;
   max-width: 1400px;
-  max-height: 800px;
-  background-color: #111111;
-  border-radius: 24px;
-  padding: 50px 60px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  min-height: 500px;
+  padding: clamp(2rem, 4vw, 3.75rem) clamp(1.5rem, 4vw, 3.75rem);
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* Prevent content from overflowing */
+  overflow-y: auto;
 }
 
 /* Two-column layout */
 .content-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
+  gap: clamp(2rem, 4vw, 3.75rem);
+  align-items: start;
   justify-items: center;
   width: 100%;
-  height: 100%;
   max-width: 1100px;
 }
 
@@ -88,17 +86,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: clamp(1.5rem, 2.5vw, 1.875rem);
   text-align: center;
   width: 100%;
-  height: 100%;
   justify-content: center;
-  margin-left: -40px; /* Slight left shift */
+  margin-left: clamp(-1.25rem, -2.5vw, -2.5rem);
 }
 
 .movie-poster {
-  width: 300px;
-  height: 450px;
+  width: clamp(220px, 20vw, 300px);
+  height: clamp(330px, 30vw, 450px);
   border-radius: 16px;
   object-fit: cover;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
@@ -110,33 +107,33 @@
 }
 
 .movie-title {
-  font-size: 2.4rem;
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
   font-weight: 700;
-  margin: 0 0 20px 0;
+  margin: 0 0 clamp(1rem, 1.5vw, 1.25rem) 0;
   color: #ffffff;
   line-height: 1.1;
 }
 
 .movie-year {
-  font-size: 1.3rem;
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
   color: #cccccc;
-  margin-bottom: 20px;
+  margin-bottom: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 500;
 }
 
 .showtime-info {
-  margin-bottom: 20px;
+  margin-bottom: clamp(1rem, 1.5vw, 1.25rem);
 }
 
 .showtime-info p {
-  font-size: 1.4rem;
-  margin: 8px 0;
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  margin: clamp(0.5rem, 0.75vw, 0.5rem) 0;
   color: #cccccc;
   font-weight: 500;
 }
 
 .theater-info {
-  margin-top: 15px;
+  margin-top: clamp(0.75rem, 1vw, 0.9375rem);
   line-height: 1.5;
 }
 
@@ -144,8 +141,8 @@
 .theater-address,
 .theater-location,
 .theater-province {
-  font-size: 1.3rem;
-  margin: 4px 0;
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  margin: clamp(0.25rem, 0.5vw, 0.25rem) 0;
   color: #cccccc;
   font-weight: 500;
 }
@@ -155,12 +152,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 35px;
+  gap: clamp(1.5rem, 2.5vw, 2.1875rem);
   text-align: center;
   width: 100%;
-  height: 100%;
   justify-content: center;
-  padding: 20px 0;
+  padding: clamp(1rem, 1.5vw, 1.25rem) 0;
 }
 
 .confirmation-text {
@@ -169,22 +165,22 @@
 }
 
 .thank-you {
-  font-size: 2.2rem;
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
   font-weight: 600;
-  margin: 0 0 20px 0;
+  margin: 0 0 clamp(1rem, 1.5vw, 1.25rem) 0;
   color: #ffffff;
   line-height: 1.2;
 }
 
 .success-message {
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
   color: #4CAF50;
-  margin: 15px 0;
+  margin: clamp(0.75rem, 1vw, 0.9375rem) 0;
   font-weight: 500;
 }
 
 .order-number {
-  font-size: 1.4rem;
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
   color: #cccccc;
   margin: 0;
   font-weight: 500;
@@ -192,8 +188,8 @@
 
 /* QR Code */
 .qr-code {
-  margin: 25px 0;
-  padding: 10px;
+  margin: clamp(1.25rem, 2vw, 1.5625rem) 0;
+  padding: clamp(0.5rem, 0.75vw, 0.625rem);
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   border: 2px solid rgba(255, 255, 255, 0.2);
@@ -201,8 +197,8 @@
 }
 
 .qr-image {
-  width: 180px;
-  height: 180px;
+  width: clamp(140px, 15vw, 180px);
+  height: clamp(140px, 15vw, 180px);
   border-radius: 8px;
   display: block;
   margin: 0 auto;
@@ -369,48 +365,9 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1440px) {
-  .confirmation-container {
-    width: 92vw;
-    height: 88vh;
-    padding: 45px 50px;
-  }
-  
-  .content-grid {
-    gap: 70px;
-  }
-  
-  .movie-section {
-    margin-left: -30px;
-  }
-}
-
 @media (max-width: 1024px) {
-  .confirmation-container {
-    width: 94vw;
-    height: 90vh;
-    padding: 40px 35px;
-  }
-  
   .content-grid {
-    gap: 60px;
-  }
-  
-  .movie-poster {
-    width: 280px;
-    height: 420px;
-  }
-  
-  .movie-title {
-    font-size: 2.2rem;
-  }
-  
-  .thank-you {
-    font-size: 2rem;
-  }
-  
-  .movie-section {
-    margin-left: -20px;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
   }
 }
 
@@ -422,60 +379,42 @@
   .cinenova-logo {
     height: 50px;
   }
-  
+
   .confirmation-main {
-    min-height: calc(100vh - 80px);
+    min-height: auto;
+    padding: 15px 0;
+    align-items: flex-start;
   }
   
   .confirmation-container {
     width: 96vw;
     height: auto;
-    min-height: 85vh;
-    padding: 40px 30px;
-    border-radius: 20px;
+    min-height: auto;
+    padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 2.5vw, 1.875rem);
   }
   
   .content-grid {
     grid-template-columns: 1fr;
-    gap: 50px;
-    height: auto;
-  }
-  
-  .movie-title {
-    font-size: 2rem;
-  }
-  
-  .thank-you {
-    font-size: 1.8rem;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
   }
   
   .action-buttons {
     flex-direction: column;
     align-items: center;
     max-width: 320px;
-    gap: 20px;
+    gap: clamp(1rem, 1.5vw, 1.25rem);
   }
   
   .btn {
     width: 100%;
     max-width: 280px;
-    padding: 15px 28px;
+    padding: clamp(0.875rem, 1.25vw, 0.9375rem) clamp(1.5rem, 2vw, 1.75rem);
   }
   
   .send-btn-normal {
     width: 100%;
     max-width: 280px;
-    padding: 15px 28px;
-  }
-  
-  .qr-image {
-    width: 160px;
-    height: 160px;
-  }
-  
-  .movie-poster {
-    width: 260px;
-    height: 390px;
+    padding: clamp(0.875rem, 1.25vw, 0.9375rem) clamp(1.5rem, 2vw, 1.75rem);
   }
   
   .movie-section {
@@ -484,48 +423,13 @@
 }
 
 @media (max-width: 480px) {
+  .confirmation-main {
+    padding: 10px 0;
+  }
+
   .confirmation-container {
     width: 98vw;
-    padding: 35px 25px;
-    border-radius: 18px;
-  }
-  
-  .movie-title {
-    font-size: 1.8rem;
-  }
-  
-  .thank-you {
-    font-size: 1.6rem;
-  }
-  
-  .movie-poster {
-    width: 220px;
-    height: 330px;
-  }
-  
-  .btn {
-    padding: 14px 24px;
-    font-size: 1rem;
-    min-width: 140px;
-  }
-  
-  .send-btn-normal {
-    padding: 14px 24px;
-    font-size: 1rem;
-    min-width: 140px;
-  }
-  
-  .qr-image {
-    width: 140px;
-    height: 140px;
-  }
-  
-  .content-grid {
-    gap: 40px;
-  }
-  
-  .confirmation-section {
-    gap: 25px;
+    padding: clamp(1.25rem, 2.5vw, 1.5625rem);
   }
   
   .action-buttons {
