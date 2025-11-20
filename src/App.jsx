@@ -1,4 +1,9 @@
+// App.jsx
 import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import ConfirmationPage1 from './ConfirmationPage1'
+import ConfirmationPage2 from './ConfirmationPage2'
+import ConfirmationPage3 from './ConfirmationPage3'
 
 function App() {
   const movies = [
@@ -10,36 +15,43 @@ function App() {
     { title: 'Zootopia 2', image: 'src/assets/movie-posters/zootopia2-poster.jpg'},
     { title: 'Moonlight', image: 'src/assets/movie-posters/moonlight-poster.jpg'},
     { title: 'Shrek 2', image: 'src/assets/movie-posters/shrek2-poster.jpg'},
-
   ]
 
   return (
-    <div className='app'>
-      <header className='top-bar'>
-        <img src='src/assets/cinenova.png' className='logo'/>
-      </header>
+    <Router>
+      <Routes>
+        <Route path="/confirmation1" element={<ConfirmationPage1 />} />
+        <Route path="/confirmation2" element={<ConfirmationPage2 />} />
+        <Route path="/confirmation3" element={<ConfirmationPage3 />} />
+        <Route path="/" element={
+          <div className='app'>
+            <header className='top-bar'>
+              <img src='src/assets/cinenova.png' className='logo' alt='CineNova'/>
+            </header>
 
-      <div className='content'>
-        <h1 className='page-title'>Movies</h1>
+            <div className='content'>
+              <h1 className='page-title'>Movies</h1>
 
-        <div className='filters'>
-          <select className='filter-select'><option>Theatre</option></select>
-          <select className='filter-select'><option>Date</option></select>
-        </div>
-        
-      </div>
-
-      <div className='movie-grid'>
-        {movies.map((movie) => (
-          <div key={movie.title} className='movie-card'>
-            <div className='poster-wrapper'>
-              <img src={movie.image} className='poster'/>
+              <div className='filters'>
+                <select className='filter-select'><option>Theatre</option></select>
+                <select className='filter-select'><option>Date</option></select>
+              </div>
+              
+              <div className='movie-grid'>
+                {movies.map((movie) => (
+                  <div key={movie.title} className='movie-card'>
+                    <div className='poster-wrapper'>
+                      <img src={movie.image} className='poster' alt={movie.title}/>
+                    </div>
+                    <p className='movie-title'>{movie.title} →</p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <p className='movie-title'>{movie.title} →</p>
           </div>
-        ))}
-      </div>
-    </div>
+        } />
+      </Routes>
+    </Router>
   )
 }
 
