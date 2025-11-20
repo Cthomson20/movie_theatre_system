@@ -1,7 +1,7 @@
 // ConfirmationPage2.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './ConfirmationPage.css';
+import '../styles/ConfirmationPage.css';
 
 const ConfirmationPage2 = () => {
   const [deliveryMethod, setDeliveryMethod] = useState('email');

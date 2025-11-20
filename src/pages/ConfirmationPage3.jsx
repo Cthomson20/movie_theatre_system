@@ -1,7 +1,7 @@
 // ConfirmationPage3.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './ConfirmationPage.css';
+import '../styles/ConfirmationPage.css';
 
 const ConfirmationPage3 = () => {
   const navigate = useNavigate();

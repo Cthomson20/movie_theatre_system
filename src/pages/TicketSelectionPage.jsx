@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ArrowRight, Search, Menu, ChevronLeft } from 'lucide-react';
-import SeatSelectionPage from './Components_SeatSelectionPage';
-import barbiePoster from './assets/movie-posters/barbie-poster.jpg';
+import SeatSelectionPage from './SeatSelectionPage';
+import barbiePoster from '../assets/movie-posters/barbie-poster.jpg';
 
-export default function TicketSelection() {
+export default function TicketSelectionPage() {
   const [generalTickets, setGeneralTickets] = useState(1);
   const [childTickets, setChildTickets] = useState(0);
   const [seniorTickets, setSeniorTickets] = useState(0);

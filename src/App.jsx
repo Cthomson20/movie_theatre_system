@@ -1,11 +1,11 @@
 // App.jsx
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import ConfirmationPage1 from './ConfirmationPage1'
-import ConfirmationPage2 from './ConfirmationPage2'
-import ConfirmationPage3 from './ConfirmationPage3'
-import PaymentPage from './payment'
-import ShowtimesPage from './showtimespage'
+import ConfirmationPage1 from './pages/ConfirmationPage1'
+import ConfirmationPage2 from './pages/ConfirmationPage2'
+import ConfirmationPage3 from './pages/ConfirmationPage3'
+import PaymentPage from './pages/PaymentPage'
+import ShowtimesPage from './pages/ShowtimesPage'
 
 function App() {
   const movies = [
