@@ -5,6 +5,7 @@ import ConfirmationPage1 from './ConfirmationPage1'
 import ConfirmationPage2 from './ConfirmationPage2'
 import ConfirmationPage3 from './ConfirmationPage3'
 import PaymentPage from './payment'
+import ShowtimesPage from './showtimespage'
 
 function App() {
   const movies = [
@@ -21,6 +22,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/showtimes" element={<ShowtimesPage />} />
         <Route path="/confirmation1" element={<ConfirmationPage1 />} />
         <Route path="/confirmation2" element={<ConfirmationPage2 />} />
         <Route path="/confirmation3" element={<ConfirmationPage3 />} />
