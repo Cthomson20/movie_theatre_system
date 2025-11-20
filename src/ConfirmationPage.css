@@ -1,0 +1,438 @@
+/* ConfirmationPage.css */
+.confirmation-page {
+  min-height: 100vh;
+  background-color: #050505;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Styles */
+.confirmation-header {
+  padding: 20px 40px;
+  border-bottom: 1px solid #333;
+  flex-shrink: 0;
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cinenova-logo {
+  height: 60px;
+  width: auto;
+}
+
+.header-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.header-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  filter: invert(1);
+}
+
+.header-icon:hover {
+  opacity: 0.7;
+}
+
+/* Main Content - Full Screen Container */
+.confirmation-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  min-height: calc(100vh - 100px);
+  background-color: #111111;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+.confirmation-container {
+  width: 95vw;
+  height: auto;
+  max-width: 1400px;
+  min-height: 500px;
+  padding: clamp(2rem, 4vw, 3.75rem) clamp(1.5rem, 4vw, 3.75rem);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+/* Two-column layout */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 3.75rem);
+  align-items: start;
+  justify-items: center;
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* Movie Section - Left side - Centered text with slight left shift */
+.movie-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.5rem, 2.5vw, 1.875rem);
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+  margin-left: clamp(-1.25rem, -2.5vw, -2.5rem);
+}
+
+.movie-poster {
+  width: clamp(220px, 20vw, 300px);
+  height: clamp(330px, 30vw, 450px);
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+}
+
+.movie-details {
+  text-align: center;
+  width: 100%;
+}
+
+.movie-title {
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-weight: 700;
+  margin: 0 0 clamp(1rem, 1.5vw, 1.25rem) 0;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.movie-year {
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  color: #cccccc;
+  margin-bottom: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 500;
+}
+
+.showtime-info {
+  margin-bottom: clamp(1rem, 1.5vw, 1.25rem);
+}
+
+.showtime-info p {
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  margin: clamp(0.5rem, 0.75vw, 0.5rem) 0;
+  color: #cccccc;
+  font-weight: 500;
+}
+
+.theater-info {
+  margin-top: clamp(0.75rem, 1vw, 0.9375rem);
+  line-height: 1.5;
+}
+
+.theater-name,
+.theater-address,
+.theater-location,
+.theater-province {
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  margin: clamp(0.25rem, 0.5vw, 0.25rem) 0;
+  color: #cccccc;
+  font-weight: 500;
+}
+
+/* Confirmation Section - Right side */
+.confirmation-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.5rem, 2.5vw, 2.1875rem);
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+  padding: clamp(1rem, 1.5vw, 1.25rem) 0;
+}
+
+.confirmation-text {
+  text-align: center;
+  width: 100%;
+}
+
+.thank-you {
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+  font-weight: 600;
+  margin: 0 0 clamp(1rem, 1.5vw, 1.25rem) 0;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.success-message {
+  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  color: #4CAF50;
+  margin: clamp(0.75rem, 1vw, 0.9375rem) 0;
+  font-weight: 500;
+}
+
+.order-number {
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  color: #cccccc;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* QR Code */
+.qr-code {
+  margin: clamp(1.25rem, 2vw, 1.5625rem) 0;
+  padding: clamp(0.5rem, 0.75vw, 0.625rem);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.qr-image {
+  width: clamp(140px, 15vw, 180px);
+  height: clamp(140px, 15vw, 180px);
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Delivery Section for Page 2 */
+.delivery-section {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 25px;
+}
+
+.delivery-toggle {
+  display: flex;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  padding: 6px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  background: transparent;
+  color: #cccccc;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.toggle-btn.active {
+  background-color: #2c5aa0;
+  color: white;
+}
+
+.toggle-btn:hover:not(.active) {
+  background-color: #333;
+}
+
+.delivery-input {
+  margin-bottom: 25px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #333;
+  border-radius: 12px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+  font-weight: 500;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #2c5aa0;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px 0;
+}
+
+.btn {
+  padding: 16px 32px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 160px;
+  flex: 1;
+}
+
+.print-btn {
+  background-color: #2c5aa0;
+  color: white;
+}
+
+.print-btn:hover {
+  background-color: #1e4a8a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(44, 90, 160, 0.4);
+}
+
+.share-btn {
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+}
+
+.share-btn:hover {
+  background-color: #444;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Smaller send button for Page 2 - matching Print Tickets size */
+.send-btn-normal {
+  background-color: #2c5aa0;
+  color: white;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 160px;
+  width: auto;
+  max-width: 320px;
+}
+
+.send-btn-normal:hover {
+  background-color: #1e4a8a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(44, 90, 160, 0.4);
+}
+
+/* Continue Browsing */
+.continue-section {
+  text-align: center;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.continue-link {
+  color: #2c5aa0;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+}
+
+.continue-link:hover {
+  color: #1e4a8a;
+  text-decoration: none;
+  background-color: rgba(44, 90, 160, 0.1);
+  border-color: #2c5aa0;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content-grid {
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .confirmation-header {
+    padding: 15px 25px;
+  }
+  
+  .cinenova-logo {
+    height: 50px;
+  }
+
+  .confirmation-main {
+    min-height: auto;
+    padding: 15px 0;
+    align-items: flex-start;
+  }
+  
+  .confirmation-container {
+    width: 96vw;
+    height: auto;
+    min-height: auto;
+    padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 2.5vw, 1.875rem);
+  }
+  
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    align-items: center;
+    max-width: 320px;
+    gap: clamp(1rem, 1.5vw, 1.25rem);
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 280px;
+    padding: clamp(0.875rem, 1.25vw, 0.9375rem) clamp(1.5rem, 2vw, 1.75rem);
+  }
+  
+  .send-btn-normal {
+    width: 100%;
+    max-width: 280px;
+    padding: clamp(0.875rem, 1.25vw, 0.9375rem) clamp(1.5rem, 2vw, 1.75rem);
+  }
+  
+  .movie-section {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .confirmation-main {
+    padding: 10px 0;
+  }
+
+  .confirmation-container {
+    width: 98vw;
+    padding: clamp(1.25rem, 2.5vw, 1.5625rem);
+  }
+  
+  .action-buttons {
+    max-width: 280px;
+  }
+}
