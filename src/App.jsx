@@ -6,8 +6,7 @@ import ConfirmationPage2 from './ConfirmationPage2'
 import ConfirmationPage3 from './ConfirmationPage3'
 import PaymentPage from './payment'
 import ShowtimesPage from './showtimespage'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ShowtimesPage from "./showtimespage"
+
 function App() {
   const movies = [
     { title: 'Barbie', image: 'src/assets/movie-posters/barbie-poster.jpg'},
