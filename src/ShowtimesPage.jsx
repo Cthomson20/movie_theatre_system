@@ -1,4 +1,5 @@
 
+import { useNavigate } from 'react-router-dom';
 import "./ShowtimesPage.css";
 
 function ShowtimesPage() {

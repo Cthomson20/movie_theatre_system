@@ -1,5 +1,7 @@
 import './App.css'
-import ShowtimesPage from './showtimespage'
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ShowtimesPage from "./showtimespage"
 
 function App() {
   const movies = [
@@ -15,33 +17,41 @@ function App() {
   ]
 
   return (
-    <div className='app'>
-      <header className='top-bar'>
-        <img src='src/assets/cinenova.png' className='logo'/>
-      </header>
 
-      <div className='content'>
-        <h1 className='page-title'>Movies</h1>
+    <Router>
+      <Routes>
+        <Route path="/showtimes" element={<ShowtimesPage />} />
+        <Route path="/" element={
 
-        <div className='filters'>
-          <select className='filter-select'><option>Theatre</option></select>
-          <select className='filter-select'><option>Date</option></select>
-        </div>
-        
-      </div>
+          <div className='app'>
+            <header className='top-bar'>
+              <img src='src/assets/cinenova.png' className='logo'/>
+            </header>
 
-      <div className='movie-grid'>
-        {movies.map((movie) => (
-          <div key={movie.title} className='movie-card'>
-            <div className='poster-wrapper'>
-              <img src={movie.image} className='poster'/>
+            <div className='content'>
+              <h1 className='page-title'>Movies</h1>
+
+              <div className='filters'>
+                <select className='filter-select'><option>Theatre</option></select>
+                <select className='filter-select'><option>Date</option></select>
+              </div>
+              
             </div>
-            <p className='movie-title'>{movie.title} →</p>
+
+            <div className='movie-grid'>
+              {movies.map((movie) => (
+                <div key={movie.title} className='movie-card'>
+                  <div className='poster-wrapper'>
+                    <img src={movie.image} className='poster'/>
+                  </div>
+                  <p className='movie-title'>{movie.title} →</p>
+                </div>
+              ))}
+            </div>
           </div>
-        ))}
-      </div>
-      <ShowtimesPage />
-    </div>
+          }/>
+        </Routes>
+    </Router>
   )
 }
 
