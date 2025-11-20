@@ -7,6 +7,9 @@ import ConfirmationPage3 from './ConfirmationPage3'
 import PaymentPage from './payment'
 import ShowtimesPage from './showtimespage'
 
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ShowtimesPage from "./showtimespage"
+
 function App() {
   const movies = [
     { title: 'Barbie', image: 'src/assets/movie-posters/barbie-poster.jpg'},
@@ -41,6 +44,21 @@ function App() {
                 <select className='filter-select'><option>Date</option></select>
               </div>
               
+            </div>
+
+            <div className='movie-grid'>
+              {movies.map((movie) => (
+                <div key={movie.title} className='movie-card'>
+                  <div className='poster-wrapper'>
+                    <img src={movie.image} className='poster'/>
+                  </div>
+                  <p className='movie-title'>{movie.title} →</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          }/>
+        </Routes>
               <div className='movie-grid'>
                 {movies.map((movie) => (
                   <div key={movie.title} className='movie-card'>
