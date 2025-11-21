@@ -6,6 +6,8 @@ import ConfirmationPage2 from './pages/ConfirmationPage2'
 import ConfirmationPage3 from './pages/ConfirmationPage3'
 import PaymentPage from './pages/PaymentPage'
 import ShowtimesPage from './pages/ShowtimesPage'
+import TicketSelectionPage from './pages/TicketSelectionPage'
+import SeatPreviewPage from './pages/SeatPreviewPage'
 
 function App() {
   const movies = [
@@ -23,6 +25,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/showtimes" element={<ShowtimesPage />} />
+        <Route path="/seat-preview" element={<SeatPreviewPage />} />
+        <Route path="/ticket-selection" element={<TicketSelectionPage />} />
         <Route path="/confirmation1" element={<ConfirmationPage1 />} />
         <Route path="/confirmation2" element={<ConfirmationPage2 />} />
         <Route path="/confirmation3" element={<ConfirmationPage3 />} />
