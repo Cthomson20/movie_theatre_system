@@ -1,6 +1,7 @@
 
 import { useNavigate } from 'react-router-dom';
 import "../styles/ShowtimesPage.css";
+import { useState } from "react";
 
 function ShowtimesPage() {
   return (
@@ -8,15 +9,16 @@ function ShowtimesPage() {
         {/* Top bar */}
     <header className="showtimes-header">
         <button className="back-button">← Back</button>
-
+        
         <h1 className="showtimes-title">Showtimes</h1>
-
+       
+        
         <div className ="header-icons">
-            <img src="src/assets/magnifying_glass.png" className="header-icon" alt="Search" />
             <img src="src/assets/three_lines.png" className="header-icon" alt="Menu" />
-           
+            <img src="src/assets/magnifying_glass.png" className="header-icon" alt="Search" />
+
         </div>
-        </header>
+    </header>
               {/* Location + date filters */}
       <div className="filters-row">
         <select className="filter-select">
