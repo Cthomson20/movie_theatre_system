@@ -26,6 +26,14 @@ export default function TicketSelectionPage() {
   };
 
   const handleDecrement = (type) => {
+    const totalTickets = getTotalTickets();
+    const newTotal = totalTickets - 1;
+    
+    // If reducing tickets below current seat selection, clear seats
+    if (newTotal < selectedSeats.length) {
+      setSelectedSeats([]);
+    }
+    
     if (type === 'general') setGeneralTickets((p) => Math.max(0, p - 1));
     if (type === 'child') setChildTickets((p) => Math.max(0, p - 1));
     if (type === 'senior') setSeniorTickets((p) => Math.max(0, p - 1));
@@ -382,6 +390,7 @@ export default function TicketSelectionPage() {
             <SeatSelectionPage
               onClose={() => setShowSeatSelection(false)}
               onSeatsSelected={handleSeatsSelected}
+              maxSeats={getTotalTickets()}
             />
           </div>
         </div>

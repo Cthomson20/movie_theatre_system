@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function SeatSelectionPage({ onClose, onSeatsSelected }) {
+export default function SeatSelectionPage({ onClose, onSeatsSelected, maxSeats }) {
   const ROWS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
   const COLS = Array.from({ length: 12 }, (_, i) => i + 1);
 
@@ -10,12 +10,32 @@ export default function SeatSelectionPage({ onClose, onSeatsSelected }) {
 
   const [selectedSeats, setSelectedSeats] = useState([]);
 
+  const sortSeats = (seats) => {
+    return seats.sort((a, b) => {
+      const rowA = a.charAt(0);
+      const rowB = b.charAt(0);
+      const numA = parseInt(a.slice(1));
+      const numB = parseInt(b.slice(1));
+      
+      if (rowA === rowB) return numA - numB;
+      return rowA.localeCompare(rowB);
+    });
+  };
+
   const toggleSeat = (seatId) => {
-    if (unavailableSeats.includes(seatId) || accessibleSeats.includes(seatId) || emptySeats.includes(seatId)) return;
-    setSelectedSeats(selectedSeats.includes(seatId)
-      ? selectedSeats.filter(s => s !== seatId)
-      : [...selectedSeats, seatId]
-    );
+    if (unavailableSeats.includes(seatId) || emptySeats.includes(seatId)) return;
+    
+    if (selectedSeats.includes(seatId)) {
+      // Deselect the seat
+      setSelectedSeats(selectedSeats.filter(s => s !== seatId));
+    } else {
+      // Check if we've reached the maximum number of seats
+      if (selectedSeats.length >= maxSeats) {
+        alert(`You can only select ${maxSeats} seat(s) based on your ticket count.`);
+        return;
+      }
+      setSelectedSeats([...selectedSeats, seatId]);
+    }
   };
 
   const handleConfirm = () => {
@@ -23,21 +43,25 @@ export default function SeatSelectionPage({ onClose, onSeatsSelected }) {
       alert('Please select at least one seat');
       return;
     }
-    onSeatsSelected(selectedSeats.sort());
+    if (selectedSeats.length !== maxSeats) {
+      alert(`Please select exactly ${maxSeats} seat(s) to match your ticket count.`);
+      return;
+    }
+    onSeatsSelected(sortSeats([...selectedSeats]));
     onClose();
   };
 
   const getSeatColor = (seatId) => {
     if (selectedSeats.includes(seatId)) return '#84d9a3ff';
-    if (accessibleSeats.includes(seatId)) return 'white';
     if (unavailableSeats.includes(seatId)) return '#6b7280';
+    if (accessibleSeats.includes(seatId)) return 'white';
     return '#3971eaff';
   };
 
   const getSeatBorder = (seatId) => {
     if (selectedSeats.includes(seatId)) return '#84d9a3ff';
-    if (accessibleSeats.includes(seatId)) return '#3971eaff';
     if (unavailableSeats.includes(seatId)) return '#4b5563';
+    if (accessibleSeats.includes(seatId)) return '#3971eaff';
     return '#3971eaff';
   };
 
@@ -87,11 +111,11 @@ export default function SeatSelectionPage({ onClose, onSeatsSelected }) {
                     <button
                       key={seatId}
                       onClick={() => toggleSeat(seatId)}
-                      disabled={isUnavailable || isAccessible}
+                      disabled={isUnavailable}
                       style={{
                         width: '32px', height: '32px', backgroundColor: getSeatColor(seatId),
                         border: `2px solid ${getSeatBorder(seatId)}`, borderRadius: '4px',
-                        color: '#3971eaff', fontSize: '18px', cursor: (isUnavailable || isAccessible) ? 'not-allowed' : 'pointer',
+                        color: '#3971eaff', fontSize: '18px', cursor: isUnavailable ? 'not-allowed' : 'pointer',
                         display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold',
                         flexShrink: 0, padding: 0
                       }}
@@ -130,9 +154,11 @@ export default function SeatSelectionPage({ onClose, onSeatsSelected }) {
           </div>
 
           <div style={{ backgroundColor: '#374151', borderRadius: '8px', padding: '12px', textAlign: 'center', marginTop: '16px' }}>
-            <p style={{ color: 'white', marginBottom: '6px', fontSize: '16px', fontWeight: '600' }}>Seat(s) Selected:</p>
+            <p style={{ color: 'white', marginBottom: '6px', fontSize: '16px', fontWeight: '600' }}>
+              Seat(s) Selected: {selectedSeats.length} / {maxSeats}
+            </p>
             <p style={{ fontSize: '22px', fontWeight: 'bold', color: 'white' }}>
-              {selectedSeats.length > 0 ? selectedSeats.sort().join(', ') : 'None'}
+              {selectedSeats.length > 0 ? sortSeats([...selectedSeats]).join(', ') : 'None'}
             </p>
           </div>
 
