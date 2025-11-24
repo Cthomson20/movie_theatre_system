@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { ArrowRight, Search, Menu, ChevronLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import SeatSelectionPage from './SeatSelectionPage';
 import barbiePoster from '../assets/movie-posters/barbie-poster.jpg';
 
 export default function TicketSelectionPage() {
+  const navigate = useNavigate();
   const [generalTickets, setGeneralTickets] = useState(1);
   const [childTickets, setChildTickets] = useState(0);
   const [seniorTickets, setSeniorTickets] = useState(0);
@@ -42,10 +44,25 @@ export default function TicketSelectionPage() {
   const handleSeatsSelected = (seats) => setSelectedSeats(seats);
   const handleBack = () => window.history.back();
   const handleContinue = () => {
-    console.log('Continue to checkout with:', {
-      tickets: { general: generalTickets, child: childTickets, senior: seniorTickets },
-      seats: selectedSeats,
-      total: calculateTotal(),
+    navigate('/payment', {
+      state: {
+        tickets: { 
+          general: generalTickets, 
+          child: childTickets, 
+          senior: seniorTickets 
+        },
+        seats: selectedSeats,
+        total: calculateTotal(),
+        movieInfo: {
+          title: 'Barbie',
+          poster: barbiePoster,
+          date: 'Sep 26, 2025',
+          time: '10:00 AM',
+          theater: 'CineNova MarketMall',
+          address: '3625 Shaganappi Trail NW',
+          city: 'Calgary, AB'
+        }
+      }
     });
   };
 
