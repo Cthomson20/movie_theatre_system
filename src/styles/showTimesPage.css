@@ -1,48 +1,69 @@
 
 .showtimes-page{
-    padding: 0px 24px;
+    min-width: 176vh;
     min-height: 100vh;
-    background-color: #050505;
-    color: #fff;
+    background-color: #111111;
+    
+    color: #fff;  
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .showtimes-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* left | middle | right */
+  align-items: center;
+
+  width: 100%;
+  margin: 0 auto 20px;        /* center the whole bar in the page */
+  padding: 20px 40px;
+  height: 100px;
+
+  background-color: #000;
+  border-bottom: 1px solid #333;
+  box-sizing: border-box;
 }
 
-.back-button{
-    border: none;
-    background: none;
-    color: #fff;
-    font-size: 1.2rem;
-    cursor: pointer;
+/* Left side */
+.back-button {
+  border: none;
+  background: none;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
-.showtimes-title{
-    font-size: 1.6rem;
-    font-weight: 600;
+/* Center */
+.showtimes-title {
+  grid-column: 2;        /* in the middle column (implicit already, but clear) */
+  justify-self: center;  /* center the h1 within that column */
+  text-align: center;    /* center text inside the h1 */
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0;
 }
-.header-icons{
-    display: flex;
-    align-items: center;
-    gap: 16px;
+
+
+/* Right side */
+.header-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
 }
-.header-icon{
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
+
+.header-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
+
 
 .filters-row {
   display: flex;
   gap: 120px;
-  margin-bottom: 50px;
-  padding: 18px 50px;
+  padding: 0px 50px;
 }
 
 /* Individual dropdown (select) */
@@ -59,12 +80,13 @@
 
 /* Each format section: REGULAR, VIP, ULTRA AVX */
 .showtime-section {
-  margin: 85px 0;
+  padding: 20px 40px;
+  margin: 50px 0;
 }
 
 .showtime-section + .showtime-section {
   border-top: 1px solid #ffffff;
-  padding-top: 16px;
+  padding-top: 16px
 }
 
 
