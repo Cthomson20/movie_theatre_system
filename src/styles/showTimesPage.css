@@ -78,6 +78,15 @@
   color: #000;
 }
 
+.empty-state {
+  margin-top: 120px;
+  text-align: center;
+}
+
+.empty-message {
+  font-size: 1.4rem;
+}
+
 /* Each format section: REGULAR, VIP, ULTRA AVX */
 .showtime-section {
   padding: 20px 40px;

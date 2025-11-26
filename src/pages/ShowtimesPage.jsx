@@ -1,14 +1,34 @@
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import "../styles/ShowtimesPage.css";
 import { useState } from "react";
 
 function ShowtimesPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleBack = () => {
+    navigate(-1);
+  }
+
+  const movieFromHome = location.state?.movie || null;
+  // Initialise theatre/date based on that movie (or empty if none)
+  const [selectedTheatre, setSelectedTheatre] = useState(
+    movieFromHome?.theatre || ""
+  );
+  const [selectedDate, setSelectedDate] = useState(
+    movieFromHome?.date || ""
+  );
+
+  const hasSelection = selectedTheatre !== "" && selectedDate !== "";
+
   return (
     <div className="showtimes-page">
         {/* Top bar */}
     <header className="showtimes-header">
-        <button className="back-button">← Back</button>
+        <button className="back-button" onClick={handleBack}>
+        ← Back
+        </button>
         
         <h1 className="showtimes-title">Showtimes</h1>
        
@@ -21,15 +41,40 @@ function ShowtimesPage() {
     </header>
               {/* Location + date filters */}
       <div className="filters-row">
-        <select className="filter-select">
-          <option>CineNova Market Mall</option>
+        <select 
+          className="filter-select"
+          value={selectedTheatre}
+          onChange={(e) => setSelectedTheatre(e.target.value)}
+        >
+          <option value = "">THEATRE</option>
+          <option value = "CineNova Market Mall">CineNova Market Mall</option>
+          <option value = "CineNova Downtown">CineNova Downtown</option>
+          <option value = "CineNova NE">CineNova NE </option>
         </select>
 
-        <select className="filter-select">
-          <option>Today</option>
+        <select 
+          className="filter-select"
+          value = {selectedDate}
+          onChange={e => setSelectedDate(e.target.value)}
+        >
+          <option value = ""> DATE</option>
+          <option value = "2025-11-27"> 2025-11-27</option>
+          <option value = "2025-12-01"> 2025-12-01</option>
+          <option value = "2025-12-02"> 2025-12-02</option>
+
+          {movieFromHome && (<option value={movieFromHome.date}>{movieFromHome.date}</option>)}
         </select>
       </div>
 
+  {!hasSelection ? (
+    <div className= "empty state">
+      <p className="empty-message">
+        Please Select a theatre and date to see showtimes.
+      </p>
+    </div>
+  ) : (
+    <>
+    
             {/* REGULAR row */}
       <section className="showtime-section">
         <div className="format-and-times">
@@ -61,6 +106,8 @@ function ShowtimesPage() {
       </section>
 
     
+
+
     <section className="showtime-section">
         <div className="format-and-times">
 
@@ -113,10 +160,12 @@ function ShowtimesPage() {
         </div>
       </section>
 
-      
+    </>
+  )}  
 
 
     </div>
+   
   );
 }
 
