@@ -24,71 +24,87 @@ function ShowtimesPage() {
 
   const hasSelection = selectedTheatre !== "" && selectedDate !== "";
 
-  // showtimes for each movie 
-  const showtimesByMovie = {
-    "Barbie": {
-    "2025-11-27": {
+  // Helper: given a list of dates and a base showtimes object,
+// build an object like { "2025-12-01": base, "2025-12-02": base, ... }
+function buildShowtimesForDates(dates, baseShowtimes) {
+  return Object.fromEntries(
+    dates.map(date => [date, baseShowtimes])
+  );
+}
+
+// Base showtimes per movie (per format)
+const showtimesByMovie = {
+  Barbie: buildShowtimesForDates(
+    ["2025-11-27"],      // later you can add more dates here
+    {
       REGULAR: ["10:00", "12:30", "17:15"],
       VIP: ["18:20", "21:00"],
       "ULTRA AVX DOLBY ATMOS": ["14:10", "20:30"],
     }
-    },
+  ),
 
-    "Sinners": {
-    "2025-12-01": {
+  Sinners: buildShowtimesForDates(
+    ["2025-12-01"],
+    {
       REGULAR: ["16:00", "19:30", "21:45"],
       VIP: ["18:20", "21:00"],
       "ULTRA AVX DOLBY ATMOS": ["17:10", "20:30"],
-    },
-    },
+    }
+  ),
 
-    "Superman": {
-    "2025-12-05": {
+  Superman: buildShowtimesForDates(
+    ["2025-12-05"],
+    {
       REGULAR: ["11:00", "12:30", "16:45", "19:45"],
       VIP: ["14:00", "18:20", "21:00"],
       "ULTRA AVX DOLBY ATMOS": ["17:10", "20:30"],
-    },
-    },
+    }
+  ),
 
-    "Avatar": {
-      "2025-12-01": {
-        REGULAR: ["13:00", "16:30", "21:00"],
-        VIP: ["20:00"],
-      },
-  },
+  Avatar: buildShowtimesForDates(
+    ["2025-12-01"],
+    {
+      REGULAR: ["13:00", "16:30", "21:00"],
+      VIP: ["20:00"],
+    }
+  ),
 
-  "Jaws": {
-    "2025-12-04": {
+  Jaws: buildShowtimesForDates(
+    ["2025-12-04"],
+    {
       REGULAR: ["18:00", "21:45"],
       VIP: ["16:20", "21:00"],
       "ULTRA AVX DOLBY ATMOS": ["20:30"],
-    },
-    },
+    }
+  ),
 
-    "Zootopia 2": {
-    "2025-12-04": {
+  "Zootopia 2": buildShowtimesForDates(
+    ["2025-12-04"],
+    {
       REGULAR: ["11:00", "13:30", "16:45"],
       VIP: ["18:20", "21:00"],
       "ULTRA AVX DOLBY ATMOS": [],
-    },
-    },
+    }
+  ),
 
-    "Moonlight": {
-    "2025-12-03": {
+  Moonlight: buildShowtimesForDates(
+    ["2025-12-03"],
+    {
       REGULAR: ["12:30", "16:30", "20:45"],
       VIP: ["18:20", "21:00"],
       "ULTRA AVX DOLBY ATMOS": ["17:10"],
-    },
-    },
+    }
+  ),
 
-    "Shrek 2": {
-    "2025-12-02": {
+  "Shrek 2": buildShowtimesForDates(
+    ["2025-12-02"],
+    {
       REGULAR: ["12:00", "14:30", "16:00", "18:15"],
       VIP: ["13:30", "15:20"],
       "ULTRA AVX DOLBY ATMOS": ["17:30"],
-    },
-    },
-  }
+    }
+  ),
+};
 
   const movieTitle = movieFromHome?.title || null;
 
