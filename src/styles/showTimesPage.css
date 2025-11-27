@@ -1,11 +1,14 @@
 
+
 .showtimes-page{
     min-width: 176vh;
     min-height: 100vh;
     background-color: #111111;
-    
     color: #fff;  
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+
 }
 
 .showtimes-header {

@@ -7,9 +7,7 @@ function ShowtimesPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleBack = () => {
-    navigate(-1);
-  }
+  
 
   const movieFromHome = location.state?.movie || null;
   // Initialise theatre/date based on that movie (or empty if none)
@@ -20,7 +18,91 @@ function ShowtimesPage() {
     movieFromHome?.date || ""
   );
 
+  const handleBack = () => {
+    navigate(-1);
+  }
+
   const hasSelection = selectedTheatre !== "" && selectedDate !== "";
+
+  // showtimes for each movie 
+  const showtimesByMovie = {
+    "Barbie": {
+    "2025-11-27": {
+      REGULAR: ["10:00", "12:30", "17:15"],
+      VIP: ["18:20", "21:00"],
+      "ULTRA AVX DOLBY ATMOS": ["14:10", "20:30"],
+    }
+    },
+
+    "Sinners": {
+    "2025-12-01": {
+      REGULAR: ["16:00", "19:30", "21:45"],
+      VIP: ["18:20", "21:00"],
+      "ULTRA AVX DOLBY ATMOS": ["17:10", "20:30"],
+    },
+    },
+
+    "Superman": {
+    "2025-12-05": {
+      REGULAR: ["11:00", "12:30", "16:45", "19:45"],
+      VIP: ["14:00", "18:20", "21:00"],
+      "ULTRA AVX DOLBY ATMOS": ["17:10", "20:30"],
+    },
+    },
+
+    "Avatar": {
+      "2025-12-01": {
+        REGULAR: ["13:00", "16:30", "21:00"],
+        VIP: ["20:00"],
+      },
+  },
+
+  "Jaws": {
+    "2025-12-04": {
+      REGULAR: ["18:00", "21:45"],
+      VIP: ["16:20", "21:00"],
+      "ULTRA AVX DOLBY ATMOS": ["20:30"],
+    },
+    },
+
+    "Zootopia 2": {
+    "2025-12-04": {
+      REGULAR: ["11:00", "13:30", "16:45"],
+      VIP: ["18:20", "21:00"],
+      "ULTRA AVX DOLBY ATMOS": [],
+    },
+    },
+
+    "Moonlight": {
+    "2025-12-03": {
+      REGULAR: ["12:30", "16:30", "20:45"],
+      VIP: ["18:20", "21:00"],
+      "ULTRA AVX DOLBY ATMOS": ["17:10"],
+    },
+    },
+
+    "Shrek 2": {
+    "2025-12-02": {
+      REGULAR: ["12:00", "14:30", "16:00", "18:15"],
+      VIP: ["13:30", "15:20"],
+      "ULTRA AVX DOLBY ATMOS": ["17:30"],
+    },
+    },
+  }
+
+  const movieTitle = movieFromHome?.title || null;
+
+  // Get all showtimes for this movie (could be undefined)
+  const showtimesForMovie = movieTitle
+    ? showtimesByMovie[movieTitle]
+    : null;
+
+  // For the currently selected date
+  const showtimesForSelectedDate =
+    showtimesForMovie && selectedDate
+      ? showtimesForMovie[selectedDate] || null
+      : null;
+
 
   return (
     <div className="showtimes-page">
@@ -57,17 +139,20 @@ function ShowtimesPage() {
           value = {selectedDate}
           onChange={e => setSelectedDate(e.target.value)}
         >
-          <option value = ""> DATE</option>
+          <option value = "">DATE</option>
           <option value = "2025-11-27"> 2025-11-27</option>
           <option value = "2025-12-01"> 2025-12-01</option>
           <option value = "2025-12-02"> 2025-12-02</option>
+          <option value = "2025-12-03"> 2025-12-03</option>
+          <option value = "2025-12-04"> 2025-12-04</option>
+          <option value = "2025-12-05"> 2025-12-05</option>
 
-          {movieFromHome && (<option value={movieFromHome.date}>{movieFromHome.date}</option>)}
+         
         </select>
       </div>
 
   {!hasSelection ? (
-    <div className= "empty state">
+    <div className= "empty-state">
       <p className="empty-message">
         Please Select a theatre and date to see showtimes.
       </p>
@@ -75,90 +160,53 @@ function ShowtimesPage() {
   ) : (
     <>
     
-            {/* REGULAR row */}
-      <section className="showtime-section">
-        <div className="format-and-times">
+    {showtimesForSelectedDate ? (
+        Object.entries(showtimesForSelectedDate).map(
+          ([formatName, times]) => (
+            <section className="showtime-section" key={formatName}>
+              <div className="format-and-times">
+                <div className="format-row">
+                  <span className="format-name">
+                    {formatName.includes("DOLBY ATMOS") ? (
+                      <>
+                        ULTRA AVX <br />
+                        DOLBY ATMOS
+                      </>
+                    ) : (
+                      formatName
+                    )}
+                  </span>
+                  <span className="format-badge">CC</span>
+                </div>
 
-          <div className="format-row">
-            <span className="format-name">REGULAR</span>
-            <span className="format-badge">CC</span>
-          </div>
-
-          <div className="times-row">
-            <button className="time-button">
-              <span className="time-label">10:00</span>
-              <img src="src/assets/seat_icon.png" className="time-seat-icon" />
-
-            </button>
-
-            <button className="time-button">
-              <span className="time-label">12:30</span>
-              <img src="src/assets/seat_icon.png" className="time-seat-icon" />
-            </button>
-
-            <button className="time-button">
-              <span className="time-label">17:15</span>
-              <img src="src/assets/seat_icon.png" className="time-seat-icon" />
-            </button>
-          </div>
-
+                <div className="times-row">
+                  {times.map(time => (
+                    <button
+                      className="time-button"
+                      key={time}
+                      // later: onClick={() => handleShowtimeClick(formatName, time)}
+                    >
+                      <span className="time-label">{time}</span>
+                      <img
+                        src="src/assets/seat_icon.png"
+                        className="time-seat-icon"
+                        alt="Seat"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )
+        )
+      ) : (
+        <div className='empty-state'>
+          <p className="empty-message">
+            No showtimes available for this date.
+          </p>
         </div>
-      </section>
+    )}
 
-    
-
-
-    <section className="showtime-section">
-        <div className="format-and-times">
-
-          <div className="format-row">
-            <span className="format-name">VIP</span>
-            <span className="format-badge">CC</span>
-          </div>
-
-          <div className="times-row">
-            <button className="time-button">
-              <span className="time-label">18:20</span>
-              <img src="src/assets/seat_icon.png" className="time-seat-icon" />
-
-            </button>
-
-            <button className="time-button">
-              <span className="time-label">21:00</span>
-              <img src="src/assets/seat_icon.png" className="time-seat-icon" />
-            </button>
-
-          </div>
-        </div>
-      </section>
-
-
-
-
-
-      <section className="showtime-section">
-        <div className="format-and-times">
-
-          <div className="format-row">
-            <span className="format-name">ULTRA AVX <br />DOLBY ATMOS</span>
-            <span className="format-badge">CC</span>
-          </div>
-
-          <div className="times-row">
-            <button className="time-button">
-              <span className="time-label">14:10</span>
-              <img src="src/assets/seat_icon.png" className="time-seat-icon" />
-
-            </button>
-
-            <button className="time-button">
-              <span className="time-label">20:30</span>
-              <img src="src/assets/seat_icon.png" className="time-seat-icon" />
-            </button>
-          </div>
-
-        </div>
-      </section>
 
     </>
   )}  
