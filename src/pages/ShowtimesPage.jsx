@@ -7,9 +7,11 @@ function ShowtimesPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const handleBack = () => {navigate(-1);}
   
 
   const movieFromHome = location.state?.movie || null;
+  const datesForMovie = location.state?.datesForMovie || [];
   // Initialise theatre/date based on that movie (or empty if none)
   const [selectedTheatre, setSelectedTheatre] = useState(
     movieFromHome?.theatre || ""
@@ -18,106 +20,101 @@ function ShowtimesPage() {
     movieFromHome?.date || ""
   );
 
-  const handleBack = () => {
-    navigate(-1);
-  }
-
   const hasSelection = selectedTheatre !== "" && selectedDate !== "";
 
+  
+    
   // Helper: given a list of dates and a base showtimes object,
-// build an object like { "2025-12-01": base, "2025-12-02": base, ... }
-function buildShowtimesForDates(dates, baseShowtimes) {
-  return Object.fromEntries(
-    dates.map(date => [date, baseShowtimes])
-  );
-}
+  // build an object like { "2025-12-01": base, "2025-12-02": base, ... }
+  function buildShowtimesForDates(dates, baseShowtimes) {
+    return Object.fromEntries(
+      dates.map(date => [date, baseShowtimes])
+    );
+  }
 
 // Base showtimes per movie (per format)
-const showtimesByMovie = {
-  Barbie: buildShowtimesForDates(
-    ["2025-11-27"],      // later you can add more dates here
-    {
-      REGULAR: ["10:00", "12:30", "17:15"],
-      VIP: ["18:20", "21:00"],
-      "ULTRA AVX DOLBY ATMOS": ["14:10", "20:30"],
-    }
-  ),
+  const baseShowtimesByMovie = {
+    Barbie:
+      {
+        REGULAR: ["10:00", "12:30", "17:15"],
+        VIP: ["18:20", "21:00"],
+        "ULTRA AVX DOLBY ATMOS": ["14:10", "20:30"],
+      }
+      ,
 
-  Sinners: buildShowtimesForDates(
-    ["2025-12-01"],
-    {
-      REGULAR: ["16:00", "19:30", "21:45"],
-      VIP: ["18:20", "21:00"],
-      "ULTRA AVX DOLBY ATMOS": ["17:10", "20:30"],
-    }
-  ),
+    Sinners: 
+      {
+        REGULAR: ["16:00", "19:30", "21:45"],
+        VIP: ["18:20", "21:00"],
+        "ULTRA AVX DOLBY ATMOS": ["17:10", "20:30"],
+      }
+      ,
 
-  Superman: buildShowtimesForDates(
-    ["2025-12-05"],
-    {
-      REGULAR: ["11:00", "12:30", "16:45", "19:45"],
-      VIP: ["14:00", "18:20", "21:00"],
-      "ULTRA AVX DOLBY ATMOS": ["17:10", "20:30"],
-    }
-  ),
+    Superman:
+    
+      {
+        REGULAR: ["11:00", "12:30", "16:45", "19:45"],
+        VIP: ["14:00", "18:20", "21:00"],
+        "ULTRA AVX DOLBY ATMOS": ["17:10", "20:30"],
+      }
+      ,
 
-  Avatar: buildShowtimesForDates(
-    ["2025-12-01"],
-    {
-      REGULAR: ["13:00", "16:30", "21:00"],
-      VIP: ["20:00"],
-    }
-  ),
+    Avatar: 
+      {
+        REGULAR: ["13:00", "16:30", "21:00"],
+        VIP: ["20:00"],
+      }
+      ,
 
-  Jaws: buildShowtimesForDates(
-    ["2025-12-04"],
-    {
-      REGULAR: ["18:00", "21:45"],
-      VIP: ["16:20", "21:00"],
-      "ULTRA AVX DOLBY ATMOS": ["20:30"],
-    }
-  ),
+    Jaws: 
+      {
+        REGULAR: ["18:00", "21:45"],
+        VIP: ["16:20", "21:00"],
+        "ULTRA AVX DOLBY ATMOS": ["20:30"],
+      }
+      ,
 
-  "Zootopia 2": buildShowtimesForDates(
-    ["2025-12-04"],
-    {
-      REGULAR: ["11:00", "13:30", "16:45"],
-      VIP: ["18:20", "21:00"],
-      "ULTRA AVX DOLBY ATMOS": [],
-    }
-  ),
+    "Zootopia 2":
+      {
+        REGULAR: ["11:00", "13:30", "16:45"],
+        VIP: ["18:20", "21:00"],
+        "ULTRA AVX DOLBY ATMOS": [],
+      }
+      ,
 
-  Moonlight: buildShowtimesForDates(
-    ["2025-12-03"],
-    {
-      REGULAR: ["12:30", "16:30", "20:45"],
-      VIP: ["18:20", "21:00"],
-      "ULTRA AVX DOLBY ATMOS": ["17:10"],
-    }
-  ),
+    Moonlight: 
+      {
+        REGULAR: ["12:30", "16:30", "20:45"],
+        VIP: ["18:20", "21:00"],
+        "ULTRA AVX DOLBY ATMOS": ["17:10"],
+      }
+      ,
 
-  "Shrek 2": buildShowtimesForDates(
-    ["2025-12-02"],
-    {
-      REGULAR: ["12:00", "14:30", "16:00", "18:15"],
-      VIP: ["13:30", "15:20"],
-      "ULTRA AVX DOLBY ATMOS": ["17:30"],
-    }
-  ),
-};
+    "Shrek 2":
+      {
+        REGULAR: ["12:00", "14:30", "16:00", "18:15"],
+        VIP: ["13:30", "15:20"],
+        "ULTRA AVX DOLBY ATMOS": ["17:30"],
+      }
+      ,
+  };
 
   const movieTitle = movieFromHome?.title || null;
+  const baseShowtimes = movieTitle ? baseShowtimesByMovie[movieTitle] || null:  null;
 
   // Get all showtimes for this movie (could be undefined)
   const showtimesForMovie = movieTitle
-    ? showtimesByMovie[movieTitle]
+    ? baseShowtimesByMovie[movieTitle]
     : null;
 
+  const isPlayingOnSelectedDate =
+    selectedDate !== "" && datesForMovie.includes(selectedDate);
   // For the currently selected date
   const showtimesForSelectedDate =
-    showtimesForMovie && selectedDate
-      ? showtimesForMovie[selectedDate] || null
-      : null;
+    hasSelection && isPlayingOnSelectedDate && baseShowtimes
+    ? baseShowtimes
+    : null;
+
 
 
   return (
