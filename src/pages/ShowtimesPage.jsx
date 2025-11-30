@@ -3,27 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import "../styles/ShowtimesPage.css";
 import { useState } from "react";
 
-function ShowtimesPage() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleBack = () => {navigate(-1);}
-  
-
-  const movieFromHome = location.state?.movie || null;
-  const datesForMovie = location.state?.datesForMovie || [];
-  // Initialise theatre/date based on that movie (or empty if none)
-  const [selectedTheatre, setSelectedTheatre] = useState(
-    movieFromHome?.theatre || ""
-  );
-  const [selectedDate, setSelectedDate] = useState(
-    movieFromHome?.date || ""
-  );
-
-  const hasSelection = selectedTheatre !== "" && selectedDate !== "";
-
-// Base showtimes per movie (per format)
-  const baseShowtimesByMovie = {
+const baseShowtimesByMovie = {
     Barbie:
       {
         REGULAR: ["10:00", "12:30", "17:15"],
@@ -88,6 +68,54 @@ function ShowtimesPage() {
       }
       ,
   };
+
+function ShowtimesPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleBack = () => {navigate(-1);}
+
+  const handleShowtimeClick = (format, time) => {
+    navigate( '/ticket-selection',{
+      state: {
+        movie: movieFromHome.title,
+        theatre: selectedTheatre,
+        date: selectedDate,
+        format,                             // Regular, Vip, etc. ...
+        time
+      }
+    }
+    );
+  }
+
+  const handleSeatIconClick = (format, time) => {
+    navigate( '/seat-preview',{
+      state: {
+        movie: movieFromHome.title,
+        theatre: selectedTheatre,
+        date: selectedDate,
+        format,                             // Regular, Vip, etc. ...
+        time
+      }
+    }
+    );
+  }
+
+  
+
+  const movieFromHome = location.state?.movie || null;
+  const datesForMovie = location.state?.datesForMovie || [];
+  // Initialise theatre/date based on that movie (or empty if none)
+  const [selectedTheatre, setSelectedTheatre] = useState(
+    movieFromHome?.theatre || ""
+  );
+  const [selectedDate, setSelectedDate] = useState(
+    movieFromHome?.date || ""
+  );
+
+  const hasSelection = selectedTheatre !== "" && selectedDate !== "";
+
+// Base showtimes per movie (per format)
 
   const movieTitle = movieFromHome?.title || null;
   const baseShowtimes = movieTitle ? baseShowtimesByMovie[movieTitle] || null:  null;
@@ -184,18 +212,28 @@ function ShowtimesPage() {
 
                 <div className="times-row">
                   {times.map(time => (
+                    <div className="time-seat-pair" key ={time}>
+
+                    {/*time button*/}
                     <button
                       className="time-button"
-                      key={time}
-                      // later: onClick={() => handleShowtimeClick(formatName, time)}
+                      onClick={() => handleShowtimeClick(formatName, time)}
                     >
                       <span className="time-label">{time}</span>
-                      <img
-                        src="src/assets/seat_icon.png"
-                        className="time-seat-icon"
-                        alt="Seat"
-                      />
                     </button>
+                      
+                    {/*seat button*/}
+                    <button
+                      className = "seat-button"
+                      onClick={() => handleSeatIconClick(formatName, time)}
+                    >  
+                    <img
+                      src="src/assets/seat_icon.png"
+                      className="time-seat-icon"
+                      alt="Seat"
+                    />
+                  </button>
+                  </div>
                   ))}
                 </div>
               </div>
