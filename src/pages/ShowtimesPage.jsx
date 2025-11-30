@@ -22,16 +22,6 @@ function ShowtimesPage() {
 
   const hasSelection = selectedTheatre !== "" && selectedDate !== "";
 
-  
-    
-  // Helper: given a list of dates and a base showtimes object,
-  // build an object like { "2025-12-01": base, "2025-12-02": base, ... }
-  function buildShowtimesForDates(dates, baseShowtimes) {
-    return Object.fromEntries(
-      dates.map(date => [date, baseShowtimes])
-    );
-  }
-
 // Base showtimes per movie (per format)
   const baseShowtimesByMovie = {
     Barbie:
