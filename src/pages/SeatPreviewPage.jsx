@@ -9,7 +9,7 @@ export default function SeatPreviewPage() {
   const unavailableSeats = ['E5', 'E6', 'F8', 'D3'];
   
   const handleBookTickets = () => {
-    window.location.href = "/TicketSelectionPage";
+    window.location.href = "/ticket-selection";
   };
 
   const getSeatColor = (seatId) => {
