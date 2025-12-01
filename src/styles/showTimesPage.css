@@ -79,6 +79,12 @@
   font-weight: 400;
   background-color: #fff;
   color: #000;
+  cursor: pointer;
+}
+
+.filter-select:hover,
+.filter-select:focus{
+  outline: 1px purple ;
 }
 
 .empty-state {
@@ -159,7 +165,7 @@
 }
 
 .time-button:hover::after {
-  content: "Select showtime";
+  content: "Book this showtime";
   position: absolute;
   top: -35px;           /* adjust position */
   left: 50%;
@@ -222,6 +228,8 @@
 
 .seat-preview-overlay {
   position: fixed;
+  width: auto;
+  height: auto;
   top: 0;
   left: 0;
   right: 0;
@@ -235,9 +243,7 @@
 }
 
 .seat-preview-content {
-  max-width: fit-content;
-  max-height:fit-content;
-  width: 80%;
+  width: auto;
   height: auto;
   overflow: auto;
   border-radius: 24px;

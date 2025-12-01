@@ -1,6 +1,15 @@
 import { useState } from 'react';
 
-export default function SeatPreviewPage() {
+export default function SeatPreviewPage({
+  movie,
+  theatre,
+  date,
+  format,
+  time,
+  onClose,
+  onBookTickets,
+})
+ {
   const ROWS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
   const COLS = Array.from({ length: 12 }, (_, i) => i + 1);
 
@@ -9,7 +18,9 @@ export default function SeatPreviewPage() {
   const unavailableSeats = ['E5', 'E6', 'F8', 'D3'];
   
   const handleBookTickets = () => {
-    window.location.href = "/ticket-selection";
+    if (onBookTickets){
+    onBookTicket();
+    }
   };
 
   const getSeatColor = (seatId) => {
@@ -29,13 +40,11 @@ export default function SeatPreviewPage() {
       style={{
         width: '100vw',
         height: '100vh',
-        backgroundColor: 'rgba(0,0,0,0.75)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         margin: 0,
         padding: 0,
-        backdropFilter: 'blur(4px)',
       }}
     >
       <div
@@ -46,12 +55,12 @@ export default function SeatPreviewPage() {
           maxWidth: '1000px',
           width: '90%',
           position: 'relative',
-          border: '2px solid #000000',
+          border: '2px solid #333',
         }}
       >
         {/* Close Button */}
         <button
-          onClick={() => window.history.back()}
+          onClick= {onClose}
           style={{
             position: 'absolute',
             top: '10px',
@@ -262,7 +271,7 @@ export default function SeatPreviewPage() {
             </div>
 
             <button
-              onClick={handleBookTickets}
+              onClick={onBookTickets}
               style={{
                 width: '100%',
                 backgroundColor: 'white',
@@ -276,7 +285,7 @@ export default function SeatPreviewPage() {
                 marginTop: '16px',
               }}
             >
-              Book Tickets!
+              Book Tickets
             </button>
           </div>
         </div>

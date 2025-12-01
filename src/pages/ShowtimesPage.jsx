@@ -110,11 +110,10 @@ function ShowtimesPage() {
   };
 
   const handleSeatIconClick = (format, time) => {
-    console.log("Clicked seat icon:", { format, time, movieFromHome });
     if (!movieFromHome) return;
 
     setPreviewData({
-      movie: movieFromHome.title,
+      movie: movieFromHome,
       theatre: selectedTheatre,
       date: selectedDate,
       format,
@@ -122,6 +121,22 @@ function ShowtimesPage() {
     });
     setIsSeatPreviewOpen(true);
   };
+
+  const handleBookFromPreview = () => {
+    if (!previewData) return;
+
+    navigate('/ticket-selection', {
+      state: {
+        movie: previewData.movie,    
+        theatre: previewData.theatre,
+        date: previewData.date,
+        format: previewData.format,
+        time: previewData.time,
+      },
+    });
+
+    setIsSeatPreviewOpen(false);
+};
 
   return (
     <div className="showtimes-page">
@@ -262,6 +277,7 @@ function ShowtimesPage() {
               format={previewData.format}
               time={previewData.time}
               onClose={() => setIsSeatPreviewOpen(false)}
+              onBookTickets={handleBookFromPreview}
             />
           </div>
         </div>
