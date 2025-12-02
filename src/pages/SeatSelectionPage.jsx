@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../styles/seatSelection.css';
 
 export default function SeatSelectionPage({ onClose, onSeatsSelected, maxSeats }) {
   const ROWS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
@@ -66,58 +67,39 @@ export default function SeatSelectionPage({ onClose, onSeatsSelected, maxSeats }
   };
 
   return (
-    <div style={{
-      backgroundColor: '#1f2937',
-      borderRadius: '24px',
-      padding: '60px 20px',
-      maxWidth: '1000px',
-      width: '90%',
-      position: 'relative',
-      border: '2px solid #000000'
-    }}>
+    <div className="seat-selection-container">
       {/* Close button */}
-      <button
-        onClick={onClose}
-        style={{
-          position: 'absolute', top: '10px', right: '10px', width: '50px', height: '50px',
-          border: '2px solid #ef4444', borderRadius: '50%', background: 'transparent',
-          color: '#ef4444', fontSize: '28px', cursor: 'pointer',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0
-        }}
-      >
+      <button onClick={onClose} className="seat-close-button">
         ×
       </button>
 
-      <div style={{ display: 'flex', gap: '100px', justifyContent: 'center', alignItems: 'center' }}>
+      <div className="seat-selection-content">
         {/* Seating Area */}
-        <div style={{ border: '2px solid #4b5563', borderRadius: '12px', padding: '20px 35px 20px 20px', position: 'relative', marginLeft: '-40px' }}>
-          <div style={{ position: 'absolute', top: '-2px', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1f2937', color: 'white', fontWeight: 'bold', fontSize: '16px', padding: '6px 20px', border: '2px solid #4b5563', borderRadius: '0 0 12px 12px', width: '60%', textAlign: 'center' }}>
-            SCREEN
-          </div>
+        <div className="seating-area">
+          <div className="screen-label">SCREEN</div>
 
-          <div style={{ marginTop: '50px', marginBottom: '8px' }}>
+          <div className="seat-grid">
             {ROWS.map(row => (
-              <div key={row} style={{ display: 'flex', gap: '8px', marginBottom: '12px', alignItems: 'center' }}>
-                <div style={{ color: 'white', fontWeight: 'bold', width: '30px', textAlign: 'center', flexShrink: 0 }}>{row}</div>
+              <div key={row} className="seat-row">
+                <div className="seat-row-label">{row}</div>
                 {COLS.map(col => {
                   const seatId = `${row}${col}`;
                   const isAccessible = accessibleSeats.includes(seatId);
                   const isEmpty = emptySeats.includes(seatId);
                   const isUnavailable = unavailableSeats.includes(seatId);
 
-                  if (isEmpty) return <div key={seatId} style={{ width: '32px', height: '32px', flexShrink: 0 }}></div>;
+                  if (isEmpty) return <div key={seatId} className="empty-seat"></div>;
 
                   return (
                     <button
                       key={seatId}
                       onClick={() => toggleSeat(seatId)}
                       disabled={isUnavailable}
+                      className="seat-button"
                       style={{
-                        width: '32px', height: '32px', backgroundColor: getSeatColor(seatId),
-                        border: `2px solid ${getSeatBorder(seatId)}`, borderRadius: '4px',
-                        color: '#3971eaff', fontSize: '18px', cursor: isUnavailable ? 'not-allowed' : 'pointer',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold',
-                        flexShrink: 0, padding: 0
+                        backgroundColor: getSeatColor(seatId),
+                        border: `2px solid ${getSeatBorder(seatId)}`,
+                        color: '#3971eaff'
                       }}
                     >
                       {isAccessible ? '♿' : ''}
@@ -128,44 +110,52 @@ export default function SeatSelectionPage({ onClose, onSeatsSelected, maxSeats }
             ))}
           </div>
 
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-            <div style={{ width: '30px', textAlign: 'center', flexShrink: 0 }}></div>
+          <div className="seat-column-numbers">
+            <div className="seat-row-label"></div>
             {COLS.map(col => (
-              <div key={col} style={{ width: '32px', textAlign: 'center', color: '#9ca3af', fontSize: '12px', fontWeight: 'bold', flexShrink: 0 }}>{col}</div>
+              <div key={col} className="seat-column-number">{col}</div>
             ))}
           </div>
         </div>
 
         {/* Legend + Selected Seats + Confirm */}
-        <div style={{ width: '280px', display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '40px', marginRight: '-40px' }}>
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <div style={{ width: '36px', height: '36px', backgroundColor: 'white', borderRadius: '4px', border: '2px solid #3971eaff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#3971eaff', fontSize: '20px', fontWeight: 'bold', flexShrink: 0 }}>♿</div>
-            <span style={{ color: 'white', fontSize: '15px' }}>Accessible Seating</span>
+        <div className="seat-legend-section">
+          <div className="legend-item">
+            <div className="legend-icon" style={{ 
+              backgroundColor: 'white', 
+              border: '2px solid #3971eaff',
+              color: '#3971eaff',
+              fontWeight: 'bold'
+            }}>♿</div>
+            <span className="legend-text">Accessible Seating</span>
           </div>
 
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <div style={{ width: '36px', height: '36px', backgroundColor: '#6b7280', borderRadius: '4px', border: '2px solid #4b5563', flexShrink: 0 }}></div>
-            <span style={{ color: 'white', fontSize: '15px' }}>Unavailable</span>
+          <div className="legend-item">
+            <div className="legend-icon" style={{ 
+              backgroundColor: '#6b7280', 
+              border: '2px solid #4b5563'
+            }}></div>
+            <span className="legend-text">Unavailable</span>
           </div>
 
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <div style={{ width: '36px', height: '36px', backgroundColor: '#84d9a3ff', borderRadius: '4px', border: '2px solid #84d9a3ff', flexShrink: 0 }}></div>
-            <span style={{ color: 'white', fontSize: '15px' }}>Selected</span>
+          <div className="legend-item">
+            <div className="legend-icon" style={{ 
+              backgroundColor: '#84d9a3ff', 
+              border: '2px solid #84d9a3ff'
+            }}></div>
+            <span className="legend-text">Selected</span>
           </div>
 
-          <div style={{ backgroundColor: '#374151', borderRadius: '8px', padding: '12px', textAlign: 'center', marginTop: '16px' }}>
-            <p style={{ color: 'white', marginBottom: '6px', fontSize: '16px', fontWeight: '600' }}>
+          <div className="selected-seats-box">
+            <p className="selected-seats-label">
               Seat(s) Selected: {selectedSeats.length} / {maxSeats}
             </p>
-            <p style={{ fontSize: '22px', fontWeight: 'bold', color: 'white' }}>
+            <p className="selected-seats-value">
               {selectedSeats.length > 0 ? sortSeats([...selectedSeats]).join(', ') : 'None'}
             </p>
           </div>
 
-          <button
-            onClick={handleConfirm}
-            style={{ width: '100%', backgroundColor: 'white', color: 'black', fontWeight: 'bold', padding: '10px', border: 'none', borderRadius: '8px', fontSize: '16px', cursor: 'pointer', marginTop: '16px' }}
-          >
+          <button onClick={handleConfirm} className="confirm-button">
             Confirm
           </button>
         </div>

@@ -168,6 +168,9 @@ const ConfirmationPage1 = () => {
 
       <main className="confirmation-main">
         <div className="confirmation-container">
+          <button className="back-button" onClick={() => navigate(-1)}>
+            ← Back
+          </button>
           <div className="content-grid">
             {/* Left Column: Movie Info */}
             <div className="movie-section">
