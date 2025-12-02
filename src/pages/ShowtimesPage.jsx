@@ -1,52 +1,53 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useBooking } from '../context/BookingContext';
 import "../styles/ShowtimesPage.css";
 import { useState } from "react";
 import SeatPreviewPage from "../pages/SeatPreviewPage";
 
 const baseShowtimesByMovie = {
   Barbie: {
-    REGULAR: ["16:00", "19:30", "21:45"],
+    GENERAL: ["16:00", "19:30", "21:45"],
     VIP: ["18:20", "21:00"],
     "ULTRA AVX DOLBY ATMOS": ["17:10", "20:30"],
   },
 
   Sinners: {
-    REGULAR: ["16:00", "19:30", "21:45"],
+    GENERAL: ["16:00", "19:30", "21:45"],
     VIP: ["18:20", "21:00"],
     "ULTRA AVX DOLBY ATMOS": ["17:10", "20:30"],
   },
 
   Superman: {
-    REGULAR: ["11:00", "12:30", "16:45", "19:45"],
+    GENERAL: ["11:00", "12:30", "16:45", "19:45"],
     VIP: ["14:00", "18:20", "21:00"],
     "ULTRA AVX DOLBY ATMOS": ["17:10", "20:30"],
   },
 
   Avatar: {
-    REGULAR: ["13:00", "16:30", "21:00"],
+    GENERAL: ["13:00", "16:30", "21:00"],
     VIP: ["20:00"],
   },
 
   Jaws: {
-    REGULAR: ["18:00", "21:45"],
+    GENERAL: ["18:00", "21:45"],
     VIP: ["16:20", "21:00"],
     "ULTRA AVX DOLBY ATMOS": ["20:30"],
   },
 
   "Zootopia 2": {
-    REGULAR: ["11:00", "13:30", "16:45"],
+    GENERAL: ["11:00", "13:30", "16:45"],
     VIP: ["18:20", "21:00"],
     "ULTRA AVX DOLBY ATMOS": [],
   },
 
   Moonlight: {
-    REGULAR: ["12:30", "16:30", "20:45"],
+    GENERAL: ["12:30", "16:30", "20:45"],
     VIP: ["18:20", "21:00"],
     "ULTRA AVX DOLBY ATMOS": ["17:10"],
   },
 
   "Shrek 2": {
-    REGULAR: ["12:00", "14:30", "16:00", "18:15"],
+    GENERAL: ["12:00", "14:30", "16:00", "18:15"],
     VIP: ["13:30", "15:20"],
     "ULTRA AVX DOLBY ATMOS": ["17:30"],
   },
@@ -54,21 +55,21 @@ const baseShowtimesByMovie = {
 
 function ShowtimesPage() {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { bookingData, updateBooking } = useBooking();
 
   const handleBack = () => {
     navigate('/');
   };
 
-  const movieFromHome = location.state?.movie || null;
-  const datesForMovie = location.state?.datesForMovie || [];
+  const movieFromHome = bookingData.movie;
+  const datesForMovie = bookingData.datesForMovie || [];
 
   // Initialise theatre/date based on that movie (or empty if none)
   const [selectedTheatre, setSelectedTheatre] = useState(
-    movieFromHome?.theatre || ""
+    movieFromHome?.theatre || bookingData.theatre || ""
   );
   const [selectedDate, setSelectedDate] = useState(
-    movieFromHome?.date || ""
+    movieFromHome?.date || bookingData.date || ""
   );
 
   const [isSeatPreviewOpen, setIsSeatPreviewOpen] = useState(false);
@@ -98,15 +99,14 @@ function ShowtimesPage() {
   const handleShowtimeClick = (format, time) => {
     if (!movieFromHome) return;
 
-    navigate("/ticket-selection", {
-      state: {
-        movie: movieFromHome.title,
-        theatre: selectedTheatre,
-        date: selectedDate,
-        format, // Regular, VIP, etc.
-        time,
-      },
+    updateBooking({
+      theatre: selectedTheatre,
+      date: selectedDate,
+      format,
+      time
     });
+
+    navigate("/ticket-selection");
   };
 
   const handleSeatIconClick = (format, time) => {
@@ -125,15 +125,14 @@ function ShowtimesPage() {
   const handleBookFromPreview = () => {
     if (!previewData) return;
 
-    navigate('/ticket-selection', {
-      state: {
-        movie: previewData.movie,    
-        theatre: previewData.theatre,
-        date: previewData.date,
-        format: previewData.format,
-        time: previewData.time,
-      },
+    updateBooking({
+      theatre: previewData.theatre,
+      date: previewData.date,
+      format: previewData.format,
+      time: previewData.time
     });
+
+    navigate('/ticket-selection');
 
     setIsSeatPreviewOpen(false);
 };

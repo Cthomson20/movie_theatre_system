@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useBooking } from '../context/BookingContext';
 import '../styles/payment.css';
 
 const PaymentPage = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const { tickets, seats, total, movieInfo } = location.state || {};
+    const { bookingData } = useBooking();
+    const { tickets = { general: 0, child: 0, senior: 0 }, seats = [], total = 0, movie } = bookingData;
 
     const [formData, setFormData] = useState({
         cardNumber: '',
@@ -32,19 +33,19 @@ const PaymentPage = () => {
     };
 
     // Use passed data or fallback to defaults
-    const displayMovieInfo = movieInfo || {
-        title: 'Barbie',
-        poster: barbiePoster,
-        date: 'Sep 26, 2025',
-        time: '10:00 AM',
-        theater: 'CineNova Market Mall',
+    const displayMovieInfo = {
+        title: movie?.title || 'Barbie',
+        poster: movie?.image || 'src/assets/movie-posters/barbie-poster.jpg',
+        date: bookingData.date || 'Sep 26, 2025',
+        time: bookingData.time || '10:00 AM',
+        theater: bookingData.theatre || 'CineNova Market Mall',
         address: '3625 Shaganappi Trail NW',
         city: 'Calgary, AB'
     };
 
     const displayTotal = total;
     
-    const displayTickets = tickets || { general: 0, child: 0, senior: 0 };
+    const displayTickets = tickets;
     
     const ticketPrices = { general: 20.00, child: 15.00, senior: 10.00 };
     
@@ -84,10 +85,6 @@ const PaymentPage = () => {
           <span>← Back</span>
         </button>
         <div className="payment-container">
-          {/* TO-DO: fix the button to dynamically change with smaller screens */}
-          <button className="back-button" onClick={() => navigate(-1)}>
-            ← Back
-          </button>
           <div className="content-grid">
             {/* Left Column: Order Summary */}
             <div className="order-summary-section">

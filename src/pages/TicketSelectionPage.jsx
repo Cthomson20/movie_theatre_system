@@ -1,19 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, Search, Menu, ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useBooking } from '../context/BookingContext';
 import SeatSelectionPage from './SeatSelectionPage';
 import barbiePoster from '../assets/movie-posters/barbie-poster.jpg';
 import '../styles/TicketSelectionPage.css';
 
 export default function TicketSelectionPage() {
   const navigate = useNavigate();
-  const [generalTickets, setGeneralTickets] = useState(1);
-  const [childTickets, setChildTickets] = useState(0);
-  const [seniorTickets, setSeniorTickets] = useState(0);
-  const [selectedSeats, setSelectedSeats] = useState([]);
+  const { bookingData, updateBooking } = useBooking();
+  
+  const [generalTickets, setGeneralTickets] = useState(bookingData.tickets.general);
+  const [childTickets, setChildTickets] = useState(bookingData.tickets.child);
+  const [seniorTickets, setSeniorTickets] = useState(bookingData.tickets.senior);
+  const [selectedSeats, setSelectedSeats] = useState(bookingData.seats);
   const [showSeatSelection, setShowSeatSelection] = useState(false);
 
   const PRICES = { general: 20, child: 15, senior: 10 };
+
+  // Sync state to context whenever tickets or seats change
+  useEffect(() => {
+    const total = calculateTotal();
+    updateBooking({
+      tickets: { general: generalTickets, child: childTickets, senior: seniorTickets },
+      seats: selectedSeats,
+      total
+    });
+  }, [generalTickets, childTickets, seniorTickets, selectedSeats]);
 
   const calculateTotal = () =>
     generalTickets * PRICES.general +
@@ -46,26 +59,7 @@ export default function TicketSelectionPage() {
   const handleBack = () => navigate('/showtimes');
   
   const handleContinue = () => {
-    navigate('/payment', {
-      state: {
-        tickets: { 
-          general: generalTickets, 
-          child: childTickets, 
-          senior: seniorTickets 
-        },
-        seats: selectedSeats,
-        total: calculateTotal(),
-        movieInfo: {
-          title: 'Barbie',
-          poster: barbiePoster,
-          date: 'Sep 26, 2025',
-          time: '10:00 AM',
-          theater: 'CineNova MarketMall',
-          address: '3625 Shaganappi Trail NW',
-          city: 'Calgary, AB'
-        }
-      }
-    });
+    navigate('/payment');
   };
 
   const styles = {
@@ -142,8 +136,8 @@ export default function TicketSelectionPage() {
       borderRight: '1px solid transparent',
     },
 
-    regularBadge: { display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' },
-    regularText: { fontSize: '2.25rem' },
+    formatBadge: { display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' },
+    formatText: { fontSize: '2.25rem' },
     ccBadge: {
       backgroundColor: '#666',
       color: '#fff',
@@ -297,14 +291,14 @@ export default function TicketSelectionPage() {
 
           {/* Left Column */}
           <div className="ticket-left-column">
-            <h2 className="ticket-movie-title">Barbie</h2>
+            <h2 className="ticket-movie-title">{bookingData.movie?.title || 'Barbie'}</h2>
             <div className="ticket-poster-container">
-              <img src={barbiePoster} alt="Barbie Movie Poster" className="ticket-movie-poster" />
+              <img src={bookingData.movie?.image || barbiePoster} alt="Movie Poster" className="ticket-movie-poster" />
             </div>
             <div className="ticket-showtime-details">
-              <p style={{ fontWeight: 500 }}>Today, Sep 26, 2025</p>
-              <p>10:00 AM</p>
-              <p style={{ fontWeight: 500 }}>CineNova MarketMall</p>
+              <p style={{ fontWeight: 500 }}>{bookingData.date || 'Today, Sep 26, 2025'}</p>
+              <p>{bookingData.time || '10:00 AM'}</p>
+              <p style={{ fontWeight: 500 }}>{bookingData.theatre || 'CineNova MarketMall'}</p>
               <p>3625 Shaganappi Trail NW</p>
               <p>Calgary, AB</p>
             </div>
@@ -312,8 +306,8 @@ export default function TicketSelectionPage() {
 
           {/* Middle Column */}
           <div className="ticket-middle-column">
-            <div className="ticket-regular-badge">
-              <span className="ticket-regular-text">Regular</span>
+            <div className="ticket-format-badge">
+              <span className="ticket-format-text">{bookingData.format}</span>
               <span className="ticket-cc-badge">CC</span>
             </div>
 

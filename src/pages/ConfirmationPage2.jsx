@@ -1,6 +1,7 @@
 // ConfirmationPage2.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useBooking } from '../context/BookingContext';
 import '../styles/ConfirmationPage.css';
 
 const ConfirmationPage2 = () => {
@@ -8,17 +9,18 @@ const ConfirmationPage2 = () => {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const navigate = useNavigate();
+  const { bookingData } = useBooking();
 
   const orderInfo = {
     orderNumber: '#H7MN324B6',
     movie: {
-      title: 'Barbie',
-      poster: 'src/assets/movie-posters/barbie-poster.jpg',
-      date: 'Sep 26, 2025',
-      time: '10:00 AM'
+      title: bookingData.movie?.title || 'Barbie',
+      poster: bookingData.movie?.image || 'src/assets/movie-posters/barbie-poster.jpg',
+      date: bookingData.date || 'Sep 26, 2025',
+      time: bookingData.time || '10:00 AM'
     },
     theater: {
-      name: 'CineNova MarketMall',
+      name: bookingData.theatre || 'CineNova MarketMall',
       address: '3625 Shaganappi Trail NW',
       city: 'Calgary',
       province: 'AB'

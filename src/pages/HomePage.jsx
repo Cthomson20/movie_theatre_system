@@ -1,6 +1,7 @@
 import '../styles/homePage.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useBooking } from '../context/BookingContext'
 import '../App.css'
 
 const movies = [
@@ -121,6 +122,7 @@ function uniqueOptions(list, key) {
 
 export default function HomePage() {
   const navigate = useNavigate()
+  const { updateBooking } = useBooking()
 
   const [theatreFilter, setTheatreFilter] = useState('All')
   const [dateFilter, setDateFilter] = useState('All')
@@ -175,10 +177,12 @@ export default function HomePage() {
     .filter(m=> m.title === activeMovie.title)
     .map(m => m.date)
 
-    navigate('/showtimes', { 
-      state: { 
+    updateBooking({ 
       movie: activeMovie, 
-      datesForMovie: datesForThisMovie } })
+      datesForMovie: datesForThisMovie 
+    })
+    
+    navigate('/showtimes')
   }
 
   return (

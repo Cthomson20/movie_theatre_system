@@ -1,15 +1,14 @@
 import { useState } from 'react';
+import { useBooking } from '../context/BookingContext';
 
 export default function SeatPreviewPage({
-  movie,
-  theatre,
-  date,
-  format,
-  time,
   onClose,
   onBookTickets,
 })
  {
+  const { bookingData } = useBooking();
+  const { movie, theatre, date, format, time } = bookingData;
+  
   const ROWS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
   const COLS = Array.from({ length: 12 }, (_, i) => i + 1);
 
