@@ -170,7 +170,15 @@ export default function HomePage() {
 
   function handleBookTickets() {
     if (!activeMovie) return
-    navigate('/showtimes', { state: { movie: activeMovie } })
+
+    const datesForThisMovie = movies
+    .filter(m=> m.title === activeMovie.title)
+    .map(m => m.date)
+
+    navigate('/showtimes', { 
+      state: { 
+      movie: activeMovie, 
+      datesForMovie: datesForThisMovie } })
   }
 
   return (
