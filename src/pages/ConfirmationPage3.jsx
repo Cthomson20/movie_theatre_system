@@ -166,6 +166,10 @@ const ConfirmationPage3 = () => {
       </header>
 
       <main className="confirmation-main">
+        <button className="ticket-back-button" onClick={() => navigate('/confirmation2')}>
+          <span>← Back</span>
+        </button>
+        
         <div className="confirmation-container">
           <div className="content-grid">
             {/* Left Column: Movie Info */}
