@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import '../styles/payment.css';
 
 const PaymentPage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const { tickets, seats, total, movieInfo } = location.state || {};
 
     const [formData, setFormData] = useState({
         cardNumber: '',
@@ -22,36 +24,49 @@ const PaymentPage = () => {
     };
 
     const isFormValid = () => {
-        return formData.cardNumber.trim() !== '' &&
-               formData.expiryDate.trim() !== '' &&
-               formData.cvv.trim() !== '' &&
+        return formData.cardNumber.trim() !== '' && formData.cardNumber.length >= 16 &&
+               formData.expiryDate.trim() !== '' && formData.expiryDate.length === 5 &&
+               formData.cvv.trim() !== '' && formData.cvv.length === 3 &&
                formData.cardholderName.trim() !== '' &&
                formData.email.trim() !== '';
     };
 
-    const movieInfo = {
-        movie: {
+    // Use passed data or fallback to defaults
+    const displayMovieInfo = movieInfo || {
         title: 'Barbie',
-        poster: 'src/assets/movie-posters/barbie-poster.jpg',
+        poster: barbiePoster,
         date: 'Sep 26, 2025',
-        time: '10:00 AM'
-        },
-        theater: {
-        name: 'CineNova Market Mall',
+        time: '10:00 AM',
+        theater: 'CineNova Market Mall',
         address: '3625 Shaganappi Trail NW',
-        city: 'Calgary',
-        province: 'AB'
-        }
-    }
+        city: 'Calgary, AB'
+    };
+
+    const displayTotal = total;
+    
+    const displayTickets = tickets || { general: 0, child: 0, senior: 0 };
+    
+    const ticketPrices = { general: 20.00, child: 15.00, senior: 10.00 };
+    
     const orderSummary = {
         titles: {
-            seats: 'Regular Seat(s)',
+            genderalTickets: 'General Seat(s)',
+            childTickets: 'Child Seat(s)',
+            seniorTickets: 'Senior Seat(s)',
             bookingFee: 'Online Booking Fee',
             subtotal: 'Subtotal',
             taxes: 'Taxes',
             orderTotal: 'Order Total'
         }
     };
+
+    const orderTotals = {
+        seats: displayTotal,
+        bookingFee: 2.50,
+        subtotal: displayTotal + 2.50,
+        taxes: (displayTotal + 2.50) * 0.05,
+        orderTotal: (displayTotal + 2.50) * 1.05
+    }
 
     return (
     <div className="payment-page">
@@ -60,13 +75,16 @@ const PaymentPage = () => {
           <img src="src/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
             <img src="src/assets/three_lines.png" className="header-icon" alt="Menu" />
-            <img src="src/assets/magnifying_glass.png" className="header-icon" alt="Search" />
           </div>
         </div>
       </header>
 
       <main className="payment-main">
+        <button className="ticket-back-button" onClick={() => navigate(-1)}>
+          <span>← Back</span>
+        </button>
         <div className="payment-container">
+          {/* TO-DO: fix the button to dynamically change with smaller screens */}
           <button className="back-button" onClick={() => navigate(-1)}>
             ← Back
           </button>
@@ -76,34 +94,48 @@ const PaymentPage = () => {
               <h2>Order Summary</h2>
               
               <div className="movie-info">
-                <img src={movieInfo.movie.poster} className="summary-poster" alt={movieInfo.movie.title} />
+                <img src={displayMovieInfo.poster} className="summary-poster" alt={displayMovieInfo.title} />
                 <div className="movie-details-summary">
-                  <h3>{movieInfo.movie.title}</h3>
-                  <p>{movieInfo.movie.date} at {movieInfo.movie.time}</p>
-                  <p className="theater-name">{movieInfo.theater.name}</p>
+                  <h3>{displayMovieInfo.title}</h3>
+                  <p>{displayMovieInfo.date} at {displayMovieInfo.time}</p>
+                  <p className="theater-name">{displayMovieInfo.theater}</p>
                 </div>
               </div>
 
               <div className="order-breakdown">
-                <div className="order-line">
-                  <span>{orderSummary.titles.seats}</span>
-                  <span>$30.00</span>
-                </div>
+                {displayTickets.general > 0 && (
+                  <div className="order-line">
+                    <span>{orderSummary.titles.genderalTickets} ({displayTickets.general} × ${ticketPrices.general})</span>
+                    <span>${(displayTickets.general * ticketPrices.general).toFixed(2)}</span>
+                  </div>
+                )}
+                {displayTickets.child > 0 && (
+                  <div className="order-line">
+                    <span>{orderSummary.titles.childTickets} ({displayTickets.child} × ${ticketPrices.child})</span>
+                    <span>${(displayTickets.child * ticketPrices.child).toFixed(2)}</span>
+                  </div>
+                )}
+                {displayTickets.senior > 0 && (
+                  <div className="order-line">
+                    <span>{orderSummary.titles.seniorTickets} ({displayTickets.senior} × ${ticketPrices.senior})</span>
+                    <span>${(displayTickets.senior * ticketPrices.senior).toFixed(2)}</span>
+                  </div>
+                )}
                 <div className="order-line">
                   <span>{orderSummary.titles.bookingFee}</span>
-                  <span>$2.50</span>
+                  <span>${orderTotals.bookingFee.toFixed(2)}</span>
                 </div>
                 <div className="order-line subtotal">
                   <span>{orderSummary.titles.subtotal}</span>
-                  <span>$32.50</span>
+                  <span>${orderTotals.subtotal.toFixed(2)}</span>
                 </div>
                 <div className="order-line">
                   <span>{orderSummary.titles.taxes}</span>
-                  <span>$4.23</span>
+                  <span>${orderTotals.taxes.toFixed(2)}</span>
                 </div>
                 <div className="order-line total">
                   <span>{orderSummary.titles.orderTotal}</span>
-                  <span>$36.73</span>
+                  <span>${orderTotals.orderTotal.toFixed(2)}</span>
                 </div>
               </div>
             </div>

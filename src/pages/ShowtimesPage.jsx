@@ -3,12 +3,18 @@ import "../styles/ShowtimesPage.css";
 import { useState } from "react";
 import SeatPreviewPage from "../pages/SeatPreviewPage";
 
-const baseShowtimesByMovie = {
-  Barbie: {
-    REGULAR: ["10:00", "12:30", "17:15"],
-    VIP: ["18:20", "21:00"],
-    "ULTRA AVX DOLBY ATMOS": ["14:10", "20:30"],
-  },
+function ShowtimesPage() {
+  return (
+    <div className="showtimes-page">
+        {/* Top bar */}
+    <header className="showtimes-header">
+        <button className="back-button">← Back</button>
+        
+        <h1 className="showtimes-title">Showtimes</h1>
+       
+        
+        <div className ="header-icons">
+            <img src="src/assets/three_lines.png" className="header-icon" alt="Menu" />
 
   Sinners: {
     REGULAR: ["16:00", "19:30", "21:45"],
