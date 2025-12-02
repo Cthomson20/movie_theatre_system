@@ -82,6 +82,7 @@ const PaymentPage = () => {
 
       <main className="payment-main">
         <div className="payment-container">
+          {/* TO-DO: fix the button to dynamically change with smaller screens */}
           <button className="back-button" onClick={() => navigate(-1)}>
             ← Back
           </button>
