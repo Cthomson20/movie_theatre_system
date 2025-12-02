@@ -1,15 +1,85 @@
 import '../styles/homePage.css'
+import '../styles/payment.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useBooking } from '../context/BookingContext'
 import '../App.css'
 
+function generateNextDays(numDays) {
+  const result = []
+  const today = new Date()
+
+  for (let i = 0; i < numDays; i++) {
+    const d = new Date()
+    d.setDate(today.getDate() + i)
+
+    const year = d.getFullYear()
+    const month = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+
+    result.push(`${year}-${month}-${day}`)
+  }
+
+  return result
+}
+
+function formatNiceDate(dateString) {
+  if (!dateString) return 'Choose date'
+
+  const [yStr, mStr, dStr] = dateString.split('-')
+  const year = Number(yStr)
+  const monthIndex = Number(mStr) - 1  
+  const dayNum = Number(dStr)
+
+  const d = new Date(year, monthIndex, dayNum)
+  if (Number.isNaN(d.getTime())) {
+    return dateString
+  }
+
+  const today = new Date()
+  const todayYear = today.getFullYear()
+  const todayMonth = today.getMonth()
+  const todayDay = today.getDate()
+
+  const isToday =
+    year === todayYear &&
+    monthIndex === todayMonth &&
+    dayNum === todayDay
+
+  const dayName = d.toLocaleDateString('en-US', { weekday: 'long' })
+  const monthName = d.toLocaleDateString('en-US', { month: 'short' })
+
+  if (isToday) {
+    return `Today, ${monthName} ${dayNum}`
+  }
+
+  return `${dayName}, ${monthName} ${dayNum}`
+}
+
+
+function getTodayString() {
+  const d = new Date()
+  const year = d.getFullYear()
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+
 const movies = [
   { 
     title: 'Barbie',
     image: 'src/assets/movie-posters/barbie-poster.jpg',
-    theatre: 'CineNova Market Mall',
-    date: '2025-11-27',
+    showtimes: [
+      {
+        theatre: "CineNova Market Mall",
+        dates: generateNextDays(20)   
+      },
+      {
+        theatre: "CineNova Downtown",
+        dates: generateNextDays(20)   
+      }
+    ],
     rating: 'PG-13',
     language: 'English',
     genre: 'Comedy',
@@ -20,8 +90,12 @@ const movies = [
   { 
     title: 'Sinners', 
     image: 'src/assets/movie-posters/sinners-poster.jpeg',
-    theatre: 'CineNova Downtown',
-    date: '2025-12-01',
+    showtimes: [
+      {
+        theatre: "CineNova Downtown",
+        dates: generateNextDays(30)   
+      }
+    ],
     rating: 'R',
     language: 'English',
     genre: 'Horror',
@@ -32,8 +106,16 @@ const movies = [
   { 
     title: 'Superman', 
     image: 'src/assets/movie-posters/superman-poster.jpg',
-    theatre: 'CineNova Downtown',
-    date: '2025-12-05',
+    showtimes: [
+      {
+        theatre: "CineNova Market Mall",
+        dates: generateNextDays(10)   
+      },
+      {
+        theatre: "CineNova Downtown",
+        dates: generateNextDays(10)   
+      }
+    ],
     rating: 'PG',
     language: 'English',
     genre: 'Action',
@@ -44,8 +126,24 @@ const movies = [
   { 
     title: 'Avatar', 
     image: 'src/assets/movie-posters/avatar-poster.jpeg',
-    theatre: 'CineNova Market Mall',
-    date: '2025-12-01',
+    showtimes: [
+      {
+        theatre: "CineNova Market Mall",
+        dates: generateNextDays(10)   
+      },
+      {
+        theatre: "CineNova Downtown",
+        dates: generateNextDays(10)   
+      },
+      {
+        theatre: "CineNova NE",
+        dates: generateNextDays(10)   
+      },
+      {
+        theatre: "CineNova Macleod Trail",
+        dates: generateNextDays(10)   
+      }
+    ],
     rating: 'PG-13',
     language: 'English',
     genre: 'Sci-Fi',
@@ -56,8 +154,16 @@ const movies = [
   {
     title: 'Jaws', 
     image: 'src/assets/movie-posters/jaws-poster.jpeg',
-    theatre: 'CineNova NE',
-    date: '2025-12-04',
+    showtimes: [
+      {
+        theatre: "CineNova Market Mall",
+        dates: generateNextDays(5)   
+      },
+      {
+        theatre: "CineNova Macleod Trail",
+        dates: generateNextDays(5)   
+      }
+    ],
     rating: 'PG',
     language: 'English',
     genre: 'Thriller',
@@ -68,8 +174,16 @@ const movies = [
   { 
     title: 'Zootopia 2', 
     image: 'src/assets/movie-posters/zootopia2-poster.jpg',
-    theatre: 'CineNova NE',
-    date: '2025-12-04',
+    showtimes: [
+      {
+        theatre: "CineNova Market Mall",
+        dates: generateNextDays(30)   
+      },
+      {
+        theatre: "CineNova Downtown",
+        dates: generateNextDays(30)   
+      }
+    ],
     rating: 'G',
     language: 'English',
     genre: 'Animation',
@@ -80,8 +194,16 @@ const movies = [
   { 
     title: 'Moonlight', 
     image: 'src/assets/movie-posters/moonlight-poster.jpg',
-    theatre: 'CineNova Market Mall',
-    date: '2025-12-03',
+    showtimes: [
+      {
+        theatre: "CineNova NE",
+        dates: generateNextDays(30)   
+      },
+      {
+        theatre: "CineNova Downtown",
+        dates: generateNextDays(30)   
+      }
+    ],
     rating: 'R',
     language: 'English',
     genre: 'Drama',
@@ -92,8 +214,16 @@ const movies = [
   { 
     title: 'Shrek 2', 
     image: 'src/assets/movie-posters/shrek2-poster.jpg',
-    theatre: 'CineNova Downtown',
-    date: '2025-12-02',
+    showtimes: [
+      {
+        theatre: "CineNova Macleod Trail",
+        dates: generateNextDays(20)   
+      },
+      {
+        theatre: "CineNova NE",
+        dates: generateNextDays(20)   
+      }
+    ],
     rating: 'PG',
     language: 'English',
     genre: 'Animation',
@@ -101,10 +231,142 @@ const movies = [
     description:
       'Shrek and Fiona visit the kingdom of Far Far Away and meet her very surprised parents.'
   },
+  {
+    title: 'Bugonia',
+    image: 'src/assets/movie-posters/bugonia-poster.jpg',
+    showtimes: [
+      {
+        theatre: 'CineNova Market Mall',
+        dates: generateNextDays(30)
+      },
+      {
+        theatre: 'CineNova Downtown',
+        dates: generateNextDays(30)
+      },
+      {
+        theatre: "CineNova Macleod Trail",
+        dates: generateNextDays(30)   
+      },
+      {
+        theatre: "CineNova NE",
+        dates: generateNextDays(30)   
+      }
+    ],
+    rating: 'R',
+    language: 'English',
+    genre: 'Comedy',
+    duration: '1h 58m',
+    description:
+      "Two conspiracy-obsessed men kidnap the CEO of a major company when they become convinced that she's an alien who wants to destroy Earth."
+  },
+  {
+    title: 'One Battle After Another',
+    image: 'src/assets/movie-posters/oneb-poster.jpg',
+    showtimes: [
+      {
+        theatre: 'CineNova NE',
+        dates: generateNextDays(30)
+      },
+      {
+        theatre: 'CineNova Macleod Trail',
+        dates: generateNextDays(30)
+      },
+      {
+        theatre: 'CineNova Downtown',
+        dates: generateNextDays(30)
+      }
+    ],
+    rating: 'R',
+    language: 'English',
+    genre: 'Action',
+    duration: '2h 42m',
+    description:
+      'When their evil enemy resurfaces after 16 years, a group of ex-revolutionaries reunite to rescue the daughter of one of their own.'
+  },
+  {
+    title: 'F1',
+    image: 'src/assets/movie-posters/f1-poster.jpg',
+    showtimes: [
+      {
+        theatre: 'CineNova Market Mall',
+        dates: generateNextDays(25)
+      },
+      {
+        theatre: 'CineNova Downtown',
+        dates: generateNextDays(25)
+      },
+      {
+        theatre: 'CineNova NE',
+        dates: generateNextDays(25)
+      }
+    ],
+    rating: 'PG-13',
+    language: 'English',
+    genre: 'Drama',
+    duration: '2h 35m',
+    description:
+      "A Formula One driver comes out of retirement to mentor and team up with a younger driver."
+  },
+  {
+    title: 'Interstellar',
+    image: 'src/assets/movie-posters/interstellar-poster.jpg',
+    showtimes: [
+      {
+        theatre: 'CineNova Market Mall',
+        dates: generateNextDays(30)
+      },
+      {
+        theatre: 'CineNova Downtown',
+        dates: generateNextDays(30)
+      },
+      {
+        theatre: 'CineNova NE',
+        dates: generateNextDays(30)
+      },
+      {
+        theatre: 'CineNova Macleod Trail',
+        dates: generateNextDays(30)
+      }
+    ],
+    rating: 'PG-13',
+    language: 'English',
+    genre: 'Sci-Fi',
+    duration: '2h 49m',
+    description:
+      "When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans."
+  },
+  {
+    title: 'Lady Bird',
+    image: 'src/assets/movie-posters/ladybird-poster.jpg',
+    showtimes: [
+      {
+        theatre: 'CineNova Market Mall',
+        dates: generateNextDays(20)
+      },
+      {
+        theatre: 'CineNova Downtown',
+        dates: generateNextDays(20)
+      },
+      {
+        theatre: 'CineNova NE',
+        dates: generateNextDays(20)
+      },
+      {
+        theatre: 'CineNova Macleod Trail',
+        dates: generateNextDays(20)
+      }
+    ],
+    rating: 'R',
+    language: 'English',
+    genre: 'Drama',
+    duration: '1h 35m',
+    description:
+      "A fiercely independent teenager tries to make her own way in the world while wanting to get out of her hometown of Sacramento, California."
+  }
 ]
 
 const ratingOptionsList = ['PG', 'G', 'PG-13', '14A', 'R']
-const genreOptionsList = ['Action', 'Comedy', 'Drama', 'Horror', 'Romance', 'Thriller']
+const genreOptionsList = ['Action', 'Comedy', 'Drama', 'Horror', 'Thriller', 'Sci-Fi']
 const languageOptionsList = ['English', 'French']
 
 function toggleItem(value, selected, setSelected) {
@@ -115,17 +377,94 @@ function toggleItem(value, selected, setSelected) {
   }
 }
 
-function uniqueOptions(list, key) {
-  const set = new Set(list.map(item => item[key]))
-  return ['All', ...Array.from(set)]
+// function uniqueOptions(list, key) {
+//   const set = new Set(list.map(item => item[key]))
+//   return ['All', ...Array.from(set)]
+// }
+
+function Calendar({ onSelect, validDates = new Set(), selectedDate }) {
+  const today = new Date()
+
+  function getDaysInMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate()
+  }
+
+  function format(d) {
+    const y = d.getFullYear()
+    const m = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    return `${y}-${m}-${day}`
+  }
+
+  const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+
+  const parsedDates = Array.from(validDates)
+    .map(str => new Date(str))
+    .filter(d => !Number.isNaN(d.getTime()))
+
+  const datesForMonths = parsedDates.filter(d => d >= todayStart)
+  const baseDates = datesForMonths.length > 0 ? datesForMonths : parsedDates
+
+  const monthKeys = Array.from(
+    new Set(
+      baseDates.map(d => `${d.getFullYear()}-${d.getMonth()}`)
+    )
+  ).sort()
+
+  const monthsToShow = monthKeys.map(key => {
+    const [yStr, mStr] = key.split('-')
+    return { year: Number(yStr), month: Number(mStr) }
+  })
+
+  return (
+    <div className="calendar-container">
+      {monthsToShow.map(({ year, month }) => {
+        const monthDate = new Date(year, month, 1)
+        const monthName = monthDate.toLocaleString('default', { month: 'long' })
+        const days = getDaysInMonth(year, month)
+
+        return (
+          <div key={`${year}-${month}`} className="calendar-month">
+            <h3 className="cal-month-title">
+              {monthName} {year}
+            </h3>
+
+            <div className="cal-grid">
+              {[...Array(days)].map((_, i) => {
+                const dateObj = new Date(year, month, i + 1)
+                const formatted = format(dateObj)
+                const isActive = validDates.has(formatted)
+                const isSelected = selectedDate === formatted
+
+                return (
+                  <button
+                    key={i}
+                    className={`cal-day ${!isActive ? 'cal-day-disabled' : ''} ${isSelected ? 'cal-day-selected' : ''}`}
+                    onClick={isActive ? () => onSelect(formatted) : undefined}
+                    disabled={!isActive}
+                  >
+                    {i + 1}
+                  </button>
+                  
+                )
+              })}
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
 }
+
 
 export default function HomePage() {
   const navigate = useNavigate()
   const { updateBooking } = useBooking()
 
   const [theatreFilter, setTheatreFilter] = useState('All')
-  const [dateFilter, setDateFilter] = useState('All')
+  const todayString = getTodayString()
+  const [dateFilter, setDateFilter] = useState(todayString)
+
 
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [selectedRatings, setSelectedRatings] = useState([])
@@ -134,33 +473,86 @@ export default function HomePage() {
 
   const [activeMovie, setActiveMovie] = useState(null)
 
-  const theatreOptions = uniqueOptions(movies, 'theatre')
-  const dateOptions = uniqueOptions(movies, 'date')
-  
-  const filteredMovies = movies.filter(movie => {
-    const matchesTheatre =
-      theatreFilter === 'All' || movie.theatre === theatreFilter
+  const [calendarOpen, setCalendarOpen] = useState(false)
+  const [theatreMenuOpen, setTheatreMenuOpen] = useState(false)
 
-    const matchesDate =
-      dateFilter === 'All' || movie.date === dateFilter
-
-    const matchesRating =
-      selectedRatings.length === 0 || selectedRatings.includes(movie.rating)
-
-    const matchesGenre =
-      selectedGenres.length === 0 || selectedGenres.includes(movie.genre)
-
-    const matchesLanguage =
-      selectedLanguages.length === 0 || selectedLanguages.includes(movie.language)
-
-    return (
-      matchesTheatre &&
-      matchesDate &&
-      matchesRating &&
-      matchesGenre &&
-      matchesLanguage
+  const validDates = new Set(
+    movies.flatMap(movie =>
+      movie.showtimes.flatMap(st => st.dates)
     )
+  )
+
+  const theatreOptions = [
+    'All',
+    ...Array.from(
+      new Set(
+        movies.flatMap(movie =>
+          movie.showtimes.map(st => st.theatre)
+        )
+      )
+    )
+  ]
+
+  const filteredMovies = movies.filter(movie => {
+  const matchesTheatre =
+    theatreFilter === 'All' ||
+    movie.showtimes.some(st => st.theatre === theatreFilter)
+
+  const matchesDate =
+    dateFilter === 'All' ||
+    movie.showtimes.some(st => st.dates.includes(dateFilter))
+
+  const matchesRating =
+    selectedRatings.length === 0 || selectedRatings.includes(movie.rating)
+
+  const matchesGenre =
+    selectedGenres.length === 0 || selectedGenres.includes(movie.genre)
+
+  const matchesLanguage =
+    selectedLanguages.length === 0 || selectedLanguages.includes(movie.language)
+
+  return (
+    matchesTheatre &&
+    matchesDate &&
+    matchesRating &&
+    matchesGenre &&
+    matchesLanguage
+  )
   })
+
+    let selectedTheatre = ''
+    let selectedDate = ''
+
+    if (activeMovie) {
+      const preferredTheatre =
+        theatreFilter !== 'All' ? theatreFilter : null
+
+      // start with the first showtime
+      let showtime = activeMovie.showtimes[0]
+
+      // if a theatre is selected and this movie plays there, use that
+      if (preferredTheatre) {
+        const matchByTheatre = activeMovie.showtimes.find(
+          st => st.theatre === preferredTheatre
+        )
+        if (matchByTheatre) {
+          showtime = matchByTheatre
+        }
+      }
+
+      // pick a date for that showtime
+      let date = showtime.dates[0]
+      if (
+        dateFilter &&
+        dateFilter !== 'All' &&
+        showtime.dates.includes(dateFilter)
+      ) {
+        date = dateFilter
+      }
+
+      selectedTheatre = showtime.theatre
+      selectedDate = date
+    }
 
   function handleMovieClick(movie) {
     setActiveMovie(movie)
@@ -185,48 +577,123 @@ export default function HomePage() {
     navigate('/showtimes')
   }
 
+
   return (
     <div className="app">
-      <header className="top-bar">
-        <img
-          src="src/assets/cinenova.png"
-          className="logo"
-          alt="CineNova"
-        />
+      <header className="payment-header">
+        <div className="header-content">
+          <img src="src/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <div className="header-icons">
+            <img src="src/assets/three_lines.png" className="header-icon" alt="Menu" />
+            <img src="src/assets/magnifying_glass.png" className="header-icon" alt="Search" />
+          </div>
+        </div>
       </header>
 
+
       <div className="content">
+        {(isFilterOpen || calendarOpen || theatreMenuOpen) && (
+          <div
+            className="click-overlay"
+            onClick={() => {
+              setIsFilterOpen(false)
+              setCalendarOpen(false)
+              setTheatreMenuOpen(false)
+            }}
+          />
+        )}
         <h1 className="page-title">Movies</h1>
 
-        {/* FILTER BAR */}
+        {/* Filter bar */}
         <div className="filters-row">
         <div className="filters-left">
-            <select
-            className="filter-select"
-            value={theatreFilter}
-            onChange={e => setTheatreFilter(e.target.value)}
+           <div className="theatre-wrapper">
+            <button
+              type="button"
+              className="filter-select date-button theatre-button"
+              onClick={() => setTheatreMenuOpen(prev => !prev)}
             >
-            {theatreOptions.map(option => (
-                <option key={option} value={option}>
-                {option === 'All' ? 'All theatres' : option}
-                </option>
-            ))}
-            </select>
+              <span>
+                {theatreFilter === 'All' ? 'All theatres' : theatreFilter}
+              </span>
+              <svg
+                className="date-arrow"
+                width="12"
+                height="12"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 7L10 12L15 7"
+                  stroke="black"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
 
-            <select
-            className="filter-select"
-            value={dateFilter}
-            onChange={e => setDateFilter(e.target.value)}
+            {theatreMenuOpen && (
+              <div className="theatre-dropdown">
+                {theatreOptions.map(option => (
+                  <button
+                    key={option}
+                    type="button"
+                    className={
+                      'theatre-option' +
+                      (theatreFilter === option ? ' theatre-option-active' : '')
+                    }
+                    onClick={() => {
+                      setTheatreFilter(option)
+                      setTheatreMenuOpen(false)
+                    }}
+                  >
+                    {option === 'All' ? 'All theatres' : option}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="date-wrapper">
+            <button
+              type="button"
+              className="filter-select date-button"
+              onClick={() => setCalendarOpen(prev => !prev)}
             >
-            {dateOptions.map(option => (
-                <option key={option} value={option}>
-                {option === 'All' ? 'Date' : option}
-                </option>
-            ))}
-            </select>
+              <span>{formatNiceDate(dateFilter)}</span>
+              <svg
+                className="date-arrow"
+                width="12"
+                height="12"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 7L10 12L15 7"
+                  stroke="black"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+
+            </button>
+
+            {calendarOpen && (
+              <div className="calendar-dropdown">
+                <Calendar 
+                validDates={validDates}
+                selectedDate={dateFilter} 
+                onSelect={(date) => { setDateFilter(date); setCalendarOpen(false) }} />
+              </div>
+            )}
+          </div>
         </div>
 
+
         <div className="filters-right">
+          <div className='filters-wrapper'>
             <button
             className="filters-toggle-btn"
             type="button"
@@ -257,6 +724,7 @@ export default function HomePage() {
                 </label>
                 ))}
             </div>
+          
 
             <div className="filters-section">
                 <p className="filters-section-title">Genre</p>
@@ -273,6 +741,7 @@ export default function HomePage() {
                 </label>
                 ))}
             </div>
+            
 
             <div className="filters-section">
                 <p className="filters-section-title">Language</p>
@@ -314,9 +783,10 @@ export default function HomePage() {
             </div>
         )}
         </div>
+        </div>
 
 
-        {/* MOVIES GRID */}
+        {/* Movies grid */}
         <div className="movie-grid">
           {filteredMovies.map(movie => (
             <div
@@ -365,7 +835,7 @@ export default function HomePage() {
                 {activeMovie.duration}
               </p>
               <p className="modal-meta">
-                {activeMovie.theatre} · {activeMovie.date}
+                {selectedTheatre} · {selectedDate}
               </p>
 
               <p className="modal-description">

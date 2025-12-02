@@ -4,6 +4,145 @@
   margin: 0 0 24px;
 }
 
+.theatre-wrapper {
+  position: relative;
+}
+
+/* reuse date-button look */
+.theatre-button {
+    appearance: none;          /* remove button styling */
+    background-color: #222;    /* match select bg */
+    color: #fff;               /* match text */
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    height: 42px;              /* match select height */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 200px; 
+}
+
+/* dropdown menu under theatre button */
+.theatre-dropdown {
+  position: absolute;
+  top: 48px;           /* just under the button */
+  left: 0;
+  min-width: 100%;
+  background-color: #222;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  padding: 6px 0;
+  z-index: 60;
+}
+
+.theatre-option {
+  width: 100%;
+  text-align: left;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+.theatre-option:hover {
+    background: #ffd44a;
+    color: black;
+}
+
+.theatre-option-active {
+    background: #ffd44a;
+    color: black;
+}
+
+
+/* Make the date button match the theatre dropdown EXACTLY */
+.date-button {
+  appearance: none;          /* remove button styling */
+  background-color: #222;    /* match select bg */
+  color: #fff;               /* match text */
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  height: 42px;              /* match select height */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 200px;          /* matches "All theatres" width feel */
+}
+
+/* Hover like a real dropdown */
+.date-button:hover {
+  background-color: #f1f1f1;
+}
+
+
+.calendar-container {
+  background: #111;
+  padding: 16px;
+  border-radius: 14px;
+  display: flex;
+  gap: 20px;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+.date-wrapper {
+  position: relative;
+}
+
+.calendar-dropdown {
+  position: absolute;
+  top: 48px;     /* directly under the button */
+  left: 0;       /* align perfectly with the date button */
+  z-index: 100;
+}
+
+
+.cal-day-disabled {
+  visibility: hidden;
+}
+
+.calendar-month {
+  width: 250px;
+}
+
+.cal-month-title {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.cal-day {
+  background: #222;
+  border: none;
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.cal-day:hover {
+  background: #ffd44a;
+  color: black;
+}
+
+.cal-day-selected {
+  background: #ffd44a;
+  color: black;
+}
+
+
+
 
 .filter-select {
   background-color: #181818;
@@ -17,19 +156,19 @@
 .filters-row {
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;   /* move everything to the right */
   align-items: center;
+  gap: 16px;
   margin-bottom: 32px;
 }
 
 .filters-left {
   display: flex;
-  gap: 16px;
+  align-items: center;
+  gap: 12px;                    /* keep theatre + date side-by-side */
 }
 
-.filters-right {
-  margin-left: auto;
-}
+
 
 .filters-toggle-btn {
   background: none;
@@ -54,21 +193,25 @@
 }
 
 
+.filter-button-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Position the panel exactly under the icon */
 .filters-panel {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 56px;                       
-  background-color: #ffffff;
-  color: #000000;
+  top: 48px;      /* distance below the button */
+  right: 0;       /* align right edges */
+  max-width: 700px;
+  width: 600px;
+  background: #222;
   border-radius: 16px;
-  padding: 16px 20px;
+  padding: 24px 28px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
-  display: grid;
-  grid-template-columns: repeat(3, minmax(120px, 1fr));
-  gap: 16px 24px;
-  z-index: 20;     
+  z-index: 200;
 }
+
 
 .filters-section-title {
   font-size: 0.9rem;
@@ -162,10 +305,8 @@
   display: block;
 }
 
-.movie-title {
-  margin-top: 12px;
-  font-size: 1rem;
-}
+
+
 
 /* second row of filters */
 .extra-filters {
@@ -174,6 +315,13 @@
   gap: 16px;
   margin-bottom: 32px;
   flex-wrap: wrap;
+}
+
+.click-overlay {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  z-index: 30;
 }
 
 /* modal backdrop */
@@ -252,7 +400,7 @@
   border: none;
   padding: 10px 20px;
   border-radius: 999px;
-  background-color: #ffffff;
+  background-color: gold;
   color: #000000;
   font-weight: 600;
   cursor: pointer;
@@ -263,4 +411,10 @@
   transform: translateY(-1px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
+
+.movie-card .movie-title {
+  font-size: 1.5rem;
+  margin-top: 8px;
+}
+
 
