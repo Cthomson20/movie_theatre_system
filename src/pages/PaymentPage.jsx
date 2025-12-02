@@ -60,16 +60,15 @@ const PaymentPage = () => {
           <img src="src/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
             <img src="src/assets/three_lines.png" className="header-icon" alt="Menu" />
-            <img src="src/assets/magnifying_glass.png" className="header-icon" alt="Search" />
           </div>
         </div>
       </header>
 
       <main className="payment-main">
+        <button className="ticket-back-button" onClick={() => navigate(-1)}>
+          <span>← Back</span>
+        </button>
         <div className="payment-container">
-          <button className="back-button" onClick={() => navigate(-1)}>
-            ← Back
-          </button>
           <div className="content-grid">
             {/* Left Column: Order Summary */}
             <div className="order-summary-section">

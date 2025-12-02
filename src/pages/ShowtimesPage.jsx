@@ -15,7 +15,6 @@ function ShowtimesPage() {
         
         <div className ="header-icons">
             <img src="src/assets/three_lines.png" className="header-icon" alt="Menu" />
-            <img src="src/assets/magnifying_glass.png" className="header-icon" alt="Search" />
 
         </div>
     </header>
