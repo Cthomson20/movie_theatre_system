@@ -63,13 +63,20 @@ function ShowtimesPage() {
 
   const movieFromHome = bookingData.movie;
   const datesForMovie = bookingData.datesForMovie || [];
+  const theatreOptionsFromMovie = movieFromHome
+    ? movieFromHome.showtimes.map(st => st.theatre)
+    : []
+
+  // unique
+  const theatreOptions = Array.from(new Set(theatreOptionsFromMovie))
+
 
   // Initialise theatre/date based on that movie (or empty if none)
   const [selectedTheatre, setSelectedTheatre] = useState(
-    movieFromHome?.theatre || bookingData.theatre || ""
+    bookingData.theatre || ""
   );
   const [selectedDate, setSelectedDate] = useState(
-    movieFromHome?.date || bookingData.date || ""
+    bookingData.date || ""
   );
 
   const [isSeatPreviewOpen, setIsSeatPreviewOpen] = useState(false);
@@ -169,10 +176,13 @@ function ShowtimesPage() {
           onChange={(e) => setSelectedTheatre(e.target.value)}
         >
           <option value="">THEATRE</option>
-          <option value="CineNova Market Mall">CineNova Market Mall</option>
-          <option value="CineNova Downtown">CineNova Downtown</option>
-          <option value="CineNova NE">CineNova NE</option>
+          {theatreOptions.map(t => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
         </select>
+
 
         <select
           className="filter-select"
@@ -180,13 +190,13 @@ function ShowtimesPage() {
           onChange={(e) => setSelectedDate(e.target.value)}
         >
           <option value="">DATE</option>
-          <option value="2025-11-27">2025-11-27</option>
-          <option value="2025-12-01">2025-12-01</option>
-          <option value="2025-12-02">2025-12-02</option>
-          <option value="2025-12-03">2025-12-03</option>
-          <option value="2025-12-04">2025-12-04</option>
-          <option value="2025-12-05">2025-12-05</option>
+          {datesForMovie.map(d => (
+            <option key={d} value={d}>
+              {d}
+            </option>
+          ))}
         </select>
+
       </div>
 
       {!hasSelection ? (

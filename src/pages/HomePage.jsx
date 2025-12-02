@@ -565,15 +565,19 @@ export default function HomePage() {
   function handleBookTickets() {
     if (!activeMovie) return
 
-    const datesForThisMovie = movies
-    .filter(m=> m.title === activeMovie.title)
-    .map(m => m.date)
+    const datesForThisMovie = Array.from(
+      new Set(
+        activeMovie.showtimes.flatMap(st => st.dates)
+      )
+    )
 
-    updateBooking({ 
-      movie: activeMovie, 
-      datesForMovie: datesForThisMovie 
+    updateBooking({
+      movie: activeMovie,
+      theatre: selectedTheatre,
+      date: selectedDate,
+      datesForMovie: datesForThisMovie
     })
-    
+
     navigate('/showtimes')
   }
 
