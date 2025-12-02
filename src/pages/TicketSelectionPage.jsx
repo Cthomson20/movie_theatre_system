@@ -3,6 +3,7 @@ import { ArrowRight, Search, Menu, ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import SeatSelectionPage from './SeatSelectionPage';
 import barbiePoster from '../assets/movie-posters/barbie-poster.jpg';
+import '../styles/TicketSelectionPage.css';
 
 export default function TicketSelectionPage() {
   const navigate = useNavigate();
@@ -31,7 +32,6 @@ export default function TicketSelectionPage() {
     const totalTickets = getTotalTickets();
     const newTotal = totalTickets - 1;
     
-    // If reducing tickets below current seat selection, clear seats
     if (newTotal < selectedSeats.length) {
       setSelectedSeats([]);
     }
@@ -42,7 +42,9 @@ export default function TicketSelectionPage() {
   };
 
   const handleSeatsSelected = (seats) => setSelectedSeats(seats);
-  const handleBack = () => window.history.back();
+  
+  const handleBack = () => navigate('/showtimes');
+  
   const handleContinue = () => {
     navigate('/payment', {
       state: {
@@ -277,133 +279,118 @@ export default function TicketSelectionPage() {
   };
 
   return (
-    <div style={styles.page}>
-      <header style={styles.header}>
-        <button onClick={handleBack} style={styles.backButton}>
-          <ChevronLeft size={24} />
-          <span>Back</span>
-        </button>
-
-        <h1 style={styles.headerTitle}>Ticket Selection</h1>
-
-        <div style={styles.headerIcons}>
-          <button style={{ background: 'none', border: 'none', color: '#fff' }}>
-            <Search size={24} />
-          </button>
-          <button style={{ background: 'none', border: 'none', color: '#fff' }}>
-            <Menu size={24} />
-          </button>
+    <div className="ticket-page">
+      <header className="payment-header">
+        <div className="header-content">
+          <img src="src/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <div className="header-icons">
+            <img src="src/assets/three_lines.png" className="header-icon" alt="Menu" />
+          </div>
         </div>
       </header>
 
-      <div style={styles.contentContainer}>
-        <div style={styles.leftColumn}>
-          <h2 style={styles.movieTitle}>Barbie (2023)</h2>
-          <div style={styles.posterContainer}>
-            <img src={barbiePoster} alt="Barbie Movie Poster" style={styles.moviePoster} />
-          </div>
-          <div style={styles.showtimeDetails}>
-            <p style={{ margin: 0 }}>Today, Sep 26, 2025</p>
-            <p style={{ margin: '0.25rem 0' }}>10:00 AM</p>
-            <p style={{ margin: '0.25rem 0' }}>CineNova MarketMall</p>
-            <p style={{ margin: '0.25rem 0' }}>3625 Shaganappi Trail NW</p>
-            <p style={{ margin: '0.25rem 0' }}>Calgary, AB</p>
-          </div>
-        </div>
+      <main className="ticket-main-content">
+        <button onClick={handleBack} className="ticket-back-button">
+          <span>← Back</span>
+        </button>
+        <div className="ticket-container">
 
-        <div style={styles.middleColumn}>
-          <div>
-            <div style={styles.regularBadge}>
-              <span style={styles.regularText}>Regular</span>
-              <span style={styles.ccBadge}>CC</span>
+          {/* Left Column */}
+          <div className="ticket-left-column">
+            <h2 className="ticket-movie-title">Barbie</h2>
+            <div className="ticket-poster-container">
+              <img src={barbiePoster} alt="Barbie Movie Poster" className="ticket-movie-poster" />
+            </div>
+            <div className="ticket-showtime-details">
+              <p style={{ fontWeight: 500 }}>Today, Sep 26, 2025</p>
+              <p>10:00 AM</p>
+              <p style={{ fontWeight: 500 }}>CineNova MarketMall</p>
+              <p>3625 Shaganappi Trail NW</p>
+              <p>Calgary, AB</p>
+            </div>
+          </div>
+
+          {/* Middle Column */}
+          <div className="ticket-middle-column">
+            <div className="ticket-regular-badge">
+              <span className="ticket-regular-text">Regular</span>
+              <span className="ticket-cc-badge">CC</span>
             </div>
 
-            <div style={styles.ticketCounters}>
-              <div style={styles.ticketRow}>
-                <span style={styles.ticketLabel}>General (14 - 64)</span>
-                <div style={styles.counterControls}>
-                  <button onClick={() => handleDecrement('general')} style={styles.counterButton}>-</button>
-                  <span style={styles.counterValue}>{generalTickets}</span>
-                  <button onClick={() => handleIncrement('general')} style={styles.counterButton}>+</button>
+            <div className="ticket-counters">
+              <div className="ticket-row">
+                <span className="ticket-label">General (14 - 64) <span className="ticket-price">$20</span></span>
+                <div className="ticket-counter-controls">
+                  <button onClick={() => handleDecrement('general')} className="ticket-counter-button">-</button>
+                  <span className="ticket-counter-value">{generalTickets}</span>
+                  <button onClick={() => handleIncrement('general')} className="ticket-counter-button">+</button>
                 </div>
               </div>
 
-              <div style={styles.ticketRow}>
-                <span style={styles.ticketLabel}>Child (3 - 13)</span>
-                <div style={styles.counterControls}>
-                  <button onClick={() => handleDecrement('child')} style={styles.counterButton}>-</button>
-                  <span style={styles.counterValue}>{childTickets}</span>
-                  <button onClick={() => handleIncrement('child')} style={styles.counterButton}>+</button>
+              <div className="ticket-row">
+                <span className="ticket-label">Child (3 - 13) <span className="ticket-price">$15</span></span>
+                <div className="ticket-counter-controls">
+                  <button onClick={() => handleDecrement('child')} className="ticket-counter-button">-</button>
+                  <span className="ticket-counter-value">{childTickets}</span>
+                  <button onClick={() => handleIncrement('child')} className="ticket-counter-button">+</button>
                 </div>
               </div>
 
-              <div style={styles.ticketRow}>
-                <span style={styles.ticketLabel}>Senior (65+)</span>
-                <div style={styles.counterControls}>
-                  <button onClick={() => handleDecrement('senior')} style={styles.counterButton}>-</button>
-                  <span style={styles.counterValue}>{seniorTickets}</span>
-                  <button onClick={() => handleIncrement('senior')} style={styles.counterButton}>+</button>
+              <div className="ticket-row">
+                <span className="ticket-label">Senior (65+) <span className="ticket-price">$10</span></span>
+                <div className="ticket-counter-controls">
+                  <button onClick={() => handleDecrement('senior')} className="ticket-counter-button">-</button>
+                  <span className="ticket-counter-value">{seniorTickets}</span>
+                  <button onClick={() => handleIncrement('senior')} className="ticket-counter-button">+</button>
                 </div>
               </div>
             </div>
 
-            <div style={styles.totalRow}>
+            <div className="ticket-total-row">
               <span>Tickets Total</span>
-              <span style={styles.totalValue}>{getTotalTickets()}</span>
+              <span className="ticket-total-value">{getTotalTickets()}</span>
             </div>
 
-            <button style={styles.promoButton}>
-              <span>
-                Add a <strong style={styles.promoLabelStrong}>Discount/Promotion</strong>
-              </span>
+            <button className="ticket-promo-button">
+              <span>Add a <strong className="ticket-promo-label-strong">Discount/Promotion</strong></span>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <ArrowRight size={20} />
               </div>
             </button>
 
-            <div style={styles.orderTotal}>
+            <div className="ticket-order-total">
               <span>Order Total</span>
               <span>$ {calculateTotal().toFixed(2)}</span>
             </div>
           </div>
-        </div>
-        <div style={styles.rightColumn}>
-          <button onClick={() => setShowSeatSelection(true)} style={styles.selectSeatsButton}>
-            Select Seats
-          </button>
 
-          <div style={styles.selectedSeatsInfo}>
-            <p style={styles.seatsLabel}>Seat(s) Selected:</p>
-            <p style={styles.seatsValue}>
-              {selectedSeats.length > 0 ? selectedSeats.join(', ') : '- No Seats Selected Yet -'}
-            </p>
+          {/* Right Column */}
+          <div className="ticket-right-column">
+            <button onClick={() => setShowSeatSelection(true)} className="ticket-select-seats-button">
+              Select Seats
+            </button>
+
+            <div className="ticket-selected-seats-info">
+              <p className="ticket-seats-label">Seat(s) Selected:</p>
+              <p className="ticket-seats-value">
+                {selectedSeats.length > 0 ? selectedSeats.join(', ') : '- No Seats Selected Yet -'}
+              </p>
+            </div>
+
+            <button
+              onClick={handleContinue}
+              disabled={selectedSeats.length === 0}
+              className="ticket-continue-button"
+            >
+              Continue
+            </button>
           </div>
-
-          <button
-            onClick={handleContinue}
-            disabled={selectedSeats.length === 0}
-            style={{
-              position: 'absolute',
-              right: '16px',
-              bottom: '16px',
-              backgroundColor: selectedSeats.length === 0 ? '#666' : '#fff',
-              color: selectedSeats.length === 0 ? '#aaa' : '#000',
-              padding: '1.25rem 2rem',
-              borderRadius: '0.5rem',
-              border: 'none',
-              fontSize: '1.25rem',
-              fontWeight: 600,
-              cursor: selectedSeats.length === 0 ? 'not-allowed' : 'pointer',
-            }}
-          >
-            Continue
-          </button>
         </div>
-      </div>
+      </main>
 
       {showSeatSelection && (
-        <div style={styles.modalOverlay} onClick={() => setShowSeatSelection(false)}>
-          <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        <div className="ticket-modal-overlay" onClick={() => setShowSeatSelection(false)}>
+          <div className="ticket-modal-content" onClick={(e) => e.stopPropagation()}>
             <SeatSelectionPage
               onClose={() => setShowSeatSelection(false)}
               onSeatsSelected={handleSeatsSelected}
