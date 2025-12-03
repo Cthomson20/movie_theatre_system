@@ -146,128 +146,148 @@ function ShowtimesPage() {
 
   return (
     <div className="showtimes-page">
-      {/* Top bar */}
-      <header className="showtimes-header">
-        <button className="back-button" onClick={handleBack}>
-          ← Back
-        </button>
-
-        <h1 className="showtimes-title">Showtimes</h1>
-
-        <div className="header-icons">
-          <img
-            src="src/assets/three_lines.png"
-            className="header-icon"
-            alt="Menu"
-          />
-          <img
-            src="src/assets/magnifying_glass.png"
-            className="header-icon"
-            alt="Search"
-          />
+      <header className="payment-header">
+        <div className="header-content">
+          <img src="src/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <div className="header-icons">
+            <img src="src/assets/three_lines.png" className="header-icon" alt="Menu" />
+          </div>
         </div>
       </header>
 
-      {/* Location + date filters */}
-      <div className="filters-row">
-        <select
-          className="filter-select"
-          value={selectedTheatre}
-          onChange={(e) => setSelectedTheatre(e.target.value)}
-        >
-          <option value="">THEATRE</option>
-          {theatreOptions.map(t => (
-            <option key={t} value={t}>
-              {t}
-            </option>
-          ))}
-        </select>
-
-
-        <select
-          className="filter-select"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-        >
-          <option value="">DATE</option>
-          {datesForMovie.map(d => (
-            <option key={d} value={d}>
-              {d}
-            </option>
-          ))}
-        </select>
-
-      </div>
-
-      {!hasSelection ? (
-        <div className="empty-state">
-          <p className="empty-message">
-            Please Select a theatre and date to see showtimes.
-          </p>
-        </div>
-      ) : (
-        <>
-          {showtimesForSelectedDate ? (
-            Object.entries(showtimesForSelectedDate).map(
-              ([formatName, times]) => (
-                <section className="showtime-section" key={formatName}>
-                  <div className="format-and-times">
-                    <div className="format-row">
-                      <span className="format-name">
-                        {formatName.includes("DOLBY ATMOS") ? (
-                          <>
-                            ULTRA AVX <br />
-                            DOLBY ATMOS
-                          </>
-                        ) : (
-                          formatName
-                        )}
-                      </span>
-                      <span className="format-badge">CC</span>
-                    </div>
-
-                    <div className="times-row">
-                      {times.map((time) => (
-                        <div className="time-seat-pair" key={time}>
-                          {/* time button */}
-                          <button
-                            className="time-button"
-                            onClick={() =>
-                              handleShowtimeClick(formatName, time)
-                            }
-                          >
-                            <span className="time-label">{time}</span>
-                          </button>
-
-                          {/* seat button */}
-                          <button
-                            className="seat-button"
-                            onClick={() =>
-                              handleSeatIconClick(formatName, time)
-                            }
-                          >
-                            <img
-                              src="src/assets/seat_icon.png"
-                              className="time-seat-icon"
-                              alt="Seat"
-                            />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </section>
-              )
-            )
-          ) : (
-            <div className="empty-state">
-              <p className="empty-message">
-                No showtimes available for this date.
-              </p>
+      <main className="payment-main">
+        <button className="ticket-back-button" onClick={handleBack}>
+          <span>← Back</span>
+        </button>
+        
+        <div className="showtimes-content">
+          <h1 className="showtimes-page-title">Showtimes</h1>
+          
+          {movieFromHome && (
+            <div className="movie-details-banner">
+              <img 
+                src={movieFromHome.image} 
+                alt={movieFromHome.title}
+                className="movie-banner-poster"
+              />
+              <div className="movie-banner-info">
+                <h2 className="movie-banner-title">{movieFromHome.title}</h2>
+                <div className="movie-banner-meta">
+                  <span>{movieFromHome.rating}</span>
+                  <span>•</span>
+                  <span>{movieFromHome.duration}</span>
+                  <span>•</span>
+                  <span>{movieFromHome.genre}</span>
+                  <span>•</span>
+                  <span>{movieFromHome.language}</span>
+                </div>
+                <p className="movie-banner-description">{movieFromHome.description}</p>
+              </div>
             </div>
           )}
-        </>
-      )}
+          
+          {/* Location + date filters */}
+          <div className="filters-row">
+            <select
+              className="filter-select"
+              value={selectedTheatre}
+              onChange={(e) => setSelectedTheatre(e.target.value)}
+            >
+              <option value="">THEATRE</option>
+              {theatreOptions.map(t => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+
+            <select
+              className="filter-select"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+            >
+              <option value="">DATE</option>
+              {datesForMovie.map(d => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="showtimes-list">
+            {!hasSelection ? (
+              <div className="empty-state">
+                <p className="empty-message">
+                  Please Select a theatre and date to see showtimes.
+                </p>
+              </div>
+            ) : (
+              <>
+                {showtimesForSelectedDate ? (
+                  Object.entries(showtimesForSelectedDate).map(
+                    ([formatName, times]) => (
+                      <section className="showtime-section" key={formatName}>
+                        <div className="format-and-times">
+                          <div className="format-row">
+                            <span className="format-name">
+                              {formatName.includes("DOLBY ATMOS") ? (
+                                <>
+                                  ULTRA AVX <br />
+                                  DOLBY ATMOS
+                                </>
+                              ) : (
+                                formatName
+                              )}
+                            </span>
+                            <span className="format-badge">CC</span>
+                          </div>
+
+                          <div className="times-row">
+                            {times.map((time) => (
+                              <div className="time-seat-pair" key={time}>
+                                {/* time button */}
+                                <button
+                                  className="time-button"
+                                  onClick={() =>
+                                    handleShowtimeClick(formatName, time)
+                                  }
+                                >
+                                  <span className="time-label">{time}</span>
+                                </button>
+
+                                {/* seat button */}
+                                <button
+                                  className="seat-button"
+                                  onClick={() =>
+                                    handleSeatIconClick(formatName, time)
+                                  }
+                                >
+                                  <img
+                                    src="src/assets/seat_icon.png"
+                                    className="time-seat-icon"
+                                    alt="Seat"
+                                  />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </section>
+                    )
+                  )
+                ) : (
+                  <div className="empty-state">
+                    <p className="empty-message">
+                      No showtimes available for this date.
+                    </p>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      </main>
 
       {/* Seat preview modal */}
       {isSeatPreviewOpen && previewData && (

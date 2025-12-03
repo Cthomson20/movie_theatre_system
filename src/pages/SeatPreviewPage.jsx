@@ -66,16 +66,38 @@ export default function SeatPreviewPage({
             right: '10px',
             width: '50px',
             height: '50px',
-            border: '2px solid #ef4444',
+            border: 'none',
             borderRadius: '50%',
-            background: 'transparent',
+            background: 'rgba(239, 68, 68, 0.15)',
+            backdropFilter: 'blur(10px)',
             color: '#ef4444',
-            fontSize: '28px',
+            fontSize: '24px',
+            fontWeight: '300',
+            lineHeight: '1',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             padding: 0,
+            paddingBottom: '2px',
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(239, 68, 68, 0.25)';
+            e.currentTarget.style.transform = 'scale(1.1) rotate(90deg)';
+            e.currentTarget.style.boxShadow = '0 4px 16px rgba(239, 68, 68, 0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(239, 68, 68, 0.15)';
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
+          }}
+          onMouseDown={(e) => {
+            e.currentTarget.style.transform = 'scale(0.95) rotate(90deg)';
+          }}
+          onMouseUp={(e) => {
+            e.currentTarget.style.transform = 'scale(1.1) rotate(90deg)';
           }}
         >
           ×
@@ -273,18 +295,27 @@ export default function SeatPreviewPage({
               onClick={onBookTickets}
               style={{
                 width: '100%',
-                backgroundColor: 'white',
+                backgroundColor: 'gold',
                 color: 'black',
-                fontWeight: 'bold',
-                padding: '10px',
+                fontWeight: '600',
+                padding: '10px 20px',
                 border: 'none',
                 borderRadius: '8px',
                 fontSize: '16px',
                 cursor: 'pointer',
                 marginTop: '16px',
+                transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-1px)';
+                e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.5)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              Book Tickets
+              Book tickets
             </button>
           </div>
         </div>
