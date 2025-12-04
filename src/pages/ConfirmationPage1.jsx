@@ -11,16 +11,16 @@ const ConfirmationPage1 = () => {
   const orderInfo = {
     orderNumber: '#H7MN324B6',
     movie: {
-      title: bookingData.movie?.title || 'Barbie',
-      poster: bookingData.movie?.image || 'src/assets/movie-posters/barbie-poster.jpg',
-      date: bookingData.date || 'Sep 26, 2025',
-      time: bookingData.time || '10:00 AM'
+      title: bookingData.movie?.title || '',
+      poster: bookingData.movie?.image || '',
+      date: bookingData.date || '',
+      time: bookingData.time || ''
     },
     theater: {
-      name: bookingData.theatre || 'CineNova MarketMall',
-      address: '3625 Shaganappi Trail NW',
-      city: 'Calgary',
-      province: 'AB'
+      name: bookingData.theatre || '',
+      address: bookingData.theatreAddress || '',
+      city: bookingData.theatreCity || '',
+      province: bookingData.theatreProvince || ''
     }
   };
 
@@ -68,7 +68,7 @@ const ConfirmationPage1 = () => {
         <div style="padding: 25px; text-align: center; background: #f8f9fa;">
           <div style="font-size: 14px; color: #666; margin-bottom: 15px;">SCAN FOR ENTRY</div>
           <div style="background: white; padding: 15px; display: inline-block; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-            <img src="${window.location.origin}/movie_theatre_system/assets/QRcode.png" alt="QR Code" style="width: 150px; height: 150px; display: block;" onerror="this.style.display='none'">
+            <img src="${window.location.origin}/movie_theatre_system/QRcode.png" alt="QR Code" style="width: 150px; height: 150px; display: block;" onerror="this.style.display='none'">
           </div>
         </div>
         
@@ -160,9 +160,9 @@ const ConfirmationPage1 = () => {
     <div className="confirmation-page">
       <header className="confirmation-header">
         <div className="header-content">
-          <img src="./src/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <img src={`${import.meta.env.BASE_URL}cinenova.png`} className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
-            <img src="./src/assets/three_lines.png" className="header-icon" alt="Menu" />
+            <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />
           </div>
         </div>
       </header>
@@ -204,7 +204,7 @@ const ConfirmationPage1 = () => {
               </div>
 
               <div className="qr-code">
-                <img src="./src/assets/QRcode.png" alt="QR Code" className="qr-image" />
+                <img src={`${import.meta.env.BASE_URL}QRcode.png`} alt="QR Code" className="qr-image" />
               </div>
 
               <div className="action-buttons">

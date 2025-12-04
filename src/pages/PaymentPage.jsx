@@ -32,15 +32,16 @@ const PaymentPage = () => {
                formData.email.trim() !== '';
     };
 
-    // Use passed data or fallback to defaults
+    // Use passed data or fallback to defaults ''
     const displayMovieInfo = {
-        title: movie?.title || 'Barbie',
-        poster: movie?.image || 'src/assets/movie-posters/barbie-poster.jpg',
-        date: bookingData.date || 'Sep 26, 2025',
-        time: bookingData.time || '10:00 AM',
-        theater: bookingData.theatre || 'CineNova Market Mall',
-        address: '3625 Shaganappi Trail NW',
-        city: 'Calgary, AB'
+        title: movie?.title || '',
+        poster: movie?.image || '',
+        date: bookingData.date || '',
+        time: bookingData.time || '',
+        theater: bookingData.theatre || '',
+        address: bookingData.theatreAddress || '',
+        city: bookingData.theatreCity || '',
+        province: bookingData.theatreProvince || ''
     };
 
     const displayTotal = total;
@@ -73,9 +74,9 @@ const PaymentPage = () => {
     <div className="payment-page">
       <header className="payment-header">
         <div className="header-content">
-          <img src="./src/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <img src={`${import.meta.env.BASE_URL}cinenova.png`} className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
-            <img src="./src/assets/three_lines.png" className="header-icon" alt="Menu" />
+            <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />
           </div>
         </div>
       </header>
