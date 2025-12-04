@@ -69,7 +69,7 @@ function getTodayString() {
 const movies = [
   { 
     title: 'Barbie',
-    image: `${import.meta.env.BASE_URL}assets/movie-posters/barbie-poster.jpg`,
+    image: './assets/movie-posters/barbie-poster.jpg',
     showtimes: [
       {
         theatre: "CineNova Market Mall",
@@ -89,7 +89,7 @@ const movies = [
   },
   { 
     title: 'Sinners', 
-    image: `${import.meta.env.BASE_URL}assets/movie-posters/sinners-poster.jpeg`,
+    image: './assets/movie-posters/sinners-poster.jpeg',
     showtimes: [
       {
         theatre: "CineNova Downtown",
@@ -105,7 +105,7 @@ const movies = [
   },
   { 
     title: 'Superman', 
-    image: `${import.meta.env.BASE_URL}assets/movie-posters/superman-poster.jpg`,
+    image: './assets/movie-posters/superman-poster.jpg',
     showtimes: [
       {
         theatre: "CineNova Market Mall",
@@ -125,7 +125,7 @@ const movies = [
   },
   { 
     title: 'Avatar', 
-    image: `${import.meta.env.BASE_URL}assets/movie-posters/avatar-poster.jpeg`,
+    image: './assets/movie-posters/avatar-poster.jpeg',
     showtimes: [
       {
         theatre: "CineNova Market Mall",
@@ -153,7 +153,7 @@ const movies = [
   },
   {
     title: 'Jaws', 
-    image: `${import.meta.env.BASE_URL}assets/movie-posters/jaws-poster.jpeg`,
+    image: './assets/movie-posters/jaws-poster.jpeg',
     showtimes: [
       {
         theatre: "CineNova Market Mall",
@@ -173,7 +173,7 @@ const movies = [
   },
   { 
     title: 'Zootopia 2', 
-    image: `${import.meta.env.BASE_URL}assets/movie-posters/zootopia2-poster.jpg`,
+    image: './assets/movie-posters/zootopia2-poster.jpg',
     showtimes: [
       {
         theatre: "CineNova Market Mall",
@@ -193,7 +193,7 @@ const movies = [
   },
   { 
     title: 'Moonlight', 
-    image: `${import.meta.env.BASE_URL}assets/movie-posters/moonlight-poster.jpg`,
+    image: './assets/movie-posters/moonlight-poster.jpg',
     showtimes: [
       {
         theatre: "CineNova NE",
@@ -213,7 +213,7 @@ const movies = [
   },
   { 
     title: 'Shrek 2', 
-    image: `${import.meta.env.BASE_URL}assets/movie-posters/shrek2-poster.jpg`,
+    image: './assets/movie-posters/shrek2-poster.jpg',
     showtimes: [
       {
         theatre: "CineNova Macleod Trail",
@@ -233,7 +233,7 @@ const movies = [
   },
   {
     title: 'Bugonia',
-    image: `${import.meta.env.BASE_URL}assets/movie-posters/bugonia-poster.jpg`,
+    image: './assets/movie-posters/bugonia-poster.jpg',
     showtimes: [
       {
         theatre: 'CineNova Market Mall',
@@ -261,7 +261,7 @@ const movies = [
   },
   {
     title: 'One Battle After Another',
-    image: `${import.meta.env.BASE_URL}assets/movie-posters/oneb-poster.jpg`,
+    image: './assets/movie-posters/oneb-poster.jpg',
     showtimes: [
       {
         theatre: 'CineNova NE',
@@ -285,7 +285,7 @@ const movies = [
   },
   {
     title: 'F1',
-    image: `${import.meta.env.BASE_URL}assets/movie-posters/f1-poster.jpg`,
+    image: './assets/movie-posters/f1-poster.jpg',
     showtimes: [
       {
         theatre: 'CineNova Market Mall',
@@ -309,7 +309,7 @@ const movies = [
   },
   {
     title: 'Interstellar',
-    image: `${import.meta.env.BASE_URL}assets/movie-posters/interstellar-poster.jpg`,
+    image: './assets/movie-posters/interstellar-poster.jpg',
     showtimes: [
       {
         theatre: 'CineNova Market Mall',
@@ -337,7 +337,7 @@ const movies = [
   },
   {
     title: 'Lady Bird',
-    image: `${import.meta.env.BASE_URL}assets/movie-posters/ladybird-poster.jpg`,
+    image: './assets/movie-posters/ladybird-poster.jpg',
     showtimes: [
       {
         theatre: 'CineNova Market Mall',
@@ -586,10 +586,10 @@ export default function HomePage() {
     <div className="app">
       <header className="payment-header">
         <div className="header-content">
-          <img src={`${import.meta.env.BASE_URL}assets/cinenova.png`} className="cinenova-logo" alt="CineNova" />
+          <img src="./assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
-            <img src={`${import.meta.env.BASE_URL}assets/three_lines.png`} className="header-icon" alt="Menu" />
-            <img src={`${import.meta.env.BASE_URL}assets/magnifying_glass.png`} className="header-icon" alt="Search" />
+            <img src="./assets/three_lines.png" className="header-icon" alt="Menu" />
+            <img src="./assets/magnifying_glass.png" className="header-icon" alt="Search" />
           </div>
         </div>
       </header>
@@ -704,7 +704,7 @@ export default function HomePage() {
             onClick={() => setIsFilterOpen(prev => !prev)}
             >
             <img
-                src={`${import.meta.env.BASE_URL}assets/filter.png`}
+                src="./assets/filter.png"
                 alt="Filters"
                 className="filters-toggle-img"
             />
