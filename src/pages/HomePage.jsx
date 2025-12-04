@@ -69,7 +69,7 @@ function getTodayString() {
 const movies = [
   { 
     title: 'Barbie',
-    image: 'src/assets/movie-posters/barbie-poster.jpg',
+    image: './assets/movie-posters/barbie-poster.jpg',
     showtimes: [
       {
         theatre: "CineNova Market Mall",
@@ -89,7 +89,7 @@ const movies = [
   },
   { 
     title: 'Sinners', 
-    image: 'src/assets/movie-posters/sinners-poster.jpeg',
+    image: './assets/movie-posters/sinners-poster.jpeg',
     showtimes: [
       {
         theatre: "CineNova Downtown",
@@ -105,7 +105,7 @@ const movies = [
   },
   { 
     title: 'Superman', 
-    image: 'src/assets/movie-posters/superman-poster.jpg',
+    image: './assets/movie-posters/superman-poster.jpg',
     showtimes: [
       {
         theatre: "CineNova Market Mall",
@@ -125,7 +125,7 @@ const movies = [
   },
   { 
     title: 'Avatar', 
-    image: 'src/assets/movie-posters/avatar-poster.jpeg',
+    image: './assets/movie-posters/avatar-poster.jpeg',
     showtimes: [
       {
         theatre: "CineNova Market Mall",
@@ -153,7 +153,7 @@ const movies = [
   },
   {
     title: 'Jaws', 
-    image: 'src/assets/movie-posters/jaws-poster.jpeg',
+    image: './assets/movie-posters/jaws-poster.jpeg',
     showtimes: [
       {
         theatre: "CineNova Market Mall",
@@ -173,7 +173,7 @@ const movies = [
   },
   { 
     title: 'Zootopia 2', 
-    image: 'src/assets/movie-posters/zootopia2-poster.jpg',
+    image: './assets/movie-posters/zootopia2-poster.jpg',
     showtimes: [
       {
         theatre: "CineNova Market Mall",
@@ -193,7 +193,7 @@ const movies = [
   },
   { 
     title: 'Moonlight', 
-    image: 'src/assets/movie-posters/moonlight-poster.jpg',
+    image: './assets/movie-posters/moonlight-poster.jpg',
     showtimes: [
       {
         theatre: "CineNova NE",
@@ -213,7 +213,7 @@ const movies = [
   },
   { 
     title: 'Shrek 2', 
-    image: 'src/assets/movie-posters/shrek2-poster.jpg',
+    image: './assets/movie-posters/shrek2-poster.jpg',
     showtimes: [
       {
         theatre: "CineNova Macleod Trail",
@@ -233,7 +233,7 @@ const movies = [
   },
   {
     title: 'Bugonia',
-    image: 'src/assets/movie-posters/bugonia-poster.jpg',
+    image: './assets/movie-posters/bugonia-poster.jpg',
     showtimes: [
       {
         theatre: 'CineNova Market Mall',
@@ -261,7 +261,7 @@ const movies = [
   },
   {
     title: 'One Battle After Another',
-    image: 'src/assets/movie-posters/oneb-poster.jpg',
+    image: './assets/movie-posters/oneb-poster.jpg',
     showtimes: [
       {
         theatre: 'CineNova NE',
@@ -285,7 +285,7 @@ const movies = [
   },
   {
     title: 'F1',
-    image: 'src/assets/movie-posters/f1-poster.jpg',
+    image: './assets/movie-posters/f1-poster.jpg',
     showtimes: [
       {
         theatre: 'CineNova Market Mall',
@@ -309,7 +309,7 @@ const movies = [
   },
   {
     title: 'Interstellar',
-    image: 'src/assets/movie-posters/interstellar-poster.jpg',
+    image: './assets/movie-posters/interstellar-poster.jpg',
     showtimes: [
       {
         theatre: 'CineNova Market Mall',
@@ -337,7 +337,7 @@ const movies = [
   },
   {
     title: 'Lady Bird',
-    image: 'src/assets/movie-posters/ladybird-poster.jpg',
+    image: './assets/movie-posters/ladybird-poster.jpg',
     showtimes: [
       {
         theatre: 'CineNova Market Mall',

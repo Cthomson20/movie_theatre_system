@@ -35,7 +35,7 @@ const PaymentPage = () => {
     // Use passed data or fallback to defaults
     const displayMovieInfo = {
         title: movie?.title || 'Barbie',
-        poster: movie?.image || 'src/assets/movie-posters/barbie-poster.jpg',
+        poster: movie?.image || './assets/movie-posters/barbie-poster.jpg',
         date: bookingData.date || 'Sep 26, 2025',
         time: bookingData.time || '10:00 AM',
         theater: bookingData.theatre || 'CineNova Market Mall',

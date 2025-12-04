@@ -12,7 +12,7 @@ const ConfirmationPage3 = () => {
     orderNumber: '#H7MN324B6',
     movie: {
       title: bookingData.movie?.title || 'Barbie',
-      poster: bookingData.movie?.image || 'src/assets/movie-posters/barbie-poster.jpg',
+      poster: bookingData.movie?.image || './assets/movie-posters/barbie-poster.jpg',
       date: bookingData.date || 'Sep 26, 2025',
       time: bookingData.time || '10:00 AM'
     },
