@@ -57,28 +57,9 @@ export default function SeatPreviewPage({
           border: '2px solid #333',
         }}
       >
-        {/* Close Button */}
-        <button
-          onClick= {onClose}
-          style={{
-            position: 'absolute',
-            top: '10px',
-            right: '10px',
-            width: '50px',
-            height: '50px',
-            border: '2px solid #ef4444',
-            borderRadius: '50%',
-            background: 'transparent',
-            color: '#ef4444',
-            fontSize: '28px',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 0,
-          }}
-        >
-          ×
+        {/* Close button */}
+        <button onClick={onClose} className="seat-close-button">
+         ×
         </button>
 
         <div
@@ -254,6 +235,8 @@ export default function SeatPreviewPage({
               </span>
             </div>
 
+            
+
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
               <div
                 style={{
@@ -282,6 +265,15 @@ export default function SeatPreviewPage({
                 fontSize: '16px',
                 cursor: 'pointer',
                 marginTop: '16px',
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#FFD700';
+                e.target.style.transform = 'scale(1.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = 'white';
+                e.target.style.transform = 'scale(1)';
               }}
             >
               Book Tickets
