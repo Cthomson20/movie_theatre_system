@@ -15,7 +15,7 @@ function App() {
 
   return (
     <BookingProvider>
-      <Router>
+      <Router basename="/movie_theatre_system">
         <Routes>
           <Route path="/" element={<HomePage/>} />        
           <Route path="/showtimes" element={<ShowtimesPage />} />
