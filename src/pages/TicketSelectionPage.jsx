@@ -276,9 +276,9 @@ export default function TicketSelectionPage() {
     <div className="ticket-page">
       <header className="payment-header">
         <div className="header-content">
-          <img src="src/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <img src="/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
-            <img src="src/assets/three_lines.png" className="header-icon" alt="Menu" />
+            <img src="/assets/three_lines.png" className="header-icon" alt="Menu" />
           </div>
         </div>
       </header>

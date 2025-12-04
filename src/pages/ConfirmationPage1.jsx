@@ -160,9 +160,9 @@ const ConfirmationPage1 = () => {
     <div className="confirmation-page">
       <header className="confirmation-header">
         <div className="header-content">
-          <img src="src/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <img src="/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
-            <img src="src/assets/three_lines.png" className="header-icon" alt="Menu" />
+            <img src="/assets/three_lines.png" className="header-icon" alt="Menu" />
           </div>
         </div>
       </header>
@@ -204,7 +204,7 @@ const ConfirmationPage1 = () => {
               </div>
 
               <div className="qr-code">
-                <img src="src/assets/QRcode.png" alt="QR Code" className="qr-image" />
+                <img src="/assets/QRcode.png" alt="QR Code" className="qr-image" />
               </div>
 
               <div className="action-buttons">
