@@ -1,179 +1,206 @@
 
 
 .showtimes-page{
-    min-width: 176vh;
     min-height: 100vh;
-    background-color: #111111;
+    background-color: #000;
     color: #fff;  
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     display: flex;
     flex-direction: column;
-
 }
 
-.showtimes-header {
-  display: grid;
-  grid-template-columns: auto 1fr auto; /* left | middle | right */
-  align-items: center;
-
+.showtimes-content {
+  max-width: 1400px;
   width: 100%;
-  margin: 0 auto 20px;        /* center the whole bar in the page */
-  padding: 20px 40px;
-  height: 100px;
-
-  background-color: #000;
-  border-bottom: 1px solid #333;
-  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
-/* Left side */
-.back-button {
-  border: none;
-  background: none;
-  color: #fff;
-  font-size: 1.4rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-/* Center */
-.showtimes-title {
-  grid-column: 2;        /* in the middle column (implicit already, but clear) */
-  justify-self: center;  /* center the h1 within that column */
-  text-align: center;    /* center text inside the h1 */
-  font-size: 1.6rem;
+.showtimes-page-title {
+  text-align: center;
+  padding-top: 2rem;
+  font-size: 2rem;
   font-weight: 600;
+  margin: 0 0 2rem 0;
+  color: #fff;
+}
+
+.movie-details-banner {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.movie-banner-poster {
+  width: 150px;
+  height: 225px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.movie-banner-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.movie-banner-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+}
+
+.movie-banner-meta {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #aaa;
+}
+
+.movie-banner-meta span {
+  white-space: nowrap;
+}
+
+.movie-banner-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ccc;
   margin: 0;
 }
 
-
-/* Right side */
-.header-icons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 16px;
+.showtimes-list {
+  margin-top: 2rem;
 }
-
-.header-icon {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-}
-
 
 .filters-row {
   display: flex;
-  gap: 120px;
-  padding: 0px 50px;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 0;
 }
 
 /* Individual dropdown (select) */
 .filter-select {
-  flex: 1;               /* both dropdowns share space evenly */
-  padding: 8px 12px;
-  border-radius: 10px;  /* pill shape */
-  border: 2px solid #333;
-  font-size: 1.1rem;
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  font-size: 1rem;
   font-weight: 400;
-  background-color: #fff;
-  color: #000;
+  background-color: #1a1a1a;
+  color: #fff;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .filter-select:hover,
 .filter-select:focus{
-  outline: 1px purple ;
+  outline: none;
+  border-color: #666;
+  background-color: #222;
 }
 
 .empty-state {
-  margin-top: 120px;
+  margin-top: 4rem;
   text-align: center;
 }
 
 .empty-message {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  color: #999;
 }
 
-/* Each format section: REGULAR, VIP, ULTRA AVX */
+/* Each format section: GENERAL, VIP, ULTRA AVX */
 .showtime-section {
-  padding: 20px 40px;
-  margin: 50px 0;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #333;
+  overflow: column;
 }
 
-.showtime-section + .showtime-section {
-  border-top: 1px solid #ffffff;
-  padding-top: 16px
+.showtime-section:last-child {
+  border-bottom: none;
 }
 
 
-/* Row with "REGULAR  CC" text */
+/* Row with "GENERAL  CC" text */
 .format-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 1.2rem;
-  letter-spacing: 0.08em;
+  gap: 12px;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
+  min-width: 200px;
+}
 
-  width: 220px;
-  flex-shrink: 0;
+.format-name {
+  font-weight: 600;
 }
 
 /* Little "CC" badge */
 .format-badge {
-  font-size: 0.7rem;
-  padding: 2px 6px;
-  background-color: #ccc;
-  color: #000;
+  font-size: 0.65rem;
+  padding: 3px 8px;
+  background-color: #666;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 600;
 }
 
 .format-and-times {
   display: flex;
   align-items: center;
-  padding: 25px;
+  gap: 3rem;
+  padding: 1rem 0;
 }
 
 
 /* Row of showtime buttons */
 .times-row {
   display: flex;
-  flex-wrap: wrap;   /* allow wrapping if narrow */
-  gap: 50px;
-  margin-top: 0px;
-  margin-left: 150px;
-  
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  flex: 1;
 }
 
 /* The container button for time + seat */
 .time-seat-pair {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 8px;
 }
 
 
 .time-button {
-  background: #1c1c1c;
-  padding: 7px;
+  background: transparent;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  display: inline-flex;    /* lay children in a row */
-  align-items: center;     /* vertically align them */
-  gap:3px;
   position: relative;
+  transition: transform 0.2s;
+}
+
+.time-button:hover {
+  transform: scale(1.05);
 }
 
 .time-button:hover::after {
   content: "Book this showtime";
   position: absolute;
-  top: -35px;           /* adjust position */
+  top: -40px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 6px 10px;
+  padding: 6px 12px;
   font-size: 0.75rem;
   color: white;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0,0,0,0.9);
   border-radius: 6px;
   white-space: nowrap;
   pointer-events: none;
@@ -181,25 +208,31 @@
 }
 
 .seat-button {
-  background: #1c1c1c;  /* keeps the dark box since you like it */
-  padding: 7px;
+  background: transparent;
+  border: none;
+  padding: 0;
   cursor: pointer;
   display: flex;
-  align-items: center;  /* ensures the icon sits in middle */
+  align-items: center;
   justify-content: center;
   position: relative;
+  transition: transform 0.2s;
+}
+
+.seat-button:hover {
+  transform: scale(1.1);
 }
 
 .seat-button:hover::after {
   content: "Preview seats";
   position: absolute;
-  top: -35px;           /* adjust position */
+  top: -40px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 6px 10px;
+  padding: 6px 12px;
   font-size: 0.75rem;
   color: white;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0,0,0,0.9);
   border-radius: 6px;
   white-space: nowrap;
   pointer-events: none;
@@ -212,18 +245,28 @@
 .time-label {
   background-color: #fff;
   color: #000;
-  padding: 13px 18px;
-  cursor: pointer;
-  font-size: 1.3rem;
-  border-radius: 10%;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.time-button:hover .time-label {
+  background-color: #f0f0f0;
 }
 
 /* Seat + lock icons next to the time */
 .time-seat-icon{
-  width: 50px;
-  height: 50px;
-  border-radius: 10%;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
   object-fit: contain;
+  transition: opacity 0.2s;
+}
+
+.seat-button:hover .time-seat-icon {
+  opacity: 0.8;
 }
 
 .seat-preview-overlay {
