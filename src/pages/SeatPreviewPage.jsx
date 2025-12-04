@@ -36,17 +36,6 @@ export default function SeatPreviewPage({
 
   return (
     <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: 0,
-        padding: 0,
-      }}
-    >
-      <div
         style={{
           backgroundColor: '#1f2937',
           borderRadius: '24px',
@@ -278,7 +267,6 @@ export default function SeatPreviewPage({
             >
               Book Tickets
             </button>
-          </div>
         </div>
       </div>
     </div>
