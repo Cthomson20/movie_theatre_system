@@ -586,10 +586,10 @@ export default function HomePage() {
     <div className="app">
       <header className="payment-header">
         <div className="header-content">
-          <img src="/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <img src="./assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
-            <img src="/assets/three_lines.png" className="header-icon" alt="Menu" />
-            <img src="/assets/magnifying_glass.png" className="header-icon" alt="Search" />
+            <img src="./assets/three_lines.png" className="header-icon" alt="Menu" />
+            <img src="./assets/magnifying_glass.png" className="header-icon" alt="Search" />
           </div>
         </div>
       </header>
@@ -704,7 +704,7 @@ export default function HomePage() {
             onClick={() => setIsFilterOpen(prev => !prev)}
             >
             <img
-                src="/assets/filter.png"
+                src="./assets/filter.png"
                 alt="Filters"
                 className="filters-toggle-img"
             />

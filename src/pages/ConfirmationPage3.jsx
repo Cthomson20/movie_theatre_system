@@ -64,7 +64,7 @@ const ConfirmationPage3 = () => {
         <div style="padding: 25px; text-align: center; background: #f8f9fa;">
           <div style="font-size: 14px; color: #666; margin-bottom: 15px;">SCAN FOR ENTRY</div>
           <div style="background: white; padding: 15px; display: inline-block; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-            <img src="${window.location.origin}/src/assets/QRcode.png" alt="QR Code" style="width: 150px; height: 150px; display: block;" onerror="this.style.display='none'">
+            <img src="${window.location.origin}/movie_theatre_system/assets/QRcode.png" alt="QR Code" style="width: 150px; height: 150px; display: block;" onerror="this.style.display='none'">
           </div>
         </div>
         
@@ -160,9 +160,9 @@ const ConfirmationPage3 = () => {
     <div className="confirmation-page">
       <header className="confirmation-header">
         <div className="header-content">
-          <img src="/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <img src="./assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
-            <img src="/assets/three_lines.png" className="header-icon" alt="Menu" />
+            <img src="./assets/three_lines.png" className="header-icon" alt="Menu" />
           </div>
         </div>
       </header>
@@ -206,7 +206,7 @@ const ConfirmationPage3 = () => {
               </div>
 
               <div className="qr-code">
-                <img src="/assets/QRcode.png" alt="QR Code" className="qr-image" />
+                <img src="./assets/QRcode.png" alt="QR Code" className="qr-image" />
               </div>
 
               <div className="action-buttons">
