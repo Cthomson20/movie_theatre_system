@@ -160,9 +160,9 @@ const ConfirmationPage3 = () => {
     <div className="confirmation-page">
       <header className="confirmation-header">
         <div className="header-content">
-          <img src="./assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <img src="./src/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
-            <img src="./assets/three_lines.png" className="header-icon" alt="Menu" />
+            <img src="./src/assets/three_lines.png" className="header-icon" alt="Menu" />
           </div>
         </div>
       </header>
