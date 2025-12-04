@@ -66,9 +66,9 @@ const ConfirmationPage2 = () => {
     <div className="confirmation-page">
       <header className="confirmation-header">
         <div className="header-content">
-          <img src="./assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <img src={`${import.meta.env.BASE_URL}assets/cinenova.png`} className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
-            <img src="./assets/three_lines.png" className="header-icon" alt="Menu" />
+            <img src={`${import.meta.env.BASE_URL}assets/three_lines.png`} className="header-icon" alt="Menu" />
           </div>
         </div>
       </header>
@@ -108,7 +108,7 @@ const ConfirmationPage2 = () => {
               <div className="delivery-section">
                 {/* QR Code replaces "Email Tickets" title */}
                 <div className="qr-code">
-                  <img src="./assets/QRcode.png" alt="QR Code" className="qr-image" />
+                  <img src={`${import.meta.env.BASE_URL}assets/QRcode.png`} alt="QR Code" className="qr-image" />
                 </div>
                 
                 <div className="delivery-toggle">

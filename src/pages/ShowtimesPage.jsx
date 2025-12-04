@@ -156,12 +156,12 @@ function ShowtimesPage() {
 
         <div className="header-icons">
           <img
-            src="./assets/three_lines.png"
+            src={`${import.meta.env.BASE_URL}assets/three_lines.png`}
             className="header-icon"
             alt="Menu"
           />
           <img
-            src="./assets/magnifying_glass.png"
+            src={`${import.meta.env.BASE_URL}assets/magnifying_glass.png`}
             className="header-icon"
             alt="Search"
           />
@@ -247,7 +247,7 @@ function ShowtimesPage() {
                             }
                           >
                             <img
-                              src="./assets/seat_icon.png"
+                              src={`${import.meta.env.BASE_URL}assets/seat_icon.png`}
                               className="time-seat-icon"
                               alt="Seat"
                             />
