@@ -172,9 +172,8 @@ function ShowtimesPage() {
         <button className="ticket-back-button" onClick={handleBack}>
           <span>← Back</span>
         </button>
-        <div className="showtimes-container">
-          <h1 className="showtimes-title">Showtimes</h1>
-          {/* Movie Selection Container */}
+
+        {/* Movie Selection Container */}
           {movieFromHome && (
             <div className="movie-selection-container">
               <img src={movieFromHome.image} className="movie-poster" alt={movieFromHome.title} />
@@ -193,6 +192,9 @@ function ShowtimesPage() {
               </div>
             </div>
           )}
+        <div className="showtimes-container">
+         
+          
 
 
 
