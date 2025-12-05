@@ -79,6 +79,9 @@ function ShowtimesPage() {
     bookingData.date || ""
   );
 
+  const [theatreMenuOpen, setTheatreMenuOpen] = useState(false);
+  const [dateMenuOpen, setDateMenuOpen] = useState(false);
+
   const [isSeatPreviewOpen, setIsSeatPreviewOpen] = useState(false);
   const [previewData, setPreviewData] = useState(null);
 
@@ -148,53 +151,151 @@ function ShowtimesPage() {
     <div className="showtimes-page">
       {/* Top bar */}
       <header className="showtimes-header">
-        <button className="back-button" onClick={handleBack}>
-          ← Back
-        </button>
-
-        <h1 className="showtimes-title">Showtimes</h1>
-
-        <div className="header-icons">
-          <img
-            src={`${import.meta.env.BASE_URL}three_lines.png`}
-            className="header-icon"
-            alt="Menu"
-          />
+        <div className="header-content">
+          <img src="./cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <div className="header-icons">
+            <img src="./three_lines.png" className="header-icon" alt="Menu" />
+          </div>
         </div>
       </header>
 
-      {/* Location + date filters */}
-      <div className="filters-row">
-        <select
-          className="filter-select"
-          value={selectedTheatre}
-          onChange={(e) => setSelectedTheatre(e.target.value)}
-        >
-          <option value="">THEATRE</option>
-          {theatreOptions.map(t => (
-            <option key={t} value={t}>
-              {t}
-            </option>
-          ))}
-        </select>
+      <main className="showtimes-main">
+        {(theatreMenuOpen || dateMenuOpen) && (
+          <div
+            className="click-overlay"
+            onClick={() => {
+              setTheatreMenuOpen(false);
+              setDateMenuOpen(false);
+            }}
+          />
+        )}
+        <button className="ticket-back-button" onClick={handleBack}>
+          <span>← Back</span>
+        </button>
+
+        {/* Movie Selection Container */}
+          {movieFromHome && (
+            <div className="movie-selection-container">
+              <img src={movieFromHome.image} className="movie-poster" alt={movieFromHome.title} />
+              <div className="movie-selected-info">
+                <h2 className="movie-title">{movieFromHome.title}</h2>
+                <div className="movie-meta">
+                  <span className="meta-item">{movieFromHome.rating}</span>
+                  <span className="meta-separator">•</span>
+                  <span className="meta-item">{movieFromHome.duration}</span>
+                  <span className="meta-separator">•</span>
+                  <span className="meta-item">{movieFromHome.genre}</span>
+                  <span className="meta-separator">•</span>
+                  <span className="meta-item">{movieFromHome.language}</span>
+                </div>
+                <p className="movie-description">{movieFromHome.description}</p>
+              </div>
+            </div>
+          )}
+        <div className="showtimes-container">
+         
+          
 
 
-        <select
-          className="filter-select"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-        >
-          <option value="">DATE</option>
-          {datesForMovie.map(d => (
-            <option key={d} value={d}>
-              {d}
-            </option>
-          ))}
-        </select>
 
-      </div>
+          {/* Location + date filters */}
+          <div className="filters-row">
+            <div className="theatre-wrapper">
+              <button
+                type="button"
+                className="filter-select theatre-button"
+                onClick={() => setTheatreMenuOpen(prev => !prev)}
+              >
+                <span>
+                  {selectedTheatre === "" ? "THEATRE" : selectedTheatre}
+                </span>
+                <svg
+                  className="date-arrow"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 7L10 12L15 7"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
 
-      {!hasSelection ? (
+              {theatreMenuOpen && (
+                <div className="theatre-dropdown">
+                  {theatreOptions.map(option => (
+                    <button
+                      key={option}
+                      type="button"
+                      className={
+                        'theatre-option' +
+                        (selectedTheatre === option ? ' theatre-option-active' : '')
+                      }
+                      onClick={() => {
+                        setSelectedTheatre(option);
+                        setTheatreMenuOpen(false);
+                      }}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="date-wrapper">
+              <button
+                type="button"
+                className="filter-select date-button"
+                onClick={() => setDateMenuOpen(prev => !prev)}
+              >
+                <span>{selectedDate === "" ? "DATE" : selectedDate}</span>
+                <svg
+                  className="date-arrow"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 7L10 12L15 7"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+
+              {dateMenuOpen && (
+                <div className="date-dropdown">
+                  {datesForMovie.map(d => (
+                    <button
+                      key={d}
+                      type="button"
+                      className={
+                        'date-option' +
+                        (selectedDate === d ? ' date-option-active' : '')
+                      }
+                      onClick={() => {
+                        setSelectedDate(d);
+                        setDateMenuOpen(false);
+                      }}
+                    >
+                      {d}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+        {!hasSelection ? (
         <div className="empty-state">
           <p className="empty-message">
             Please Select a theatre and date to see showtimes.
@@ -262,7 +363,9 @@ function ShowtimesPage() {
             </div>
           )}
         </>
-      )}
+        )}
+        </div>
+      </main>
 
       {/* Seat preview modal */}
       {isSeatPreviewOpen && previewData && (
