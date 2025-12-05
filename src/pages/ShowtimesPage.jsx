@@ -152,9 +152,9 @@ function ShowtimesPage() {
       {/* Top bar */}
       <header className="showtimes-header">
         <div className="header-content">
-          <img src="./public/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <img src="./cinenova.png" className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
-            <img src="./public/three_lines.png" className="header-icon" alt="Menu" />
+            <img src="./three_lines.png" className="header-icon" alt="Menu" />
           </div>
         </div>
       </header>
