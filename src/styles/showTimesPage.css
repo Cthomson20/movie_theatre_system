@@ -3,7 +3,7 @@
 /* showTimesPage.css */
 .showtimes-page {
   min-height: 100vh;
-  width: calc(100vw - 0.76vw); /* subtract distance for the scrol bar (removes horizontal scroll*/
+  /* subtract distance for the scrol bar (removes horizontal scroll*/
   background-color: #050505;
   color: #ffffff;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -52,7 +52,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  width: 100%;
+  width: 100vw;
   min-height: calc(100vh - 100px);  
   background-color: #111111;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
