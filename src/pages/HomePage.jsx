@@ -592,268 +592,269 @@ export default function HomePage() {
           </div>
         </div>
       </header>
-
-      <div className="content">
-        {(isFilterOpen || calendarOpen || theatreMenuOpen) && (
-          <div
-            className="click-overlay"
-            onClick={() => {
-              setIsFilterOpen(false)
-              setCalendarOpen(false)
-              setTheatreMenuOpen(false)
-            }}
-          />
-        )}
-        <h1 className="page-title">Movies</h1>
-
-        {/* Filter bar */}
-        <div className="filters-row">
-        <div className="filters-left">
-           <div className="theatre-wrapper">
-            <button
-              type="button"
-              className="filter-select date-button theatre-button"
-              onClick={() => setTheatreMenuOpen(prev => !prev)}
-            >
-              <span>
-                {theatreFilter === 'All' ? 'All theatres' : theatreFilter}
-              </span>
-              <svg
-                className="date-arrow"
-                width="12"
-                height="12"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 7L10 12L15 7"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
-
-            {theatreMenuOpen && (
-              <div className="theatre-dropdown">
-                {theatreOptions.map(option => (
-                  <button
-                    key={option}
-                    type="button"
-                    className={
-                      'theatre-option' +
-                      (theatreFilter === option ? ' theatre-option-active' : '')
-                    }
-                    onClick={() => {
-                      setTheatreFilter(option)
-                      setTheatreMenuOpen(false)
-                    }}
-                  >
-                    {option === 'All' ? 'All theatres' : option}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="date-wrapper">
-            <button
-              type="button"
-              className="filter-select date-button"
-              onClick={() => setCalendarOpen(prev => !prev)}
-            >
-              <span>{formatNiceDate(dateFilter)}</span>
-              <svg
-                className="date-arrow"
-                width="12"
-                height="12"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 7L10 12L15 7"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-
-            </button>
-
-            {calendarOpen && (
-              <div className="calendar-dropdown">
-                <Calendar 
-                validDates={validDates}
-                selectedDate={dateFilter} 
-                onSelect={(date) => { setDateFilter(date); setCalendarOpen(false) }} />
-              </div>
-            )}
-          </div>
-        </div>
-
-
-        <div className="filters-right">
-          <div className='filters-wrapper'>
-            <button
-            className="filters-toggle-btn"
-            type="button"
-            onClick={() => setIsFilterOpen(prev => !prev)}
-            >
-            <img
-                src={`${import.meta.env.BASE_URL}filter.png`}
-                alt="Filters"
-                className="filters-toggle-img"
+      <div className='homepage-main'>
+        <div className="content">
+          {(isFilterOpen || calendarOpen || theatreMenuOpen) && (
+            <div
+              className="click-overlay"
+              onClick={() => {
+                setIsFilterOpen(false)
+                setCalendarOpen(false)
+                setTheatreMenuOpen(false)
+              }}
             />
-            </button>
-        </div>
+          )}
+          <h1 className="page-title">Movies</h1>
 
-        {isFilterOpen && (
-            <div className="filters-panel">
-            <div className="filters-section">
-                <p className="filters-section-title">Rating</p>
-                {ratingOptionsList.map(r => (
-                <label key={r} className="checkbox-label">
-                    <input
-                    type="checkbox"
-                    checked={selectedRatings.includes(r)}
-                    onChange={() =>
-                        toggleItem(r, selectedRatings, setSelectedRatings)
-                    }
-                    />
-                    <span>{r}</span>
-                </label>
-                ))}
-            </div>
-          
+          {/* Filter bar */}
+          <div className="filters-row">
+          <div className="filters-left">
+            <div className="theatre-wrapper">
+              <button
+                type="button"
+                className="filter-select date-button theatre-button"
+                onClick={() => setTheatreMenuOpen(prev => !prev)}
+              >
+                <span>
+                  {theatreFilter === 'All' ? 'All theatres' : theatreFilter}
+                </span>
+                <svg
+                  className="date-arrow"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 7L10 12L15 7"
+                    stroke="black"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
 
-            <div className="filters-section">
-                <p className="filters-section-title">Genre</p>
-                {genreOptionsList.map(g => (
-                <label key={g} className="checkbox-label">
-                    <input
-                    type="checkbox"
-                    checked={selectedGenres.includes(g)}
-                    onChange={() =>
-                        toggleItem(g, selectedGenres, setSelectedGenres)
-                    }
-                    />
-                    <span>{g}</span>
-                </label>
-                ))}
+              {theatreMenuOpen && (
+                <div className="theatre-dropdown">
+                  {theatreOptions.map(option => (
+                    <button
+                      key={option}
+                      type="button"
+                      className={
+                        'theatre-option' +
+                        (theatreFilter === option ? ' theatre-option-active' : '')
+                      }
+                      onClick={() => {
+                        setTheatreFilter(option)
+                        setTheatreMenuOpen(false)
+                      }}
+                    >
+                      {option === 'All' ? 'All theatres' : option}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
+
+            <div className="date-wrapper">
+              <button
+                type="button"
+                className="filter-select date-button"
+                onClick={() => setCalendarOpen(prev => !prev)}
+              >
+                <span>{formatNiceDate(dateFilter)}</span>
+                <svg
+                  className="date-arrow"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 7L10 12L15 7"
+                    stroke="black"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+
+              </button>
+
+              {calendarOpen && (
+                <div className="calendar-dropdown">
+                  <Calendar 
+                  validDates={validDates}
+                  selectedDate={dateFilter} 
+                  onSelect={(date) => { setDateFilter(date); setCalendarOpen(false) }} />
+                </div>
+              )}
+            </div>
+          </div>
+
+
+          <div className="filters-right">
+            <div className='filters-wrapper'>
+              <button
+              className="filters-toggle-btn"
+              type="button"
+              onClick={() => setIsFilterOpen(prev => !prev)}
+              >
+              <img
+                  src={`${import.meta.env.BASE_URL}filter.png`}
+                  alt="Filters"
+                  className="filters-toggle-img"
+              />
+              </button>
+          </div>
+
+          {isFilterOpen && (
+              <div className="filters-panel">
+              <div className="filters-section">
+                  <p className="filters-section-title">Rating</p>
+                  {ratingOptionsList.map(r => (
+                  <label key={r} className="checkbox-label">
+                      <input
+                      type="checkbox"
+                      checked={selectedRatings.includes(r)}
+                      onChange={() =>
+                          toggleItem(r, selectedRatings, setSelectedRatings)
+                      }
+                      />
+                      <span>{r}</span>
+                  </label>
+                  ))}
+              </div>
             
 
-            <div className="filters-section">
-                <p className="filters-section-title">Language</p>
-                {languageOptionsList.map(l => (
-                <label key={l} className="checkbox-label">
-                    <input
-                    type="checkbox"
-                    checked={selectedLanguages.includes(l)}
-                    onChange={() =>
-                        toggleItem(l, selectedLanguages, setSelectedLanguages)
-                    }
-                    />
-                    <span>{l}</span>
-                </label>
-                ))}
-            </div>
-
-            <div className="filters-panel-footer">
-                <button
-                type="button"
-                className="filters-clear"
-                onClick={() => {
-                    setSelectedRatings([])
-                    setSelectedGenres([])
-                    setSelectedLanguages([])
-                }}
-                >
-                Clear Filters
-                </button>
-
-                <button
-                type="button"
-                className="filters-apply"
-                onClick={() => setIsFilterOpen(false)}
-                >
-                Close
-                </button>
-            </div>
-            </div>
-        )}
-        </div>
-        </div>
-
-
-        {/* Movies grid */}
-        <div className="movie-grid">
-          {filteredMovies.map(movie => (
-            <div
-              key={movie.title}
-              className="movie-card"
-              onClick={() => handleMovieClick(movie)}
-            >
-              <div className="poster-wrapper">
-                <img
-                  src={movie.image}
-                  className="poster"
-                  alt={movie.title}
-                />
+              <div className="filters-section">
+                  <p className="filters-section-title">Genre</p>
+                  {genreOptionsList.map(g => (
+                  <label key={g} className="checkbox-label">
+                      <input
+                      type="checkbox"
+                      checked={selectedGenres.includes(g)}
+                      onChange={() =>
+                          toggleItem(g, selectedGenres, setSelectedGenres)
+                      }
+                      />
+                      <span>{g}</span>
+                  </label>
+                  ))}
               </div>
-              <p className="movie-title">{movie.title} →</p>
-            </div>
-          ))}
-        </div>
-      </div>
+              
 
-      {activeMovie && (
-        <div className="modal-backdrop" onClick={handleCloseModal}>
-          <div
-            className="modal"
-            onClick={e => e.stopPropagation()}
-          >
-            <div className="modal-poster-wrapper">
-              <img
-                src={activeMovie.image}
-                alt={activeMovie.title}
-                className="modal-poster"
-              />
-            </div>
+              <div className="filters-section">
+                  <p className="filters-section-title">Language</p>
+                  {languageOptionsList.map(l => (
+                  <label key={l} className="checkbox-label">
+                      <input
+                      type="checkbox"
+                      checked={selectedLanguages.includes(l)}
+                      onChange={() =>
+                          toggleItem(l, selectedLanguages, setSelectedLanguages)
+                      }
+                      />
+                      <span>{l}</span>
+                  </label>
+                  ))}
+              </div>
 
-            <div className="modal-info">
-              <button
-                className="modal-close"
-                onClick={handleCloseModal}
+              <div className="filters-panel-footer">
+                  <button
+                  type="button"
+                  className="filters-clear"
+                  onClick={() => {
+                      setSelectedRatings([])
+                      setSelectedGenres([])
+                      setSelectedLanguages([])
+                  }}
+                  >
+                  Clear Filters
+                  </button>
+
+                  <button
+                  type="button"
+                  className="filters-apply"
+                  onClick={() => setIsFilterOpen(false)}
+                  >
+                  Close
+                  </button>
+              </div>
+              </div>
+          )}
+          </div>
+          </div>
+
+
+          {/* Movies grid */}
+          <div className="movie-grid">
+            {filteredMovies.map(movie => (
+              <div
+                key={movie.title}
+                className="movie-card"
+                onClick={() => handleMovieClick(movie)}
               >
-                ×
-              </button>
-
-              <h2 className="modal-title">{activeMovie.title}</h2>
-              <p className="modal-meta">
-                {activeMovie.genre} · {activeMovie.rating} ·{' '}
-                {activeMovie.duration}
-              </p>
-              <p className="modal-meta">
-                {selectedTheatre} · {selectedDate}
-              </p>
-
-              <p className="modal-description">
-                {activeMovie.description}
-              </p>
-
-              <button
-                className="primary-button"
-                onClick={handleBookTickets}
-              >
-                Book tickets
-              </button>
-            </div>
+                <div className="poster-wrapper">
+                  <img
+                    src={movie.image}
+                    className="poster"
+                    alt={movie.title}
+                  />
+                </div>
+                <p className="movie-title">{movie.title} →</p>
+              </div>
+            ))}
           </div>
         </div>
-      )}
+
+        {activeMovie && (
+          <div className="modal-backdrop" onClick={handleCloseModal}>
+            <div
+              className="modal"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="modal-poster-wrapper">
+                <img
+                  src={activeMovie.image}
+                  alt={activeMovie.title}
+                  className="modal-poster"
+                />
+              </div>
+
+              <div className="modal-info">
+                <button
+                  className="modal-close"
+                  onClick={handleCloseModal}
+                >
+                  ×
+                </button>
+
+                <h2 className="modal-title">{activeMovie.title}</h2>
+                <p className="modal-meta">
+                  {activeMovie.genre} · {activeMovie.rating} ·{' '}
+                  {activeMovie.duration}
+                </p>
+                <p className="modal-meta">
+                  {selectedTheatre} · {selectedDate}
+                </p>
+
+                <p className="modal-description">
+                  {activeMovie.description}
+                </p>
+
+                <button
+                  className="primary-button"
+                  onClick={handleBookTickets}
+                >
+                  Book tickets
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
