@@ -1,342 +1,110 @@
 
 
-/* showTimesPage.css */
-.showtimes-page {
-  min-height: 100vh;
-  width: calc(100vw - 0.76vw); /* subtract distance for the scrol bar (removes horizontal scroll*/
-  background-color: #050505;
-  color: #ffffff;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  display: flex;
-  flex-direction: column;
+.showtimes-page{
+    min-width: 176vh;
+    min-height: 100vh;
+    background-color: #111111;
+    color: #fff;  
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+
 }
 
-/* Header Styles */
 .showtimes-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* left | middle | right */
+  align-items: center;
+
+  width: 100%;
+  margin: 0 auto 20px;        /* center the whole bar in the page */
   padding: 20px 40px;
+  height: 100px;
+
+  background-color: #000;
   border-bottom: 1px solid #333;
-  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.cinenova-logo {
-  height: 60px;
-  width: auto;
-}
-
-.header-icons {
-  display: flex;
-  gap: 20px;
-}
-
-.header-icon {
-  width: 24px;
-  height: 24px;
+/* Left side */
+.back-button {
+  border: none;
+  background: none;
+  color: #fff;
+  font-size: 1.4rem;
   cursor: pointer;
-  transition: opacity 0.2s ease;
-  filter: invert(1);
-}
-
-.header-icon:hover {
-  opacity: 0.7;
-}
-
-/* Main Content */
-.showtimes-main {
-  flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
-  min-height: calc(100vh - 100px);  
-  background-color: #111111;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-  position: relative;
-  padding-top: 20px;
-
-}
-
-.showtimes-container {
-  width: 95vw;
-  max-width: 1400px;
-  min-height: 500px;
-  padding: clamp(1rem, 2vw, 1.5rem) 0;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-self: center;
   align-items: center;
 }
 
+/* Center */
 .showtimes-title {
-  font-size: clamp(1.5rem, 2vw, 5rem);
-
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* Back Button */
-.ticket-back-button {
-  position: absolute;
-  top: clamp(0.25rem, 1vw, 0.5rem);
-  left: clamp(1rem, 3vw, 2rem);
-  background: transparent;
-  border: 2px solid #555;
-  color: #cccccc;
-  padding: clamp(0.5rem, 1vw, 0.75rem) clamp(1rem, 1.5vw, 1.25rem);
-  border-radius: 8px;
-  font-size: clamp(0.9rem, 1.1vw, 1rem);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.ticket-back-button:hover {
-  background-color: #333;
-  border-color: gold;
-  color: #ffffff;
-}
-
-/* Movie Selection Container */
-.movie-selection-container {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(1rem, 2vw, 1.5rem);
-  width: 100%;
-  max-width: 15vw;
-  height: 65vh ;
-  align-self: flex-start;
-  padding: clamp(0.75rem, 2vw, 1.5rem);
-  margin: 0 0 0 clamp(1.5rem, 2.5vw, 2rem);
-  background: linear-gradient(135deg, #1e1e1e 0%, #1a1a1a 100%);
-  border-radius: 16px;
-  border: 1px solid #2a2a2a;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  align-items: center;
-  align-self: center;
-}
-
-.movie-poster {
-  width: clamp(33px, 20vh, 500px);
-  height: clamp(50px, 30vh, 750px);
-  border-radius: 12px;
-  object-fit: cover;
-  flex-shrink: 0;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
-  border: 2px solid #2a2a2a;
-}
-
-.movie-selected-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(0.625rem, 1.2vw, 0.875rem);
-}
-
-.movie-title {
-  font-size: clamp(0.75rem, 1vw, 1rem);
-  font-weight: 700;
-  margin: 0 0 0 0;
-  color: white;
-  letter-spacing: 0.5px;
-  align-items: center;
-}
-
-.movie-meta {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: clamp(0.5rem, 0.8vw, 0.625rem);
-  align-items: centre;
-  gap: 0.25rem;
- 
-}
-
-.meta-item {
-  font-size: clamp(0.5rem, 0.9vw, 1rem);
-  color: #cccccc;
-  font-weight: 500;
-}
-
-.movie-description {
-  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
-  color: #b3b3b3;
-  line-height: 1.6;
+  grid-column: 2;        /* in the middle column (implicit already, but clear) */
+  justify-self: center;  /* center the h1 within that column */
+  text-align: center;    /* center text inside the h1 */
+  font-size: 1.6rem;
+  font-weight: 600;
   margin: 0;
 }
 
-/* Filters Row */
+
+/* Right side */
+.header-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.header-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+
 .filters-row {
   display: flex;
-  gap: clamp(1.5rem, 3vw, 2rem);
-  padding: 0 0 0 0;
-  width: 100%;
-  max-width: 900px;
-  
+  gap: 120px;
+  padding: 0px 50px;
 }
 
-/* Wrappers for positioning dropdowns */
-.theatre-wrapper,
-.date-wrapper {
-  position: relative;
-  flex: 1;
-}
-
-/* Individual dropdown (select) - matching HomePage style */
+/* Individual dropdown (select) */
 .filter-select {
-  width: 100%;
-  appearance: none;
-  background-color: #222;
-  color: #fff;
-  padding: 24px 30px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  height: 42px;
-  border-radius: 12px;
+  flex: 1;               /* both dropdowns share space evenly */
+  padding: 8px 12px;
+  border-radius: 10px;  /* pill shape */
   border: 2px solid #333;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  font-size: 1.1rem;
+  font-weight: 400;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
 }
 
 .filter-select:hover,
-.filter-select:focus {
-  outline: none;
-  background-color: #2a2a2a;
-  border-color: gold;
+.filter-select:focus{
+  outline: 1px purple ;
 }
 
-/* Theatre button styles */
-.theatre-button {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Date button styles */
-.date-button {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.date-arrow {
-  flex-shrink: 0;
-}
-
-/* Theatre dropdown menu */
-.theatre-dropdown {
-  position: absolute;
-  top: 48px;
-  left: 0;
-  min-width: 100%;
-  background-color: #222;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
-  padding: 6px 0;
-  z-index: 60;
-}
-
-.theatre-option {
-  width: 100%;
-  text-align: left;
-  padding: 8px 16px;
-  background: transparent;
-  border: none;
-  font-size: 0.95rem;
-  cursor: pointer;
-  color: #fff;
-}
-
-.theatre-option:hover {
-  background: #ffd44a;
-  color: black;
-}
-
-.theatre-option-active {
-  background: #ffd44a;
-  color: black;
-}
-
-/* Date dropdown menu */
-.date-dropdown {
-  position: absolute;
-  top: 48px;
-  left: 0;
-  min-width: 100%;
-  background-color: #222;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
-  padding: 6px 0;
-  z-index: 60;
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-.date-option {
-  width: 100%;
-  text-align: left;
-  padding: 8px 16px;
-  background: transparent;
-  border: none;
-  font-size: 0.95rem;
-  cursor: pointer;
-  color: #fff;
-}
-
-.date-option:hover {
-  background: #ffd44a;
-  color: black;
-}
-
-.date-option-active {
-  background: #ffd44a;
-  color: black;
-}
-
-/* Click overlay to close dropdowns */
-.click-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 50;
-}
-
-/* Empty State */
 .empty-state {
-  margin-top: clamp(3rem, 5vw, 5rem);
+  margin-top: 120px;
   text-align: center;
-  width: 100%;
 }
 
 .empty-message {
-  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
-  color: #cccccc;
+  font-size: 1.4rem;
 }
 
-/* Each format section: GENERAL, VIP, ULTRA AVX */
+/* Each format section: REGULAR, VIP, ULTRA AVX */
 .showtime-section {
-  padding: clamp(1rem, 2vw, 1.5rem) 0;
-  margin: clamp(1rem, 1.5vw, 1.5rem) 0;
-  width: 100%;
-  max-width: 1100px;
+  padding: 20px 40px;
+  margin: 50px 0;
 }
 
 .showtime-section + .showtime-section {
-  border-top: 1px solid #333;
-  padding-top: clamp(1rem, 2vw, 1.5rem);
+  border-top: 1px solid #ffffff;
+  padding-top: 16px
 }
 
 
@@ -348,7 +116,7 @@
   font-size: 1.2rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-right: 5vw;
+
   width: 220px;
   flex-shrink: 0;
 }
@@ -372,25 +140,27 @@
 .times-row {
   display: flex;
   flex-wrap: wrap;   /* allow wrapping if narrow */
-  gap: 2rem;
+  gap: 50px;
+  margin-top: 0px;
+  margin-left: 150px;
+  
 }
 
 /* The container button for time + seat */
 .time-seat-pair {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  margin-right: 3rem;
+  gap: 2px;
 }
 
 
 .time-button {
-  background: transparent;
-  border: none;
-  padding: 0;
+  background: #1c1c1c;
+  padding: 7px;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
+  display: inline-flex;    /* lay children in a row */
+  align-items: center;     /* vertically align them */
+  gap:3px;
   position: relative;
 }
 
@@ -411,12 +181,11 @@
 }
 
 .seat-button {
-  background: transparent;
-  border: none;
-  padding: 0;
+  background: #1c1c1c;  /* keeps the dark box since you like it */
+  padding: 7px;
   cursor: pointer;
   display: flex;
-  align-items: center;
+  align-items: center;  /* ensures the icon sits in middle */
   justify-content: center;
   position: relative;
 }
@@ -424,7 +193,7 @@
 .seat-button:hover::after {
   content: "Preview seats";
   position: absolute;
-  top: -50px;           /* adjust position */
+  top: -35px;           /* adjust position */
   left: 50%;
   transform: translateX(-50%);
   padding: 6px 10px;
@@ -439,125 +208,49 @@
 
 
 
-/* The "10:00" time box */
+/* The gray "10:00" time box */
 .time-label {
   background-color: #fff;
   color: #000;
   padding: 13px 18px;
   cursor: pointer;
   font-size: 1.3rem;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  transition: all 0.2s ease;
-  font-weight: 600;
+  border-radius: 10%;
 }
 
-.time-label:hover {
-  background-color: gold;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(212, 160, 23, 0.3);
-}
-
-/* Seat icons next to the time */
-.time-seat-icon {
+/* Seat + lock icons next to the time */
+.time-seat-icon{
   width: 50px;
   height: 50px;
-  border-radius: 8px;
+  border-radius: 10%;
   object-fit: contain;
-  padding: 8px;
-  background-color: #2a2a2a;
-  border: 2px solid #444;
-  transition: all 0.2s ease;
 }
 
-.time-seat-icon:hover {
-  background-color: #333;
-  border-color: gold;
-  transform: scale(1.05);
-}
-
-/* Seat Preview Modal */
 .seat-preview-overlay {
   position: fixed;
+  width: auto;
+  height: auto;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: none; 
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: 2rem;
+  padding: 2rem
 }
 
 .seat-preview-content {
-  max-width: 1100px;
-  max-height: 90vh;
   width: auto;
   height: auto;
   overflow: auto;
   border-radius: 24px;
   padding: 2rem;
+  display: flex;
+  align-items: center;
+  background: none; /* same dark card background */
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .showtimes-header {
-    padding: 15px 25px;
-  }
-  
-  .cinenova-logo {
-    height: 50px;
-  }
-
-  .showtimes-main {
-    min-height: auto;
-    padding-top: 60px;
-    align-items: flex-start;
-  }
-  
-  .showtimes-container {
-    width: 96vw;
-    padding: 1.5rem 1.25rem;
-  }
-
-  .ticket-back-button {
-    top: 1rem;
-    left: 1rem;
-    padding: 0.5rem 0.875rem;
-    font-size: 0.875rem;
-  }
-
-  .filters-row {
-    flex-direction: column;
-    gap: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .showtimes-main {
-    padding-top: 50px;
-  }
-
-  .showtimes-container {
-    width: 98vw;
-    padding: 1.25rem 0.75rem;
-  }
-
-  .ticket-back-button {
-    top: 0.75rem;
-    left: 0.75rem;
-    padding: 0.4rem 0.75rem;
-    font-size: 0.8rem;
-  }
-
-  .seat-preview-overlay {
-    padding: 1rem;
-  }
-
-  .seat-preview-content {
-    padding: 1rem;
-  }
-}
 

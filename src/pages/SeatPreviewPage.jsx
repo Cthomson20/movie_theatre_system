@@ -36,22 +36,49 @@ export default function SeatPreviewPage({
 
   return (
     <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 0,
+        padding: 0,
+      }}
+    >
+      <div
         style={{
           backgroundColor: '#1f2937',
-          borderRadius: 'clamp(16px, 3vw, 24px)',
-          padding: 'clamp(40px, 6vw, 60px) clamp(15px, 2vw, 20px)',
-          maxWidth: '950px',
-          maxHeight: '90vh',
-          width: '95%',
-          overflow: 'auto',
+          borderRadius: '24px',
+          padding: '60px 20px',
+          maxWidth: '1000px',
+          width: '90%',
           position: 'relative',
-          margin: '0 auto',
           border: '2px solid #333',
         }}
       >
-        {/* Close button */}
-        <button onClick={onClose} className="seat-close-button">
-         ×
+        {/* Close Button */}
+        <button
+          onClick= {onClose}
+          style={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            width: '50px',
+            height: '50px',
+            border: '2px solid #ef4444',
+            borderRadius: '50%',
+            background: 'transparent',
+            color: '#ef4444',
+            fontSize: '28px',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 0,
+          }}
+        >
+          ×
         </button>
 
         <div
@@ -227,8 +254,6 @@ export default function SeatPreviewPage({
               </span>
             </div>
 
-            
-
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
               <div
                 style={{
@@ -257,19 +282,11 @@ export default function SeatPreviewPage({
                 fontSize: '16px',
                 cursor: 'pointer',
                 marginTop: '16px',
-                transition: 'all 0.3s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = '#FFD700';
-                e.target.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'white';
-                e.target.style.transform = 'scale(1)';
               }}
             >
               Book Tickets
             </button>
+          </div>
         </div>
       </div>
     </div>
