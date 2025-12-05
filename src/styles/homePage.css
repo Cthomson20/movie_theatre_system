@@ -161,16 +161,19 @@
 .filters-row {
   position: relative;
   display: flex;
-  justify-content: flex-end;   /* move everything to the right */
+  justify-content: space-between;   
+  max-width: 900px;
+  width: 100%;
   align-items: center;
   gap: 16px;
-  margin-bottom: 32px;
+  margin: 0 auto 4vh auto;
 }
 
 .filters-left {
   display: flex;
   align-items: center;
-  gap: 12px;                    /* keep theatre + date side-by-side */
+  gap: 1vw;                    /* keep theatre + date side-by-side */
+  flex-grow: 1;
 }
 
 
