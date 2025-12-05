@@ -1,3 +1,8 @@
+.homepage-main{
+  background-color: #111111;
+}
+
+
 .page-title {
   font-size: 3rem;
   font-weight: 700;
@@ -275,7 +280,7 @@
 
 
 .movie-card {
-  background-color: #111111;
+  background: linear-gradient(135deg, #1e1e1e 0%, #1a1a1a 100%);
   border-radius: 18px;
   padding: 16px;
   display: flex;

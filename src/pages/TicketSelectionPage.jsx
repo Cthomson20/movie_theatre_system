@@ -3,7 +3,6 @@ import { ArrowRight, Search, Menu, ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useBooking } from '../context/BookingContext';
 import SeatSelectionPage from './SeatSelectionPage';
-import barbiePoster from '../assets/movie-posters/barbie-poster.jpg';
 import '../styles/TicketSelectionPage.css';
 
 export default function TicketSelectionPage() {
@@ -276,9 +275,9 @@ export default function TicketSelectionPage() {
     <div className="ticket-page">
       <header className="payment-header">
         <div className="header-content">
-          <img src="./src/assets/cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <img src={`${import.meta.env.BASE_URL}cinenova.png`} className="cinenova-logo" alt="CineNova" />
           <div className="header-icons">
-            <img src="./src/assets/three_lines.png" className="header-icon" alt="Menu" />
+            <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />
           </div>
         </div>
       </header>
@@ -293,7 +292,7 @@ export default function TicketSelectionPage() {
           <div className="ticket-left-column">
             <h2 className="ticket-movie-title">{bookingData.movie?.title || 'Barbie'}</h2>
             <div className="ticket-poster-container">
-              <img src={bookingData.movie?.image || barbiePoster} alt="Movie Poster" className="ticket-movie-poster" />
+              <img src={bookingData.movie?.image} alt="Movie Poster" className="ticket-movie-poster" />
             </div>
             <div className="ticket-showtime-details">
               <p style={{ fontWeight: 500 }}>{bookingData.date || 'Today, Sep 26, 2025'}</p>

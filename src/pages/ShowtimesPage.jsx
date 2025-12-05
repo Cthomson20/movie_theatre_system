@@ -343,7 +343,7 @@ function ShowtimesPage() {
                             }
                           >
                             <img
-                              src="./src/assets/seat_icon.png"
+                              src={`${import.meta.env.BASE_URL}seat_icon.png`}
                               className="time-seat-icon"
                               alt="Seat"
                             />
