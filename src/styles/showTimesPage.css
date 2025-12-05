@@ -139,7 +139,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: clamp(0.625rem, 1.2vw, 0.875rem);
 }
 
@@ -158,7 +158,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: clamp(0.5rem, 0.8vw, 0.625rem);
-  align-items: flex-start;
+  align-items: centre;
   gap: 0.25rem;
  
 }
