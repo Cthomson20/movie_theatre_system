@@ -38,11 +38,14 @@ export default function SeatPreviewPage({
     <div
         style={{
           backgroundColor: '#1f2937',
-          borderRadius: '24px',
-          padding: '60px 20px',
-          maxWidth: '1000px',
-          width: '90%',
+          borderRadius: 'clamp(16px, 3vw, 24px)',
+          padding: 'clamp(40px, 6vw, 60px) clamp(15px, 2vw, 20px)',
+          maxWidth: '950px',
+          maxHeight: '90vh',
+          width: '95%',
+          overflow: 'auto',
           position: 'relative',
+          margin: '0 auto',
           border: '2px solid #333',
         }}
       >
