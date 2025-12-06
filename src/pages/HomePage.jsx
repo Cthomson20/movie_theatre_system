@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useBooking } from '../context/BookingContext'
 import '../App.css'
+import { AlignCenter } from 'lucide-react'
 
 function generateNextDays(numDays) {
   const result = []
@@ -631,7 +632,7 @@ export default function HomePage() {
               }}
             />
           )}
-          <h1 className="page-title">Movies</h1>
+          <h1 className="page-title" style={{ textAlign: 'center' }}>Movies</h1>
 
           {/* Filter bar */}
           <div className="filters-row">
