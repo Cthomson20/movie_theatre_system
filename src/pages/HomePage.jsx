@@ -383,6 +383,7 @@ function toggleItem(value, selected, setSelected) {
 // }
 
 function Calendar({ onSelect, validDates = new Set(), selectedDate }) {
+  const [currentMonthIndex, setCurrentMonthIndex] = useState(0)
   const today = new Date()
 
   function getDaysInMonth(year, month) {
@@ -416,42 +417,62 @@ function Calendar({ onSelect, validDates = new Set(), selectedDate }) {
     return { year: Number(yStr), month: Number(mStr) }
   })
 
+  const { year, month } = monthsToShow[currentMonthIndex] || monthsToShow[0]
+  const monthDate = new Date(year, month, 1)
+  const monthName = monthDate.toLocaleString('default', { month: 'long' })
+  const days = getDaysInMonth(year, month)
+  const firstDayOfWeek = monthDate.getDay() // 0 = Sunday, 1 = Monday, etc.
+
   return (
     <div className="calendar-container">
-      {monthsToShow.map(({ year, month }) => {
-        const monthDate = new Date(year, month, 1)
-        const monthName = monthDate.toLocaleString('default', { month: 'long' })
-        const days = getDaysInMonth(year, month)
+      <div className="calendar-month">
+        <div className="cal-header">
+          <button
+            className="cal-nav-btn"
+            onClick={() => setCurrentMonthIndex(Math.max(0, currentMonthIndex - 1))}
+            disabled={currentMonthIndex === 0}
+          >
+            ‹
+          </button>
+          <h3 className="cal-month-title">
+            {monthName} {year}
+          </h3>
+          <button
+            className="cal-nav-btn"
+            onClick={() => setCurrentMonthIndex(Math.min(monthsToShow.length - 1, currentMonthIndex + 1))}
+            disabled={currentMonthIndex === monthsToShow.length - 1}
+          >
+            ›
+          </button>
+        </div>
 
-        return (
-          <div key={`${year}-${month}`} className="calendar-month">
-            <h3 className="cal-month-title">
-              {monthName} {year}
-            </h3>
+        <div className="cal-grid">
+          {/* Empty cells for days before the 1st */}
+          {[...Array(firstDayOfWeek)].map((_, i) => (
+            <div key={`empty-${i}`} className="cal-day-empty"></div>
+          ))}
+          
+          {/* Actual days of the month */}
+          {[...Array(days)].map((_, i) => {
+            const dateObj = new Date(year, month, i + 1)
+            const formatted = format(dateObj)
+            const isActive = validDates.has(formatted)
+            const isSelected = selectedDate === formatted
 
-            <div className="cal-grid">
-              {[...Array(days)].map((_, i) => {
-                const dateObj = new Date(year, month, i + 1)
-                const formatted = format(dateObj)
-                const isActive = validDates.has(formatted)
-                const isSelected = selectedDate === formatted
-
-                return (
-                  <button
-                    key={i}
-                    className={`cal-day ${!isActive ? 'cal-day-disabled' : ''} ${isSelected ? 'cal-day-selected' : ''}`}
-                    onClick={isActive ? () => onSelect(formatted) : undefined}
-                    disabled={!isActive}
-                  >
-                    {i + 1}
-                  </button>
-                  
-                )
-              })}
-            </div>
-          </div>
-        )
-      })}
+            return (
+              <button
+                key={i}
+                className={`cal-day ${!isActive ? 'cal-day-disabled' : ''} ${isSelected ? 'cal-day-selected' : ''}`}
+                onClick={isActive ? () => onSelect(formatted) : undefined}
+                disabled={!isActive}
+              >
+                {i + 1}
+              </button>
+              
+            )
+          })}
+        </div>
+      </div>
     </div>
   )
 }
@@ -586,7 +607,13 @@ export default function HomePage() {
     <div className="app">
       <header className="payment-header">
         <div className="header-content">
-          <img src={`${import.meta.env.BASE_URL}cinenova.png`} className="cinenova-logo" alt="CineNova" />
+          <img 
+            src={`${import.meta.env.BASE_URL}cinenova.png`} 
+            className="cinenova-logo" 
+            alt="CineNova" 
+            onClick={() => navigate('/')}
+            style={{ cursor: 'pointer' }}
+          />
           <div className="header-icons">
             <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />
           </div>
@@ -803,7 +830,7 @@ export default function HomePage() {
                     alt={movie.title}
                   />
                 </div>
-                <p className="movie-title">{movie.title} →</p>
+                <p className="movie-title">{movie.title}</p>
               </div>
             ))}
           </div>

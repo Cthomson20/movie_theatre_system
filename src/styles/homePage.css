@@ -1,5 +1,8 @@
 .homepage-main{
   background-color: #111111;
+  width: 100vw;
+  min-height: calc(100vh - 100px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
 }
 
 
@@ -21,11 +24,11 @@
     padding: 10px 16px;
     font-size: 0.95rem;
     cursor: pointer;
-    height: 42px;              /* match select height */
+    height: 3rem;              /* match select height */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-width: 200px; 
+    min-width: 6rem; 
 }
 
 /* dropdown menu under theatre button */
@@ -74,8 +77,7 @@
   height: 42px;              /* match select height */
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  min-width: 200px;          /* matches "All theatres" width feel */
+  justify-content: space-between;         /* matches "All theatres" width feel */
 }
 
 /* Hover like a real dropdown */
@@ -92,6 +94,8 @@
   gap: 20px;
   color: #ffffff;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  width: fit-content;
+  max-width: 100%;
 }
 
 .date-wrapper {
@@ -105,13 +109,50 @@
   z-index: 100;
 }
 
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.cal-nav-btn {
+  background: #222;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.cal-nav-btn:hover:not(:disabled) {
+  background: #ffd44a;
+  color: #000;
+}
+
+.cal-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
 
 .cal-day-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.cal-day-empty {
   visibility: hidden;
 }
 
 .calendar-month {
   width: 250px;
+  overflow: hidden;
 }
 
 .cal-month-title {
@@ -124,6 +165,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 6px;
+  width: 100%;
 }
 
 .cal-day {
@@ -134,6 +176,9 @@
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.9rem;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .cal-day:hover {
@@ -166,7 +211,7 @@
   width: 100%;
   align-items: center;
   gap: 16px;
-  margin: 0 auto 4vh auto;
+  margin: 0 0 3vh auto;
 }
 
 .filters-left {
@@ -175,8 +220,6 @@
   gap: 1vw;                    /* keep theatre + date side-by-side */
   flex-grow: 1;
 }
-
-
 
 .filters-toggle-btn {
   background: none;
@@ -192,8 +235,6 @@
   height: 34px;
   filter: invert(87%) sepia(63%) saturate(623%) hue-rotate(6deg) brightness(105%) contrast(97%);
 }
-
-
 
 .filters {
   display: flex;
@@ -211,7 +252,7 @@
   position: absolute;
   top: 48px;      /* distance below the button */
   right: 0;       /* align right edges */
-  max-width: 700px;
+  /* max-width: 700px; */
   width: 600px;
   background: #222;
   border-radius: 16px;
@@ -286,7 +327,7 @@
   background: linear-gradient(135deg, #1e1e1e 0%, #1a1a1a 100%);
   border: 1px solid #2a2a2a;
   border-radius: 18px;
-  padding: 16px;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -424,6 +465,215 @@
 .movie-card .movie-title {
   font-size: 1.5rem;
   margin-top: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .movie-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .filters-row {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 900px) {
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .filters-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .filters-left {
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .theatre-button,
+  .date-button {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .filters-panel {
+    width: calc(100vw - 2rem);
+    max-width: 600px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 1rem;
+  }
+
+  .poster-wrapper {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2/3;
+  }
+
+  .movie-card .movie-title {
+    font-size: 1.2rem;
+  }
+
+  .modal {
+    flex-direction: column;
+    width: 95%;
+    max-width: 500px;
+    padding: 20px;
+  }
+
+  .modal-poster-wrapper {
+    min-width: 100%;
+    max-width: 100%;
+    max-height: 400px;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+
+  .modal-description {
+    font-size: 0.9rem;
+  }
+
+  .calendar-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .calendar-month {
+    width: 100%;
+  }
+
+  .filters-panel {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.75rem;
+    margin-bottom: 16px;
+  }
+
+  .movie-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0 0.75rem;
+  }
+
+  .movie-card {
+    padding: 12px;
+  }
+
+  .poster-wrapper {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .filters-row {
+    padding: 0 0.75rem;
+  }
+
+  .filters-left {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .theatre-button,
+  .date-button {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .filters-toggle-img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .filters-panel {
+    width: calc(100vw - 1.5rem);
+    padding: 16px;
+  }
+
+  .checkbox-label {
+    font-size: 0.8rem;
+  }
+
+  .filters-section-title {
+    font-size: 0.85rem;
+  }
+
+  .modal {
+    padding: 16px;
+  }
+
+  .modal-title {
+    font-size: 1.3rem;
+  }
+
+  .modal-meta {
+    font-size: 0.85rem;
+  }
+
+  .modal-description {
+    font-size: 0.85rem;
+    margin: 12px 0 20px;
+  }
+
+  .primary-button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .modal-close {
+    font-size: 1.5rem;
+  }
+
+  .calendar-dropdown {
+    left: 0;
+    right: 0;
+    width: calc(100vw - 1.5rem);
+    margin: 0 auto;
+  }
+
+  .calendar-container {
+    padding: 12px;
+    width: 100%;
+  }
+
+  .cal-month-title {
+    font-size: 1rem;
+  }
+
+  .cal-day {
+    padding: 6px;
+    font-size: 0.85rem;
+  }
 }
 
 
