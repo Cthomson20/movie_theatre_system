@@ -13,7 +13,7 @@
 
 /* Header Styles */
 .showtimes-header {
-  padding: 20px 40px;
+  padding: 10px 40px;
   border-bottom: 1px solid #333;
   flex-shrink: 0;
 }
@@ -31,8 +31,9 @@
   border-color: gold;
 }
 .cinenova-logo {
-  height: 60px;
-  width: auto;
+  height: 90px !important;  
+  width: 90px !important;
+  flex-shrink: 0;
   cursor: pointer;
   border: transparent solid 1px;
 
