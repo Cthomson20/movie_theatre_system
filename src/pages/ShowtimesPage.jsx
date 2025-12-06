@@ -184,9 +184,14 @@ function ShowtimesPage() {
       {/* Top bar */}
       <header className="showtimes-header">
         <div className="header-content">
-          <img src="./cinenova.png" className="cinenova-logo" alt="CineNova" />
+          <img 
+            src={`${import.meta.env.BASE_URL}cinenova.png`} 
+            className="cinenova-logo" 
+            alt="CineNova" 
+            onClick={() => navigate('/')}
+          />
           <div className="header-icons">
-            <img src="./three_lines.png" className="header-icon" alt="Menu" />
+            <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />
           </div>
         </div>
       </header>
