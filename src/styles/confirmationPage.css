@@ -16,7 +16,6 @@
 }
 
 .header-content {
-  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -35,8 +34,8 @@
 }
 
 .header-icon {
-  width: 24px;
-  height: 24px;
+  width: 2rem;
+  height: 2rem;
   cursor: pointer;
   transition: opacity 0.2s ease;
   filter: invert(1);
@@ -411,7 +410,7 @@
   }
   
   .cinenova-logo {
-    height: 50px;
+    height: 6rem;
   }
 
   .confirmation-main {

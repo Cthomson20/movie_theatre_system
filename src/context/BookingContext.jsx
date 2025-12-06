@@ -25,7 +25,7 @@ const loadBookingData = () => {
   try {
     const stored = sessionStorage.getItem(STORAGE_KEY);
     if (stored) {
-      console.log('Loaded booking data from sessionStorage:', stored);
+      // console.log('Loaded booking data from sessionStorage:', stored);
       return JSON.parse(stored);
     }
   } catch (error) {

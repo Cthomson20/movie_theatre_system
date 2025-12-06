@@ -3,6 +3,7 @@ import { useBooking } from '../context/BookingContext';
 import "../styles/ShowtimesPage.css";
 import { useState } from "react";
 import SeatPreviewPage from "../pages/SeatPreviewPage";
+import { formatNiceDate } from '../utils/dateUtils';
 
 const baseShowtimesByMovie = {
   Barbie: {
@@ -185,10 +186,11 @@ function ShowtimesPage() {
       <header className="showtimes-header">
         <div className="header-content">
           <img 
-            src={`${import.meta.env.BASE_URL}cinenova.png`} 
+            src="./cinenova.png" 
             className="cinenova-logo" 
             alt="CineNova" 
             onClick={() => navigate('/')}
+            style={{ cursor: 'pointer' }}
           />
           <div className="header-icons">
             <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />
@@ -291,7 +293,7 @@ function ShowtimesPage() {
                 className="filter-select date-button"
                 onClick={() => setDateMenuOpen(prev => !prev)}
               >
-                <span>{selectedDate === "" ? "DATE" : selectedDate}</span>
+                <span>{selectedDate === "" ? "DATE" : formatNiceDate(selectedDate)}</span>
                 <svg
                   className="date-arrow"
                   width="12"
@@ -324,7 +326,7 @@ function ShowtimesPage() {
                         setDateMenuOpen(false);
                       }}
                     >
-                      {d}
+                      {formatNiceDate(d)}
                     </button>
                   ))}
                 </div>

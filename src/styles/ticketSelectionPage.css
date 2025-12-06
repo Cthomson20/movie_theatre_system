@@ -23,9 +23,8 @@
 }
 
 .cinenova-logo {
-  height: 90px !important;   
-  width: 90px !important;
-  flex-shrink: 0;
+  height: 6rem;
+  width: auto;
 }
 
 .header-icons {
@@ -34,8 +33,8 @@
 }
 
 .header-icon {
-  width: 24px;
-  height: 24px;
+  width: 2rem;
+  height: 2rem;
   cursor: pointer;
   transition: opacity 0.2s ease;
   filter: invert(1);

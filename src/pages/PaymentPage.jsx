@@ -75,10 +75,11 @@ const PaymentPage = () => {
       <header className="payment-header">
         <div className="header-content">
           <img 
-          src={`${import.meta.env.BASE_URL}cinenova.png`} 
-          className="cinenova-logo" 
-          alt="CineNova" 
-          onClick={() => navigate('/')}
+            src={`${import.meta.env.BASE_URL}cinenova.png`} 
+            className="cinenova-logo" 
+            alt="CineNova" 
+            onClick={() => navigate('/')}
+            style={{ cursor: 'pointer' }}
           />
           <div className="header-icons">
             <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />

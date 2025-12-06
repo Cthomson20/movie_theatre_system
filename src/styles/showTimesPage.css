@@ -45,8 +45,8 @@
 }
 
 .header-icon {
-  width: 24px;
-  height: 24px;
+  width: 2rem;
+  height: 2rem;
   cursor: pointer;
   transition: opacity 0.2s ease;
   filter: invert(1);
