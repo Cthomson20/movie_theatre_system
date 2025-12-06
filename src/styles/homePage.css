@@ -13,6 +13,12 @@
   position: relative;
 }
 
+.cinenova-logo-homepage{
+  height: 90px !important;   
+  width: 90px !important;
+  flex-shrink: 0;
+  border: transparent 1px solid;
+}
 /* reuse date-button look */
 .theatre-button {
     appearance: none;          /* remove button styling */
