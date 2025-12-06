@@ -586,7 +586,7 @@ export default function HomePage() {
     <div className="app">
       <header className="payment-header">
         <div className="header-content">
-          <img src={`${import.meta.env.BASE_URL}cinenova.png`} className="cinenova-logo" alt="CineNova" />
+          <img src={`${import.meta.env.BASE_URL}cinenova.png`} className="cinenova-logo-homepage" alt="CineNova" />
           <div className="header-icons">
             <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />
           </div>
