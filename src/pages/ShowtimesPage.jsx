@@ -66,9 +66,9 @@ const baseShowtimesByMovie = {
   },
 
   F1: {
-    GENERAL: ["12:00", "14:30", "16:00", "18:15", "20:00", "21:15"],
+    GENERAL: ["12:00", "14:30", "16:00", "18:15" , "21:15"],
     VIP: ["13:30", "15:20", "17:00", "19:20"],
-    "ULTRA AVX DOLBY ATMOS": ["17:30"],
+    "ULTRA AVX DOLBY ATMOS": ["17:30", "20:00"],
   },
 
   Interstellar: {
