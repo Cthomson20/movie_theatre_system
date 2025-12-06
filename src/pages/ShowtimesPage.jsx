@@ -27,6 +27,7 @@ const baseShowtimesByMovie = {
   Avatar: {
     GENERAL: ["13:00", "16:30", "21:00"],
     VIP: ["20:00"],
+     "ULTRA AVX DOLBY ATMOS": [],
   },
 
   Jaws: {
@@ -52,6 +53,37 @@ const baseShowtimesByMovie = {
     VIP: ["13:30", "15:20"],
     "ULTRA AVX DOLBY ATMOS": ["17:30"],
   },
+
+  Bugonia: {
+    GENERAL: ["12:00", "19:00"],
+    VIP: ["14:30", "21:20"],
+    "ULTRA AVX DOLBY ATMOS": ["20:30"],
+  },
+
+  "One Battle After Another": {
+    GENERAL: ["13:00", "16:30", "19:15"],
+    VIP: ["15:20"],
+    "ULTRA AVX DOLBY ATMOS": [],
+  },
+
+  F1: {
+    GENERAL: ["12:00", "14:30", "16:00", "18:15" , "21:15"],
+    VIP: ["13:30", "15:20", "17:00", "19:20"],
+    "ULTRA AVX DOLBY ATMOS": ["17:30", "20:00"],
+  },
+
+  Interstellar: {
+    GENERAL: ["15:00", "21:45"],
+    VIP: ["16:20", "21:00"],
+    "ULTRA AVX DOLBY ATMOS": ["20:30"],
+  },
+
+  "Lady Bird": {
+    GENERAL: ["12:30", "16:30", "20:45"],
+    VIP: ["18:20", "21:00"],
+    "ULTRA AVX DOLBY ATMOS": [],
+  }
+
 };
 
 function ShowtimesPage() {
@@ -161,7 +193,7 @@ function ShowtimesPage() {
             style={{ cursor: 'pointer' }}
           />
           <div className="header-icons">
-            <img src="./three_lines.png" className="header-icon" alt="Menu" />
+            <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />
           </div>
         </div>
       </header>

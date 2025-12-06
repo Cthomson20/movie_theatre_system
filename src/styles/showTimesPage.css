@@ -3,7 +3,7 @@
 /* showTimesPage.css */
 .showtimes-page {
   min-height: 100vh;
-  width: calc(100vw - 0.76vw); /* subtract distance for the scrol bar (removes horizontal scroll*/
+  width: 100vw;
   background-color: #050505;
   color: #ffffff;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -13,7 +13,7 @@
 
 /* Header Styles */
 .showtimes-header {
-  padding: 20px 40px;
+  padding: 10px 40px;
   border-bottom: 1px solid #333;
   flex-shrink: 0;
 }
@@ -24,9 +24,19 @@
   align-items: center;
 }
 
+.cinenova-logo:hover,
+.cinenova-logo:focus {
+  outline: none;
+  background-color: #2a2a2a;
+  border-color: gold;
+}
 .cinenova-logo {
-  height: 60px;
-  width: auto;
+  height: 90px !important;  
+  width: 90px !important;
+  flex-shrink: 0;
+  cursor: pointer;
+  border: transparent solid 1px;
+
 }
 
 .header-icons {
@@ -52,7 +62,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  width: 100%;
+  width: 100vw;
   min-height: calc(100vh - 100px);  
   background-color: #111111;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
@@ -329,9 +339,9 @@
 /* Each format section: GENERAL, VIP, ULTRA AVX */
 .showtime-section {
   padding: clamp(1rem, 2vw, 1.5rem) 0;
-  margin: clamp(1rem, 1.5vw, 1.5rem) 0;
-  width: 100%;
-  max-width: 1100px;
+  margin: clamp(1rem, 1.5vw, 1.5rem) 0vw clamp(1rem, 1.5vw, 1.5rem) 5vw;
+  width: 87%;
+  
 }
 
 .showtime-section + .showtime-section {
@@ -364,7 +374,7 @@
 .format-and-times {
   display: flex;
   align-items: center;
-  padding: 25px;
+  padding: 1.5vh;
 }
 
 
@@ -380,7 +390,7 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  margin-right: 3rem;
+  margin-right: 2.25rem;
 }
 
 
@@ -443,7 +453,7 @@
 .time-label {
   background-color: #fff;
   color: #000;
-  padding: 13px 18px;
+  padding: 1.5vh 2.1vh;
   cursor: pointer;
   font-size: 1.3rem;
   border-radius: 8px;
@@ -460,8 +470,8 @@
 
 /* Seat icons next to the time */
 .time-seat-icon {
-  width: 50px;
-  height: 50px;
+  width: 5.2vh;
+  height: 5.2vh;
   border-radius: 8px;
   object-fit: contain;
   padding: 8px;
