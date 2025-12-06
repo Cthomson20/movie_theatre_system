@@ -3,7 +3,7 @@
 /* showTimesPage.css */
 .showtimes-page {
   min-height: 100vh;
-  /* subtract distance for the scrol bar (removes horizontal scroll*/
+  width: 100vw;
   background-color: #050505;
   color: #ffffff;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -329,9 +329,9 @@
 /* Each format section: GENERAL, VIP, ULTRA AVX */
 .showtime-section {
   padding: clamp(1rem, 2vw, 1.5rem) 0;
-  margin: clamp(1rem, 1.5vw, 1.5rem) 0;
-  width: 100%;
-  max-width: 1100px;
+  margin: clamp(1rem, 1.5vw, 1.5rem) 0vw clamp(1rem, 1.5vw, 1.5rem) 5vw;
+  width: 87%;
+  
 }
 
 .showtime-section + .showtime-section {
@@ -364,7 +364,7 @@
 .format-and-times {
   display: flex;
   align-items: center;
-  padding: 25px;
+  padding: 1.5vh;
 }
 
 
@@ -380,7 +380,7 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  margin-right: 3rem;
+  margin-right: 2.25rem;
 }
 
 
@@ -443,7 +443,7 @@
 .time-label {
   background-color: #fff;
   color: #000;
-  padding: 13px 18px;
+  padding: 1.5vh 2.1vh;
   cursor: pointer;
   font-size: 1.3rem;
   border-radius: 8px;
@@ -460,8 +460,8 @@
 
 /* Seat icons next to the time */
 .time-seat-icon {
-  width: 50px;
-  height: 50px;
+  width: 5.2vh;
+  height: 5.2vh;
   border-radius: 8px;
   object-fit: contain;
   padding: 8px;
