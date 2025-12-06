@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useBooking } from '../context/BookingContext'
 import '../App.css'
 import { AlignCenter } from 'lucide-react'
+import { formatNiceDate } from '../utils/dateUtils'
 
 function generateNextDays(numDays) {
   const result = []
@@ -23,40 +24,6 @@ function generateNextDays(numDays) {
 
   return result
 }
-
-function formatNiceDate(dateString) {
-  if (!dateString) return 'Choose date'
-
-  const [yStr, mStr, dStr] = dateString.split('-')
-  const year = Number(yStr)
-  const monthIndex = Number(mStr) - 1  
-  const dayNum = Number(dStr)
-
-  const d = new Date(year, monthIndex, dayNum)
-  if (Number.isNaN(d.getTime())) {
-    return dateString
-  }
-
-  const today = new Date()
-  const todayYear = today.getFullYear()
-  const todayMonth = today.getMonth()
-  const todayDay = today.getDate()
-
-  const isToday =
-    year === todayYear &&
-    monthIndex === todayMonth &&
-    dayNum === todayDay
-
-  const dayName = d.toLocaleDateString('en-US', { weekday: 'long' })
-  const monthName = d.toLocaleDateString('en-US', { month: 'short' })
-
-  if (isToday) {
-    return `Today, ${monthName} ${dayNum}`
-  }
-
-  return `${dayName}, ${monthName} ${dayNum}`
-}
-
 
 function getTodayString() {
   const d = new Date()
@@ -865,7 +832,7 @@ export default function HomePage() {
                   {activeMovie.duration}
                 </p>
                 <p className="modal-meta">
-                  {selectedTheatre} · {selectedDate}
+                  {selectedTheatre} · {formatNiceDate(selectedDate)}
                 </p>
 
                 <p className="modal-description">
