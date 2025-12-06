@@ -8,7 +8,7 @@ body {
 
 .app {
   min-height: 100vh;
-  min-width: 176vh;
+  min-width: 100vw;
 }
 
 .top-bar {
