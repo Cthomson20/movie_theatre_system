@@ -24,12 +24,6 @@
   align-items: center;
 }
 
-.cinenova-logo:hover,
-.cinenova-logo:focus {
-  outline: none;
-  background-color: #2a2a2a;
-  border-color: gold;
-}
 .cinenova-logo {
   height: 90px !important;  
   width: 90px !important;

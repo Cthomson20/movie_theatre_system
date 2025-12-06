@@ -1,12 +1,53 @@
 // ConfirmationPage1.jsx
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useBooking } from '../context/BookingContext';
 import '../styles/ConfirmationPage.css';
+import { formatNiceDate } from '../utils/dateUtils';
 
 const ConfirmationPage1 = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { bookingData } = useBooking();
+  const [ticketsSent, setTicketsSent] = useState(false);
+  const [sentTo, setSentTo] = useState('');
+
+  useEffect(() => {
+    if (location.state?.ticketsSent) {
+      setTicketsSent(true);
+      setSentTo(location.state?.sentTo || '');
+    }
+  }, [location]);
+  
+  // Theatre address mapping
+  const theatreAddresses = {
+    "CineNova Market Mall": {
+      address: "3625 Shaganappi Trail NW",
+      city: "Calgary",
+      province: "AB"
+    },
+    "CineNova Downtown": {
+      address: "240 4 Ave SW",
+      city: "Calgary",
+      province: "AB"
+    },
+    "CineNova NE": {
+      address: "5111 Northland Dr NE",
+      city: "Calgary",
+      province: "AB"
+    },
+    "CineNova Macleod Trail": {
+      address: "10816 Macleod Trail SE",
+      city: "Calgary",
+      province: "AB"
+    }
+  };
+  
+  const theatreInfo = theatreAddresses[bookingData.theatre] || {
+    address: "",
+    city: "",
+    province: ""
+  };
   
   const orderInfo = {
     orderNumber: '#H7MN324B6',
@@ -18,9 +59,9 @@ const ConfirmationPage1 = () => {
     },
     theater: {
       name: bookingData.theatre || '',
-      address: bookingData.theatreAddress || '',
-      city: bookingData.theatreCity || '',
-      province: bookingData.theatreProvince || ''
+      address: theatreInfo.address,
+      city: theatreInfo.city,
+      province: theatreInfo.province
     }
   };
 
@@ -29,13 +70,18 @@ const ConfirmationPage1 = () => {
   };
 
   const handlePrintTickets = () => {
-    // Create a beautiful printable version of the ticket
-    const printContent = `
-      <div style="font-family: 'Arial', sans-serif; max-width: 400px; margin: 0 auto; border: 2px solid #2c5aa0; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); page-break-inside: avoid;">
+    // Calculate total number of tickets
+    const tickets = bookingData.tickets || { general: 0, child: 0, senior: 0 };
+    const totalTickets = tickets.general + tickets.child + tickets.senior;
+    const seats = bookingData.seats || [];
+    
+    // Create ticket template for each seat
+    const createTicket = (seatInfo, ticketNumber) => `
+      <div style="font-family: 'Arial', sans-serif; max-width: 400px; margin: 0 auto 30px auto; border: 2px solid #2c5aa0; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); page-break-inside: avoid; page-break-after: always;">
         <!-- Header -->
         <div style="background: linear-gradient(135deg, #2c5aa0, #1e4a8a); color: white; padding: 20px; text-align: center;">
           <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">CINENOVA</div>
-          <div style="font-size: 14px; opacity: 0.9;">Movie Tickets</div>
+          <div style="font-size: 14px; opacity: 0.9;">Movie Ticket ${ticketNumber} of ${totalTickets}</div>
         </div>
         
         <!-- Movie Info -->
@@ -45,13 +91,20 @@ const ConfirmationPage1 = () => {
           <div style="display: flex; justify-content: center; gap: 25px; margin: 20px 0;">
             <div style="text-align: center;">
               <div style="font-size: 12px; color: #666; margin-bottom: 5px;">DATE</div>
-              <div style="font-size: 16px; font-weight: bold; color: #333;">${orderInfo.movie.date}</div>
+              <div style="font-size: 16px; font-weight: bold; color: #333;">${formatNiceDate(orderInfo.movie.date)}</div>
             </div>
             <div style="text-align: center;">
               <div style="font-size: 12px; color: #666; margin-bottom: 5px;">TIME</div>
               <div style="font-size: 16px; font-weight: bold; color: #333;">${orderInfo.movie.time}</div>
             </div>
           </div>
+          
+          ${seatInfo ? `
+          <div style="margin-top: 15px; padding: 10px; background: white; border-radius: 8px;">
+            <div style="font-size: 12px; color: #666; margin-bottom: 5px;">SEAT</div>
+            <div style="font-size: 18px; font-weight: bold; color: #2c5aa0;">${seatInfo}</div>
+          </div>
+          ` : ''}
         </div>
         
         <!-- Theater Info -->
@@ -84,11 +137,21 @@ const ConfirmationPage1 = () => {
           <div style="opacity: 0.7;">Present this ticket at the theater</div>
         </div>
       </div>
-      
-      <!-- Print multiple copies instruction -->
-      <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #666; page-break-before: avoid;">
-      </div>
     `;
+    
+    // Generate all tickets
+    let allTickets = '';
+    if (seats.length > 0) {
+      // If seats are selected, create a ticket for each seat
+      seats.forEach((seat, index) => {
+        allTickets += createTicket(seat, index + 1);
+      });
+    } else {
+      // If no seats, create tickets based on ticket count
+      for (let i = 0; i < totalTickets; i++) {
+        allTickets += createTicket(null, i + 1);
+      }
+    }
     
     const printWindow = window.open('', '_blank', 'width=600,height=800');
     printWindow.document.write(`
@@ -122,10 +185,6 @@ const ConfirmationPage1 = () => {
               background: #f5f5f5;
               padding: 20px;
               margin: 0;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              min-height: 100vh;
             }
             .ticket-container {
               max-width: 400px;
@@ -135,7 +194,7 @@ const ConfirmationPage1 = () => {
         </head>
         <body>
           <div class="ticket-container">
-            ${printContent}
+            ${allTickets}
           </div>
           <script>
             // Wait for images to load before printing
@@ -188,13 +247,13 @@ const ConfirmationPage1 = () => {
               />
               
               <div className="movie-details">
-                <h1 className="movie-title">{orderInfo.movie.title}</h1>
-                <div className="showtime-info">
-                  <p>{orderInfo.movie.date}</p>
+                <h1 className="movie-title" style={{ fontSize: '2rem', marginBottom: '1rem' }}>{orderInfo.movie.title}</h1>
+                <div className="showtime-info" style={{ fontSize: '0.5rem' }}>
+                  <p>{formatNiceDate(orderInfo.movie.date)}</p>
                   <p>{orderInfo.movie.time}</p>
                 </div>
 
-                <div className="theater-info">
+                <div className="theater-info" style={{ fontSize: '0.5rem' }}>
                   <p className="theater-name">{orderInfo.theater.name}</p>
                   <p className="theater-address">{orderInfo.theater.address}</p>
                   <p className="theater-location">{orderInfo.theater.city}, {orderInfo.theater.province}</p>
@@ -206,6 +265,12 @@ const ConfirmationPage1 = () => {
             <section className="confirmation-section">
               <div className="confirmation-text">
                 <h2 className="thank-you">Thank you for your purchase!</h2>
+                <h3 className="tickets-delivery">Your tickets have been sent to {bookingData.paymentInfo.email}. See you soon!</h3>
+                {ticketsSent && (
+                  <p className="success-message">
+                    Tickets have been successfully sent to {sentTo}!
+                  </p>
+                )}
                 <p className="order-number">Order Number: {orderInfo.orderNumber}</p>
               </div>
 

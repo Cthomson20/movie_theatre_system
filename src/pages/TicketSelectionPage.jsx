@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useBooking } from '../context/BookingContext';
 import SeatSelectionPage from './SeatSelectionPage';
 import '../styles/TicketSelectionPage.css';
+import { formatNiceDate } from '../utils/dateUtils';
 
 export default function TicketSelectionPage() {
   const navigate = useNavigate();
@@ -91,7 +92,7 @@ export default function TicketSelectionPage() {
               <img src={bookingData.movie?.image} alt="Movie Poster" className="ticket-movie-poster" />
             </div>
             <div className="ticket-showtime-details">
-              <p style={{ fontWeight: 500 }}>{bookingData.date || 'Today, Sep 26, 2025'}</p>
+              <p style={{ fontWeight: 500 }}>{formatNiceDate(bookingData.date) || ''}</p>
               <p>{bookingData.time || '10:00 AM'}</p>
               <p style={{ fontWeight: 500 }}>{bookingData.theatre || 'CineNova MarketMall'}</p>
               <p>3625 Shaganappi Trail NW</p>

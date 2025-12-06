@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBooking } from '../context/BookingContext';
 import '../styles/payment.css';
+import { formatNiceDate } from '../utils/dateUtils';
 
 const PaymentPage = () => {
     const navigate = useNavigate();
-    const { bookingData } = useBooking();
+    const { bookingData, updateBooking } = useBooking();
     const { tickets = { general: 0, child: 0, senior: 0 }, seats = [], total = 0, movie } = bookingData;
 
     const [formData, setFormData] = useState({
@@ -18,18 +19,61 @@ const PaymentPage = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
+        
+        if (name === 'cardNumber') {
+            // Remove all non-digit characters
+            const digitsOnly = value.replace(/\D/g, '');
+            // Limit to 16 digits
+            const limitedDigits = digitsOnly.slice(0, 16);
+            // Add spaces every 4 digits
+            const formatted = limitedDigits.replace(/(\d{4})(?=\d)/g, '$1 ');
+            
+            setFormData(prev => ({
+                ...prev,
+                [name]: formatted
+            }));
+        } else if (name === 'expiryDate') {
+            // Remove all non-digit characters
+            const digitsOnly = value.replace(/\D/g, '');
+            // Limit to 4 digits (MMYY)
+            const limitedDigits = digitsOnly.slice(0, 4);
+            // Add slash after 2 digits (MM/YY)
+            const formatted = limitedDigits.length >= 2 
+                ? limitedDigits.slice(0, 2) + '/' + limitedDigits.slice(2)
+                : limitedDigits;
+            
+            setFormData(prev => ({
+                ...prev,
+                [name]: formatted
+            }));
+        } else if (name === 'cvv') {
+            // Remove all non-digit characters and limit to 3 digits
+            const digitsOnly = value.replace(/\D/g, '').slice(0, 3);
+            
+            setFormData(prev => ({
+                ...prev,
+                [name]: digitsOnly
+            }));
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                [name]: value
+            }));
+        }
     };
 
     const isFormValid = () => {
-        return formData.cardNumber.trim() !== '' && formData.cardNumber.length >= 16 &&
-               formData.expiryDate.trim() !== '' && formData.expiryDate.length === 5 &&
+        // Remove spaces from card number for validation
+        const cardDigits = formData.cardNumber.replace(/\s/g, '');
+        // Check if expiry date has 4 digits
+        const expiryDigits = formData.expiryDate.replace(/\D/g, '');
+        // Email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return cardDigits.length === 16 &&
+               expiryDigits.length === 4 &&
                formData.cvv.trim() !== '' && formData.cvv.length === 3 &&
                formData.cardholderName.trim() !== '' &&
-               formData.email.trim() !== '';
+               emailRegex.test(formData.email.trim());
     };
 
     // Use passed data or fallback to defaults ''
@@ -101,7 +145,7 @@ const PaymentPage = () => {
                 <img src={displayMovieInfo.poster} className="summary-poster" alt={displayMovieInfo.title} />
                 <div className="movie-details-summary">
                   <h3>{displayMovieInfo.title}</h3>
-                  <p>{displayMovieInfo.date} at {displayMovieInfo.time}</p>
+                  <p>{formatNiceDate(displayMovieInfo.date)} at {displayMovieInfo.time}</p>
                   <p className="theater-name">{displayMovieInfo.theater}</p>
                 </div>
               </div>
@@ -211,7 +255,20 @@ const PaymentPage = () => {
 
               <button 
                 className={`pay-btn ${!isFormValid() ? 'disabled' : ''}`}
-                onClick={() => isFormValid() && navigate('/confirmation1')}
+                onClick={() => {
+                  if (isFormValid()) {
+                    updateBooking({
+                      paymentInfo: {
+                        cardNumber: formData.cardNumber,
+                        expiryDate: formData.expiryDate,
+                        cvv: formData.cvv,
+                        cardholderName: formData.cardholderName,
+                        email: formData.email
+                      }
+                    });
+                    navigate('/confirmation1');
+                  }
+                }}
                 disabled={!isFormValid()}
               >
                 Complete Purchase

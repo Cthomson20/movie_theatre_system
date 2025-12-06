@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBooking } from '../context/BookingContext';
 import '../styles/ConfirmationPage.css';
+import { formatNiceDate } from '../utils/dateUtils';
 
 const ConfirmationPage2 = () => {
   const [deliveryMethod, setDeliveryMethod] = useState('email');
@@ -10,6 +11,36 @@ const ConfirmationPage2 = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const navigate = useNavigate();
   const { bookingData } = useBooking();
+  
+  // Theatre address mapping
+  const theatreAddresses = {
+    "CineNova Market Mall": {
+      address: "3625 Shaganappi Trail NW",
+      city: "Calgary",
+      province: "AB"
+    },
+    "CineNova Downtown": {
+      address: "240 4 Ave SW",
+      city: "Calgary",
+      province: "AB"
+    },
+    "CineNova NE": {
+      address: "5111 Northland Dr NE",
+      city: "Calgary",
+      province: "AB"
+    },
+    "CineNova Macleod Trail": {
+      address: "10816 Macleod Trail SE",
+      city: "Calgary",
+      province: "AB"
+    }
+  };
+  
+  const theatreInfo = theatreAddresses[bookingData.theatre] || {
+    address: "",
+    city: "",
+    province: ""
+  };
 
   const orderInfo = {
     orderNumber: '#H7MN324B6',
@@ -21,19 +52,25 @@ const ConfirmationPage2 = () => {
     },
     theater: {
       name: bookingData.theatre || '',
-      address: bookingData.theatreAddress || '',
-      city: bookingData.theatreCity || '',
-      province: bookingData.theatreProvince || ''
+      address: theatreInfo.address,
+      city: theatreInfo.city,
+      province: theatreInfo.province
     }
   };
 
   const handleSendTickets = () => {
     if (deliveryMethod === 'email' && email) {
+      // Email validation regex
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address');
+        return;
+      }
       alert(`Tickets sent to ${email}`);
-      navigate('/confirmation3');
+      navigate('/confirmation1', { state: { ticketsSent: true, sentTo: email } });
     } else if (deliveryMethod === 'text' && phoneNumber) {
       alert(`Tickets sent to ${phoneNumber}`);
-      navigate('/confirmation3');
+      navigate('/confirmation1', { state: { ticketsSent: true, sentTo: phoneNumber } });
     } else if (deliveryMethod === 'email') {
       alert('Please enter an email address');
     } else if (deliveryMethod === 'text') {
@@ -42,7 +79,7 @@ const ConfirmationPage2 = () => {
   };
 
   const getPlaceholder = () => {
-    return deliveryMethod === 'email' ? 'Email Address' : 'Phone Number';
+    return deliveryMethod === 'email' ? 'e.g. user@example.com' : '(403) 555-1234';
   };
 
   const getInputType = () => {
@@ -58,7 +95,22 @@ const ConfirmationPage2 = () => {
     if (deliveryMethod === 'email') {
       setEmail(value);
     } else {
-      setPhoneNumber(value);
+      // Format phone number as (XXX) XXX-XXXX
+      const digitsOnly = value.replace(/\D/g, '');
+      const limitedDigits = digitsOnly.slice(0, 10);
+      
+      let formatted = '';
+      if (limitedDigits.length > 0) {
+        formatted = '(' + limitedDigits.slice(0, 3);
+        if (limitedDigits.length > 3) {
+          formatted += ') ' + limitedDigits.slice(3, 6);
+        }
+        if (limitedDigits.length > 6) {
+          formatted += '-' + limitedDigits.slice(6, 10);
+        }
+      }
+      
+      setPhoneNumber(formatted);
     }
   };
 
@@ -95,13 +147,13 @@ const ConfirmationPage2 = () => {
               />
               
               <div className="movie-details">
-                <h1 className="movie-title">{orderInfo.movie.title}</h1>
-                <div className="showtime-info">
-                  <p>{orderInfo.movie.date}</p>
+                <h1 className="movie-title" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{orderInfo.movie.title}</h1>
+                <div className="showtime-info" style={{ fontSize: '0.9rem' }}>
+                  <p>{formatNiceDate(orderInfo.movie.date)}</p>
                   <p>{orderInfo.movie.time}</p>
                 </div>
 
-                <div className="theater-info">
+                <div className="theater-info" style={{ fontSize: '0.9rem' }}>
                   <p className="theater-name">{orderInfo.theater.name}</p>
                   <p className="theater-address">{orderInfo.theater.address}</p>
                   <p className="theater-location">{orderInfo.theater.city}, {orderInfo.theater.province}</p>

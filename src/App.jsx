@@ -5,7 +5,6 @@ import { BookingProvider } from './context/BookingContext'
 import HomePage from './pages/HomePage'
 import ConfirmationPage1 from './pages/ConfirmationPage1'
 import ConfirmationPage2 from './pages/ConfirmationPage2'
-import ConfirmationPage3 from './pages/ConfirmationPage3'
 import PaymentPage from './pages/PaymentPage'
 import ShowtimesPage from './pages/ShowtimesPage'
 import TicketSelectionPage from './pages/TicketSelectionPage'
@@ -23,7 +22,6 @@ function App() {
           <Route path="/ticket-selection" element={<TicketSelectionPage />} />
           <Route path="/confirmation1" element={<ConfirmationPage1 />} />
           <Route path="/confirmation2" element={<ConfirmationPage2 />} />
-          <Route path="/confirmation3" element={<ConfirmationPage3 />} />
           <Route path="/payment" element={<PaymentPage />} />
         </Routes>
       </Router>
