@@ -803,7 +803,7 @@ export default function HomePage() {
                     alt={movie.title}
                   />
                 </div>
-                <p className="movie-title">{movie.title} →</p>
+                <p className="movie-title">{movie.title}</p>
               </div>
             ))}
           </div>
