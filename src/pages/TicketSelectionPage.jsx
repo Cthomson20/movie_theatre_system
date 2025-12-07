@@ -25,7 +25,7 @@ const theatres = [
   },
   {
     name: 'CineNova Macleod Trail',
-    address: '1011 Macleod Trail South NW',
+    address: '1011 Macleod Trail South SW',
     city: 'Calgary, AB'
   }
 ];
