@@ -1,0 +1,124 @@
+/* Inner container – piggyback on .showtimes-container but adjust gaps/width if needed */
+.locations-container {
+  /* showtimes-container already sets width/max-width and flex column */
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.locations-main{
+    padding-top: 0;
+}
+
+/* Title & intro */
+.locations-title {
+  font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.locations-intro {
+  margin: 0 0 1.5rem 0;
+  font-size: 0.95rem;
+  color: #cccccc;
+  max-width: 800px;
+}
+
+/* Grid of location cards */
+.locations-grid {
+  width: 100%;
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* Single card */
+.location-card {
+  background: linear-gradient(135deg, #1e1e1e 0%, #181818 100%);
+  border-radius: 16px;
+  border: 1px solid #2a2a2a;
+  padding: 20px 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Theatre name */
+.location-name {
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* Address */
+.location-address p {
+  margin: 2px 0;
+  font-size: 0.9rem;
+  color: #dddddd;
+}
+
+.location-phone {
+  margin-top: 6px;
+  font-weight: 500;
+  color: #ffd44a;
+}
+
+/* Amenities */
+.location-amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.amenity-pill {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background-color: #222;
+  border: 1px solid #444;
+  color: #f5f5f5;
+}
+
+/* View showtimes button */
+.location-showtimes-button {
+  margin-top: 10px;
+  align-self: flex-start;
+  border: none;
+  background-color: #ffd44a;
+  color: #000;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.location-showtimes-button:hover {
+  background-color: #ffe27a;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .locations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .locations-title {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .locations-container {
+    width: 96vw;
+  }
+
+  .locations-intro {
+    font-size: 0.9rem;
+  }
+}
