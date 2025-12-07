@@ -101,13 +101,13 @@ export default function LocationsPage() {
                   type="button"
                   className="location-showtimes-button"
                   onClick={() => {
-                    // For now, just go back to Home.
-                    // Later you can wire this to pre-select theatreFilter in HomePage using context.
-                    navigate('/');
+                    navigate('/', {
+                      state: { theatreFilter: theatre.name },
+                    });
                   }}
                 >
                   View showtimes →
-                </button>
+              </button>
               </section>
             ))}
           </div>

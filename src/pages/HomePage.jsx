@@ -1,7 +1,7 @@
 import '../styles/homePage.css'
 import '../styles/payment.css'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation} from 'react-router-dom'
 import { useBooking } from '../context/BookingContext'
 import '../App.css'
 import { AlignCenter } from 'lucide-react'
@@ -449,8 +449,10 @@ function Calendar({ onSelect, validDates = new Set(), selectedDate }) {
 export default function HomePage() {
   const navigate = useNavigate()
   const { updateBooking } = useBooking()
-
-  const [theatreFilter, setTheatreFilter] = useState('All')
+  
+  const location = useLocation();
+  const initialTheatreFilter = location.state?.theatreFilter || 'All';
+  const [theatreFilter, setTheatreFilter] = useState(initialTheatreFilter)
   const todayString = getTodayString()
   const [dateFilter, setDateFilter] = useState(todayString)
 
