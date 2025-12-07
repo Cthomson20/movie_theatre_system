@@ -178,9 +178,12 @@ function Calendar({ onSelect, validDates = new Set(), selectedDate }) {
   )
 }
 
+
+
 function ShowtimesPage() {
   const navigate = useNavigate();
   const { bookingData, updateBooking } = useBooking();
+   const [menuOpen, setMenuOpen] = useState(false)
 
   const handleBack = () => {
     navigate('/');
@@ -275,20 +278,56 @@ function ShowtimesPage() {
   return (
     <div className="showtimes-page">
       {/* Top bar */}
-      <header className="showtimes-header">
-        <div className="header-content">
-          <img 
-            src="./cinenova.png" 
-            className="cinenova-logo" 
-            alt="CineNova" 
-            onClick={() => navigate('/')}
-            style={{ cursor: 'pointer' }}
-          />
-          <div className="header-icons">
-            <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />
+       <header className="showtimes-header">
+      <div className="header-content">
+        <img
+          src={`${import.meta.env.BASE_URL}cinenova.png`}
+          className="cinenova-logo"
+          alt="CineNova"
+        />
+
+        <div className="header-icons">
+          <div className="menu-wrapper">
+            <button
+              type="button"
+              className="menu-button"
+              onClick={() => setMenuOpen(prev => !prev)}
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}three_lines.png`}
+                className="header-icon"
+                alt="Menu"
+              />
+            </button>
+
+            {menuOpen && (
+              <div className="menu-dropdown">
+                <button
+                  type="button"
+                  className="menu-item"
+                  onClick={() => {
+                    setMenuOpen(false)
+                    navigate('/')    // Example: Home
+                  }}
+                >
+                  Homepage
+                </button>
+                <button
+                  type="button"
+                  className="menu-item"
+                  onClick={() => {
+                    setMenuOpen(false)
+                    navigate('/locations')
+                  }}
+                >
+                  Locations
+                </button>
+              </div>
+            )}
           </div>
         </div>
-      </header>
+      </div>
+    </header>
 
       <main className="showtimes-main">
         {(theatreMenuOpen || dateMenuOpen) && (

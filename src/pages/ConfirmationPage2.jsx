@@ -11,6 +11,7 @@ const ConfirmationPage2 = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const navigate = useNavigate();
   const { bookingData } = useBooking();
+  const [menuOpen, setMenuOpen] = useState(false)
   
   // Theatre address mapping
   const theatreAddresses = {
@@ -117,19 +118,55 @@ const ConfirmationPage2 = () => {
   return (
     <div className="confirmation-page">
       <header className="confirmation-header">
-        <div className="header-content">
-          <img 
-            src={`${import.meta.env.BASE_URL}cinenova.png`} 
-            className="cinenova-logo" 
-            alt="CineNova" 
-            onClick={() => navigate('/')}
-            style={{ cursor: 'pointer' }}
-          />
-          <div className="header-icons">
-            <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />
+      <div className="header-content">
+        <img
+          src={`${import.meta.env.BASE_URL}cinenova.png`}
+          className="cinenova-logo"
+          alt="CineNova"
+        />
+
+        <div className="header-icons">
+          <div className="menu-wrapper">
+            <button
+              type="button"
+              className="menu-button"
+              onClick={() => setMenuOpen(prev => !prev)}
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}three_lines.png`}
+                className="header-icon"
+                alt="Menu"
+              />
+            </button>
+
+            {menuOpen && (
+              <div className="menu-dropdown">
+                <button
+                  type="button"
+                  className="menu-item"
+                  onClick={() => {
+                    setMenuOpen(false)
+                    navigate('/')    // Example: Home
+                  }}
+                >
+                  Homepage
+                </button>
+                <button
+                  type="button"
+                  className="menu-item"
+                  onClick={() => {
+                    setMenuOpen(false)
+                    navigate('/')
+                  }}
+                >
+                  Locations
+                </button>
+              </div>
+            )}
           </div>
         </div>
-      </header>
+      </div>
+    </header>
 
       <main className="confirmation-main">
         <button className="ticket-back-button" onClick={() => navigate('/confirmation1')}>

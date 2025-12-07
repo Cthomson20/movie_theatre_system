@@ -9,6 +9,7 @@ import PaymentPage from './pages/PaymentPage'
 import ShowtimesPage from './pages/ShowtimesPage'
 import TicketSelectionPage from './pages/TicketSelectionPage'
 import SeatPreviewPage from './pages/SeatPreviewPage'
+import LocationsPage from './pages/LocationsPage';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/confirmation1" element={<ConfirmationPage1 />} />
           <Route path="/confirmation2" element={<ConfirmationPage2 />} />
           <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/locations" element={<LocationsPage />} />
         </Routes>
       </Router>
     </BookingProvider>

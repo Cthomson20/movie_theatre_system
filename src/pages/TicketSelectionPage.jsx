@@ -37,6 +37,7 @@ function getTheatreInfo(theatreName) {
 export default function TicketSelectionPage() {
   const navigate = useNavigate();
   const { bookingData, updateBooking } = useBooking();
+  const [menuOpen, setMenuOpen] = useState(false)
   
   const [generalTickets, setGeneralTickets] = useState(bookingData.tickets.general);
   const [childTickets, setChildTickets] = useState(bookingData.tickets.child);
@@ -95,20 +96,56 @@ export default function TicketSelectionPage() {
 
   return (
     <div className="ticket-page">
-      <header className="payment-header">
-        <div className="header-content">
-          <img 
-            src={`${import.meta.env.BASE_URL}cinenova.png`} 
-            className="cinenova-logo" 
-            alt="CineNova" 
-            onClick={() => navigate('/')}
-            style={{ cursor: 'pointer' }}
-          />
-          <div className="header-icons">
-            <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />
+       <header className="payment-header">
+      <div className="header-content">
+        <img
+          src={`${import.meta.env.BASE_URL}cinenova.png`}
+          className="cinenova-logo"
+          alt="CineNova"
+        />
+
+        <div className="header-icons">
+          <div className="menu-wrapper">
+            <button
+              type="button"
+              className="menu-button"
+              onClick={() => setMenuOpen(prev => !prev)}
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}three_lines.png`}
+                className="header-icon"
+                alt="Menu"
+              />
+            </button>
+
+            {menuOpen && (
+              <div className="menu-dropdown">
+                <button
+                  type="button"
+                  className="menu-item"
+                  onClick={() => {
+                    setMenuOpen(false)
+                    navigate('/')    // Example: Home
+                  }}
+                >
+                  Homepage
+                </button>
+                <button
+                  type="button"
+                  className="menu-item"
+                  onClick={() => {
+                    setMenuOpen(false)
+                    navigate('/locations')
+                  }}
+                >
+                  Locations
+                </button>
+              </div>
+            )}
           </div>
         </div>
-      </header>
+      </div>
+    </header>
 
       <main className="ticket-main-content">
         <button onClick={handleBack} className="ticket-back-button">
