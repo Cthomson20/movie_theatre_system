@@ -85,6 +85,98 @@ const baseShowtimesByMovie = {
   }
 
 };
+// Calendar Component
+function Calendar({ onSelect, validDates = new Set(), selectedDate }) {
+  const [currentMonthIndex, setCurrentMonthIndex] = useState(0)
+  const today = new Date()
+
+  function getDaysInMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate()
+  }
+
+  function format(d) {
+    const y = d.getFullYear()
+    const m = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    return `${y}-${m}-${day}`
+  }
+
+  const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+
+  const parsedDates = Array.from(validDates)
+    .map(str => new Date(str))
+    .filter(d => !Number.isNaN(d.getTime()))
+
+  const datesForMonths = parsedDates.filter(d => d >= todayStart)
+  const baseDates = datesForMonths.length > 0 ? datesForMonths : parsedDates
+
+  const monthKeys = Array.from(
+    new Set(
+      baseDates.map(d => `${d.getFullYear()}-${d.getMonth()}`)
+    )
+  ).sort()
+
+  const monthsToShow = monthKeys.map(key => {
+    const [yStr, mStr] = key.split('-')
+    return { year: Number(yStr), month: Number(mStr) }
+  })
+
+  const { year, month } = monthsToShow[currentMonthIndex] || monthsToShow[0]
+  const monthDate = new Date(year, month, 1)
+  const monthName = monthDate.toLocaleString('default', { month: 'long' })
+  const days = getDaysInMonth(year, month)
+  const firstDayOfWeek = monthDate.getDay()
+
+  return (
+    <div className="calendar-container">
+      <div className="calendar-month">
+        <div className="cal-header">
+          <button
+            className="cal-nav-btn"
+            onClick={() => setCurrentMonthIndex(Math.max(0, currentMonthIndex - 1))}
+            disabled={currentMonthIndex === 0}
+          >
+            ‹
+          </button>
+          <h3 className="cal-month-title">
+            {monthName} {year}
+          </h3>
+          <button
+            className="cal-nav-btn"
+            onClick={() => setCurrentMonthIndex(Math.min(monthsToShow.length - 1, currentMonthIndex + 1))}
+            disabled={currentMonthIndex === monthsToShow.length - 1}
+          >
+            ›
+          </button>
+        </div>
+
+        <div className="cal-grid">
+          {[...Array(firstDayOfWeek)].map((_, i) => (
+            <div key={`empty-${i}`} className="cal-day-empty"></div>
+          ))}
+          
+          {[...Array(days)].map((_, i) => {
+            const dateObj = new Date(year, month, i + 1)
+            const formatted = format(dateObj)
+            const isActive = validDates.has(formatted)
+            const isSelected = selectedDate === formatted
+
+            return (
+              <button
+                key={i}
+                className={`cal-day ${!isActive ? 'cal-day-disabled' : ''} ${isSelected ? 'cal-day-selected' : ''}`}
+                onClick={isActive ? () => onSelect(formatted) : undefined}
+                disabled={!isActive}
+              >
+                {i + 1}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 function ShowtimesPage() {
   const navigate = useNavigate();
@@ -179,7 +271,7 @@ function ShowtimesPage() {
 
     setIsSeatPreviewOpen(false);
 };
-
+  const validDatesSet = new Set(datesForMovie);
   return (
     <div className="showtimes-page">
       {/* Top bar */}
@@ -312,23 +404,12 @@ function ShowtimesPage() {
               </button>
 
               {dateMenuOpen && (
-                <div className="date-dropdown">
-                  {datesForMovie.map(d => (
-                    <button
-                      key={d}
-                      type="button"
-                      className={
-                        'date-option' +
-                        (selectedDate === d ? ' date-option-active' : '')
-                      }
-                      onClick={() => {
-                        setSelectedDate(d);
-                        setDateMenuOpen(false);
-                      }}
-                    >
-                      {formatNiceDate(d)}
-                    </button>
-                  ))}
+                <div className="calendar-dropdown">
+                  <Calendar 
+                    validDates={validDatesSet}
+                    selectedDate={selectedDate} 
+                    onSelect={(date) => { setSelectedDate(date); setDateMenuOpen(false) }} 
+                  />
                 </div>
               )}
             </div>

@@ -6,6 +6,34 @@ import SeatSelectionPage from './SeatSelectionPage';
 import '../styles/TicketSelectionPage.css';
 import { formatNiceDate } from '../utils/dateUtils';
 
+// Theatre Data
+const theatres = [
+  {
+    name: 'CineNova Market Mall',
+    address: '3625 Shaganappi Trail NW',
+    city: 'Calgary, AB'
+  },
+  {
+    name: 'CineNova Downtown',
+    address: '500 Centre Street SE',
+    city: 'Calgary, AB'
+  },
+  {
+    name: 'CineNova NE',
+    address: '4920 130 Avenue NE',
+    city: 'Calgary, AB'
+  },
+  {
+    name: 'CineNova Macleod Trail',
+    address: '1011 Macleod Trail South NW',
+    city: 'Calgary, AB'
+  }
+];
+
+function getTheatreInfo(theatreName) {
+  return theatres.find(theatre => theatre.name === theatreName);
+}
+
 export default function TicketSelectionPage() {
   const navigate = useNavigate();
   const { bookingData, updateBooking } = useBooking();
@@ -17,6 +45,9 @@ export default function TicketSelectionPage() {
   const [showSeatSelection, setShowSeatSelection] = useState(false);
 
   const PRICES = { general: 20, child: 15, senior: 10 };
+
+  // Get theatre information
+  const theatreInfo = getTheatreInfo(bookingData.theatre);
 
   // Sync state to context whenever tickets or seats change
   useEffect(() => {
@@ -95,8 +126,8 @@ export default function TicketSelectionPage() {
               <p style={{ fontWeight: 500 }}>{formatNiceDate(bookingData.date) || ''}</p>
               <p>{bookingData.time || '10:00 AM'}</p>
               <p style={{ fontWeight: 500 }}>{bookingData.theatre || 'CineNova MarketMall'}</p>
-              <p>3625 Shaganappi Trail NW</p>
-              <p>Calgary, AB</p>
+              <p>{theatreInfo?.address || '3625 Shaganappi Trail NW'}</p>
+              <p>{theatreInfo?.city || 'Calgary, AB'}</p>
             </div>
           </div>
 
