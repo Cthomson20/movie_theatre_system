@@ -8,6 +8,7 @@ const PaymentPage = () => {
     const navigate = useNavigate();
     const { bookingData, updateBooking } = useBooking();
     const { tickets = { general: 0, child: 0, senior: 0 }, seats = [], total = 0, movie } = bookingData;
+    const [menuOpen, setMenuOpen] = useState(false)
 
     const [formData, setFormData] = useState({
         cardNumber: '',
@@ -117,19 +118,55 @@ const PaymentPage = () => {
     return (
     <div className="payment-page">
       <header className="payment-header">
-        <div className="header-content">
-          <img 
-            src={`${import.meta.env.BASE_URL}cinenova.png`} 
-            className="cinenova-logo" 
-            alt="CineNova" 
-            onClick={() => navigate('/')}
-            style={{ cursor: 'pointer' }}
-          />
-          <div className="header-icons">
-            <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />
+      <div className="header-content">
+        <img
+          src={`${import.meta.env.BASE_URL}cinenova.png`}
+          className="cinenova-logo"
+          alt="CineNova"
+        />
+
+        <div className="header-icons">
+          <div className="menu-wrapper">
+            <button
+              type="button"
+              className="menu-button"
+              onClick={() => setMenuOpen(prev => !prev)}
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}three_lines.png`}
+                className="header-icon"
+                alt="Menu"
+              />
+            </button>
+
+            {menuOpen && (
+              <div className="menu-dropdown">
+                <button
+                  type="button"
+                  className="menu-item"
+                  onClick={() => {
+                    setMenuOpen(false)
+                    navigate('/')    // Example: Home
+                  }}
+                >
+                  Homepage
+                </button>
+                <button
+                  type="button"
+                  className="menu-item"
+                  onClick={() => {
+                    setMenuOpen(false)
+                    navigate('/locations')
+                  }}
+                >
+                  Locations
+                </button>
+              </div>
+            )}
           </div>
         </div>
-      </header>
+      </div>
+    </header>
 
       <main className="payment-main">
         <button className="ticket-back-button" onClick={() => navigate(-1)}>
