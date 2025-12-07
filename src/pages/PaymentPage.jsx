@@ -119,11 +119,13 @@ const PaymentPage = () => {
     <div className="payment-page">
       <header className="payment-header">
       <div className="header-content">
-        <img
-          src={`${import.meta.env.BASE_URL}cinenova.png`}
-          className="cinenova-logo"
-          alt="CineNova"
-        />
+         <img 
+            src="./cinenova.png" 
+            className="cinenova-logo" 
+            alt="CineNova" 
+            onClick={() => navigate('/')}
+            style={{ cursor: 'pointer' }}
+          />
 
         <div className="header-icons">
           <div className="menu-wrapper">
