@@ -131,3 +131,10 @@ On the ticket and seat selection page, no typed data is required. The user selec
 On the payment page, typed data is required. The user must enter their card number, expiry date, CVV, cardholder name, and email for confirmation.
 
 On the confirmation page, there is no required typed data. If the user chooses to share their tickets, they must enter an email or phone number.
+
+## Group Members:
+Jessica Thomas 
+Christopher Thomson 
+Efe Udolu-Joshua 
+Amira Wishah 
+Yuge Zhang 
