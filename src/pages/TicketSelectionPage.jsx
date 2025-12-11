@@ -43,6 +43,7 @@ export default function TicketSelectionPage() {
   const [seniorTickets, setSeniorTickets] = useState(bookingData.tickets.senior);
   const [selectedSeats, setSelectedSeats] = useState(bookingData.seats);
   const [showSeatSelection, setShowSeatSelection] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const PRICES = { general: 20, child: 15, senior: 10 };
 
@@ -105,7 +106,44 @@ export default function TicketSelectionPage() {
             style={{ cursor: 'pointer' }}
           />
           <div className="header-icons">
-            <img src={`${import.meta.env.BASE_URL}three_lines.png`} className="header-icon" alt="Menu" />
+            <div className="menu-wrapper">
+              <button
+                type="button"
+                className="menu-button"
+                onClick={() => setMenuOpen(prev => !prev)}
+              >
+                <img
+                  src={`${import.meta.env.BASE_URL}three_lines.png`}
+                  className="header-icon"
+                  alt="Menu"
+                />
+              </button>
+
+              {menuOpen && (
+                <div className="menu-dropdown">
+                  <button
+                    type="button"
+                    className="menu-item"
+                    onClick={() => {
+                      setMenuOpen(false)
+                      navigate('/')
+                    }}
+                  >
+                    Homepage
+                  </button>
+                  <button
+                    type="button"
+                    className="menu-item"
+                    onClick={() => {
+                      setMenuOpen(false)
+                      navigate('/locations')
+                    }}
+                  >
+                    Locations
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>
